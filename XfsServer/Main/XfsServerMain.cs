@@ -10,7 +10,7 @@ namespace XfsServer
         //程序启动入口
         static void Main(string[] args)
         {
-            new XfsServerInit().Init();  
+            new XfsServerInit().ConsoleInit();  
         }
         
 

@@ -36,23 +36,12 @@ namespace XfsTestForms
             richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ... " + "\r\n");
             Thread.Sleep(1);
 
-            ///服务器加载组件
-            XfsGame.XfsSence.AddComponent(new XfsNode(XfsNodeType.Login));                        ///服务器加载组件 : 服务器类型组件
-            //XfsGame.XfsSence.AddComponent(new XfsMysql("127.0.0.1", "tumoworld", "root", ""));    ///服务器加载组件 : 数据库链接组件
-            XfsGame.XfsSence.AddComponent(new XfsTcpServer());                                    ///服务器加载组件 : 通信组件Server
-       
-      
-            ///服务器加载组件驱动程序
-            //XfsGame.XfsSystemMananger.AddComponent(new ServerTest());     ///测试用
-            //XfsGame.XfsSence.AddComponent(new XfsMysqlSystem());          ///服务器加载组件 : 数据库链接组件TmSystem类型
-            XfsGame.XfsSence.AddComponent(new XfsTcpServerSystem());      ///服务器加载组件 : 套接字 外网 传输数据组件
-
+            new XfsServerInit().Init();
        
             Thread.CurrentThread.Name = "TumoWorld";
             richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ThreadName: " + Thread.CurrentThread.Name + "\r\n");
             richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId + "\r\n");
 
-            //Console.ReadKey();
             richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " 退出监听，并关闭程序。"+"\r\n");
 
         }

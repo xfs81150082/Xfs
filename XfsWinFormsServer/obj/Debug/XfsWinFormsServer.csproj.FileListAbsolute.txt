@@ -1,0 +1,9 @@
+G:\Xfs\XfsWinFormsServer\bin\Debug\XfsWinFormsServer.exe.config
+G:\Xfs\XfsWinFormsServer\bin\Debug\XfsWinFormsServer.exe
+G:\Xfs\XfsWinFormsServer\bin\Debug\XfsWinFormsServer.pdb
+G:\Xfs\XfsWinFormsServer\obj\Debug\XfsWinFormsServer.csprojAssemblyReference.cache
+G:\Xfs\XfsWinFormsServer\obj\Debug\XfsWinFormsServer.Properties.Resources.resources
+G:\Xfs\XfsWinFormsServer\obj\Debug\XfsWinFormsServer.csproj.GenerateResource.cache
+G:\Xfs\XfsWinFormsServer\obj\Debug\XfsWinFormsServer.csproj.CoreCompileInputs.cache
+G:\Xfs\XfsWinFormsServer\obj\Debug\XfsWinFormsServer.exe
+G:\Xfs\XfsWinFormsServer\obj\Debug\XfsWinFormsServer.pdb

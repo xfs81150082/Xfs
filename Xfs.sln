@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsServer", "XfsServer\XfsS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsTestForms", "XfsTestForms\XfsTestForms.csproj", "{4E22BBC9-E28E-4AF4-8040-18CAE9BF19EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsWinFormsClient", "XfsWinFormsClient\XfsWinFormsClient.csproj", "{A9997919-CA6E-4EA5-97CC-7CF561E31CFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsWinFormsServer", "XfsWinFormsServer\XfsWinFormsServer.csproj", "{0D6C84E5-252F-4B87-8E99-78D5BFBFD9A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{4E22BBC9-E28E-4AF4-8040-18CAE9BF19EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E22BBC9-E28E-4AF4-8040-18CAE9BF19EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E22BBC9-E28E-4AF4-8040-18CAE9BF19EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9997919-CA6E-4EA5-97CC-7CF561E31CFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9997919-CA6E-4EA5-97CC-7CF561E31CFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9997919-CA6E-4EA5-97CC-7CF561E31CFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9997919-CA6E-4EA5-97CC-7CF561E31CFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D6C84E5-252F-4B87-8E99-78D5BFBFD9A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D6C84E5-252F-4B87-8E99-78D5BFBFD9A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D6C84E5-252F-4B87-8E99-78D5BFBFD9A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D6C84E5-252F-4B87-8E99-78D5BFBFD9A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

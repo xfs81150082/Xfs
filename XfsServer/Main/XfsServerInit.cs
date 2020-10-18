@@ -21,12 +21,12 @@ namespace XfsServer
         }
 
         //程序启动入口
-        public void Init()
+        public void ConsoleInit()
         {
             Console.WriteLine(XfsTimerTool.CurrentTime() + " ... ");
             Thread.Sleep(1);
 
-            XfsGameSenceInit();
+            Init();
 
             Thread.CurrentThread.Name = "TumoWorld";
             Console.WriteLine(XfsTimerTool.CurrentTime() + " ThreadName: " + Thread.CurrentThread.Name);
@@ -36,7 +36,7 @@ namespace XfsServer
             Console.WriteLine(XfsTimerTool.CurrentTime() + " 退出监听，并关闭程序。");
         }
 
-        void XfsGameSenceInit()
+        public void Init()
         {
             ///服务器加载组件
             XfsGame.XfsSence.AddComponent(new XfsNode(XfsNodeType.Login));                        ///服务器加载组件 : 服务器类型组件

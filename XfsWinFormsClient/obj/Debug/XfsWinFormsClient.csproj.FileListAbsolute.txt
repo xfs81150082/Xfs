@@ -1,0 +1,9 @@
+G:\Xfs\XfsWinFormsClient\bin\Debug\XfsWinFormsClient.exe.config
+G:\Xfs\XfsWinFormsClient\bin\Debug\XfsWinFormsClient.exe
+G:\Xfs\XfsWinFormsClient\bin\Debug\XfsWinFormsClient.pdb
+G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.csprojAssemblyReference.cache
+G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.Properties.Resources.resources
+G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.csproj.GenerateResource.cache
+G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.csproj.CoreCompileInputs.cache
+G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.exe
+G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.pdb
