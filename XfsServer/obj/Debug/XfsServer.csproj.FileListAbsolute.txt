@@ -1,0 +1,16 @@
+G:\Xfs\XfsServer\bin\Debug\XfsServer.exe.config
+G:\Xfs\XfsServer\bin\Debug\XfsServer.exe
+G:\Xfs\XfsServer\bin\Debug\XfsServer.pdb
+G:\Xfs\XfsServer\obj\Debug\XfsServer.csproj.CoreCompileInputs.cache
+G:\Xfs\XfsServer\obj\Debug\XfsServer.exe
+G:\Xfs\XfsServer\obj\Debug\XfsServer.pdb
+G:\Xfs\XfsServer\bin\Debug\Xfs.dll
+G:\Xfs\XfsServer\bin\Debug\Newtonsoft.Json.dll
+G:\Xfs\XfsServer\bin\Debug\Xfs.pdb
+G:\Xfs\XfsServer\bin\Debug\Newtonsoft.Json.xml
+G:\Xfs\XfsServer\obj\Debug\XfsServer.csprojAssemblyReference.cache
+G:\Xfs\XfsServer\obj\Debug\XfsServer.csproj.CopyComplete
+G:\Xfs\XfsServer\bin\Debug\Google.Protobuf.dll
+G:\Xfs\XfsServer\bin\Debug\MySql.Data.dll
+G:\Xfs\XfsServer\bin\Debug\Google.Protobuf.xml
+G:\Xfs\XfsServer\bin\Debug\MySql.Data.xml

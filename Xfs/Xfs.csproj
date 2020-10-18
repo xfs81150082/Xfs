@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0252C896-3371-4952-97B0-58F67184DEF6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xfs</RootNamespace>
+    <AssemblyName>Xfs</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="XfsAoi\XfsAoiGrid.cs" />
+    <Compile Include="XfsAoi\XfsAoiGridComponent.cs" />
+    <Compile Include="XfsAoi\XfsAoiPlayerComponent.cs" />
+    <Compile Include="XfsAoi\XfsAoiUintInfo.cs" />
+    <Compile Include="XfsAoi\XfsAoiUnitComponent.cs" />
+    <Compile Include="XfsBehaviorTree\XfsMonsterBtComponent.cs" />
+    <Compile Include="XfsBehaviorTree\XfsPlayerBtComponent.cs" />
+    <Compile Include="XfsBehaviorTree\XfsTestOne.cs" />
+    <Compile Include="XfsAstars\XfsAstar.cs" />
+    <Compile Include="XfsAstars\XfsAstarComponent.cs" />
+    <Compile Include="XfsAstars\XfsAstarSystem.cs" />
+    <Compile Include="XfsAstars\XfsGrid.cs" />
+    <Compile Include="XfsAstars\XfsGridManager.cs" />
+    <Compile Include="XfsAstars\XfsGridMap.cs" />
+    <Compile Include="XfsAstars\XfsObstacle.cs" />
+    <Compile Include="XfsAstars\XfsPriorityQueue.cs" />
+    <Compile Include="XfsBehaviorTree\XfsBranch.cs" />
+    <Compile Include="XfsBehaviorTree\XfsBt.cs" />
+    <Compile Include="XfsBehaviorTree\XfsBtNode.cs" />
+    <Compile Include="XfsBehaviorTree\XfsBtState.cs" />
+    <Compile Include="XfsBehaviorTree\XfsCondition.cs" />
+    <Compile Include="XfsBehaviorTree\XfsOperation.cs" />
+    <Compile Include="XfsBehaviorTree\XfsRoot.cs" />
+    <Compile Include="XfsBehaviorTree\XfsSelector.cs" />
+    <Compile Include="XfsBehaviorTree\XfsSequence.cs" />
+    <Compile Include="XfsBehaviorTree\XfsTrigger.cs" />
+    <Compile Include="XfsEntities\XfsNode.cs" />
+    <Compile Include="XfsEntities\XfsComponent.cs" />
+    <Compile Include="XfsEntities\XfsConsoleLog.cs" />
+    <Compile Include="XfsSockets\XfsCoolDown.cs" />
+    <Compile Include="XfsEntities\XfsEntity.cs" />
+    <Compile Include="XfsEntities\XfsGame.cs" />
+    <Compile Include="XfsEntities\XfsIdGenerater.cs" />
+    <Compile Include="XfsEntities\XfsJson.cs" />
+    <Compile Include="XfsEntities\XfsMD5Tool.cs" />
+    <Compile Include="XfsModels\TmChangeType.cs" />
+    <Compile Include="XfsModels\TmInfoType.cs" />
+    <Compile Include="XfsModels\TmName.cs" />
+    <Compile Include="XfsModels\TmProperty.cs" />
+    <Compile Include="XfsModels\TmSouler.cs" />
+    <Compile Include="XfsModels\TmSoulerDB.cs" />
+    <Compile Include="XfsModels\TmSoulerInit.cs" />
+    <Compile Include="XfsModels\TmSoulerItem.cs" />
+    <Compile Include="XfsModels\TmSoulerSystem.cs" />
+    <Compile Include="XfsModels\TmTransform.cs" />
+    <Compile Include="XfsModels\XfsUser.cs" />
+    <Compile Include="XfsModels\XfsModelObjects.cs" />
+    <Compile Include="XfsEntities\XfsParameter.cs" />
+    <Compile Include="XfsEntities\XfsParameterTool.cs" />
+    <Compile Include="XfsEntities\XfsRequest.cs" />
+    <Compile Include="XfsEntities\XfsResponse.cs" />
+    <Compile Include="XfsEntities\XfsSence.cs" />
+    <Compile Include="XfsEntities\XfsSystem.cs" />
+    <Compile Include="XfsEntities\XfsSystemMananger.cs" />
+    <Compile Include="XfsEntities\XfsTimerTool.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XfsEntities\XfsObjects.cs" />
+    <Compile Include="XfsMysqls\XfsMysqlSystem.cs" />
+    <Compile Include="XfsMysqls\XfsMysql.cs" />
+    <Compile Include="XfsNumeric\IXfsNumericWatcher.cs" />
+    <Compile Include="XfsNumeric\XfsNumericChangeEvent_NotifyWatcher.cs" />
+    <Compile Include="XfsNumeric\XfsNumericComponent.cs" />
+    <Compile Include="XfsNumeric\XfsNumericType.cs" />
+    <Compile Include="XfsNumeric\XfsNumericWatcherAttribute.cs" />
+    <Compile Include="XfsNumeric\XfsNumericWatcherComponent.cs" />
+    <Compile Include="XfsSockets\XfsController.cs" />
+    <Compile Include="XfsSockets\XfsHandler.cs" />
+    <Compile Include="XfsSockets\XfsTcpServerSystem.cs" />
+    <Compile Include="XfsSockets\XfsTcpClientSystem.cs" />
+    <Compile Include="XfsSockets\XfsClient.cs" />
+    <Compile Include="XfsSockets\XfsCoolDownSystem.cs" />
+    <Compile Include="XfsSockets\XfsPeer.cs" />
+    <Compile Include="XfsSockets\XfsSession.cs" />
+    <Compile Include="XfsSockets\XfsSessionSystem.cs" />
+    <Compile Include="XfsSockets\XfsTcpClient.cs" />
+    <Compile Include="XfsSockets\XfsTcpServer.cs" />
+    <Compile Include="XfsSockets\XfsTcpSession.cs" />
+    <Compile Include="XfsSockets\XfsTcpSocket.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
