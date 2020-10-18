@@ -21,8 +21,8 @@ namespace Xfs
             EndInit();
         }
         public virtual void BeginInit() { }
-        public virtual void EndInit() { }
         public virtual void XfsAwake() { }
+        public virtual void EndInit() { }
         public virtual void OnTransferParameter(object sender, XfsParameter parameter) { }
         #region Dispose
         ///是否已释放了资源，true时方法都不可用了。

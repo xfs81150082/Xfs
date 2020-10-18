@@ -5,43 +5,6 @@ namespace Xfs
 {
     public class XfsTcpServer : XfsTcpSocket
     {
-        //#region Methods Callbacks ///启动服务 ///接收参数消息     
-        //public override void StartListen()
-        //{
-        //    if (!IsRunning)
-        //    {
-        //        netSocket.Bind(new IPEndPoint(this.address, this.Port));
-        //        netSocket.Listen(this.MaxListenCount);
-        //        netSocket.BeginAccept(new AsyncCallback(this.AcceptCallback), netSocket);
-        //        Console.WriteLine("{0} 服务启动，监听{1}成功", XfsTimerTool.CurrentTime(), netSocket.LocalEndPoint);
-        //    }
-        //}
-        //private void AcceptCallback(IAsyncResult ar)
-        //{
-        //        Socket server = (Socket)ar.AsyncState;
-        //        Socket peerSocket = server.EndAccept(ar);
-        //        ///触发事件///创建一个方法接收peerSocket (在方法里创建一个peer来处理读取数据//开始接受来自该客户端的数据)
-        //        TmReceiveSocket(peerSocket);
-        //        ///接受下一个请求  
-        //        server.BeginAccept(new AsyncCallback(this.AcceptCallback), server);
-        //}
-        //private void TmReceiveSocket(Socket socket)
-        //{
-        //    ///限制监听数量
-        //    if (TPeers.Count >= MaxListenCount)
-        //    {
-        //        ///触发事件///在线排队等待
-        //        WaitingSockets.Enqueue(socket);
-        //    }
-        //    else
-        //    {
-        //        ///创建一个TPeer接收socket
-        //        new XfsPeer().BeginReceiveMessage(socket);
-        //        IsRunning = true;
-        //    }
-        //}
-        //#endregion
-
         #region ///处理接受的参数信息
         public void Recv(XfsParameter parameter)
         {
@@ -55,14 +18,15 @@ namespace Xfs
                 while (this.RecvParameters.Count > 0)
                 {
                     XfsParameter parameter = this.RecvParameters.Dequeue();
+
                     if (XfsHandler.Instance != null)
                     {
-                        XfsHandler.Instance.Recv(parameter);
+                        XfsHandler.Instance.Recv(this, parameter);
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
                     }
                     else
                     {
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " TumoGate is null.");
+                        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsHandler is null.");
                         break;
                     }
 
@@ -73,7 +37,7 @@ namespace Xfs
                     //}
                     //else
                     //{
-                    //    Console.WriteLine(TmTimerTool.CurrentTime() + " TumoGate is null.");
+                    //    Console.WriteLine(TmTimerTool.CurrentTime() + " XfsHandler is null.");
                     //    break;
                     //}
                 }

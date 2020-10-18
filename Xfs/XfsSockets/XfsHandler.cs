@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Xfs
 {
-    public abstract class XfsHandler : XfsComponent
+    public abstract class XfsHandler : XfsEntity
     {
         private static XfsHandler _instance;
         public static XfsHandler Instance { get => _instance; }
-        public XfsHandler() { _instance = this; }       
-        public abstract void  Recv(XfsParameter parameter);
+        public XfsHandler() { _instance = this; }
+        public abstract void Recv(object obj, XfsParameter parameter);
     }
 }

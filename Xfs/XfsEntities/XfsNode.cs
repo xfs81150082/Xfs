@@ -27,6 +27,7 @@ namespace Xfs
         Chat,
         War,
         BD,
+        Client,
         All,
         None,
     }

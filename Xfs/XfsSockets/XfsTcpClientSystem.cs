@@ -16,23 +16,34 @@ namespace Xfs
         }
         public override void XfsUpdate()
         {
-            StartConnect();
+            Connecting();
         }
+
         #region Methods Callbacks ///启动服务 ///接收参数消息  
-        XfsTcpClient client = XfsGame.XfsSence.GetComponent<XfsTcpClient>();
-        public void StartConnect()    //开始连接
+        XfsTcpClient tcpClient = XfsGame.XfsSence.GetComponent<XfsTcpClient>();
+        public void Connecting()    //开始连接
         {
-            if (client != null && !client.IsRunning)
+            if (tcpClient != null && !tcpClient.IsRunning)
             {
                 try
                 {
-                    client.NetSocket.BeginConnect(new IPEndPoint(client.Address, client.Port), new AsyncCallback(this.ConnectCallback), client.NetSocket);
+                    if (tcpClient.NetSocket == null)
+                    {
+                        tcpClient.Address = IPAddress.Parse(tcpClient.IpString);
+                        tcpClient.NetSocket = new Socket(tcpClient.Address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                    }
+                    tcpClient.NetSocket.BeginConnect(new IPEndPoint(tcpClient.Address, tcpClient.Port), new AsyncCallback(this.ConnectCallback), tcpClient.NetSocket);
                 }
                 catch (Exception ex)
                 {
-                    client.NetSocket.Close();
-                    client.IsRunning = false;
-                    Console.WriteLine(ex.ToString());
+                    if (tcpClient.NetSocket != null)
+                    {
+                        tcpClient.NetSocket.Close();
+                        tcpClient.NetSocket = null;
+                    }
+                    tcpClient.IsRunning = false;
+
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 38 " + ex.ToString());
                 }
             }
         }
@@ -55,13 +66,13 @@ namespace Xfs
         }
         public void TmReceiveSocket(Socket socket)
         {
-            if (client.TClient == null)
+            if (tcpClient.TClient == null)
             {
                 ///创建一个TClient接收socket       
-                client.TClient = new XfsClient();
+                tcpClient.TClient = new XfsClient();
             }
-            client.TClient.BeginReceiveMessage(socket);
-            client.IsRunning = true;
+            tcpClient.TClient.BeginReceiveMessage(socket);
+            tcpClient.IsRunning = true;
         }
         #endregion
 

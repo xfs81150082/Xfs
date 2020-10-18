@@ -43,10 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\Controllers\XfsControllers.cs" />
+    <Compile Include="Client\Tests\XfsTestSystem.cs" />
     <Compile Include="Client\Tests\SyncTest.cs" />
     <Compile Include="Client\Tests\XfsTest.cs" />
     <Compile Include="Client\Controllers\XfsBookerController.cs" />
-    <Compile Include="Socket\XfsClientSocket.cs" />
+    <Compile Include="Main\XfsClientInit.cs" />
     <Compile Include="Client\Controllers\XfsConnectController.cs" />
     <Compile Include="Main\XfsClientMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +62,8 @@
       <Name>Xfs</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Socket\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

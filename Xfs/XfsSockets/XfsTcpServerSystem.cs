@@ -26,7 +26,7 @@ namespace Xfs
         XfsTcpServer tcpServer = XfsGame.XfsSence.GetComponent<XfsTcpServer>();
         public void StartListen()
         {
-            Console.WriteLine("27 {0} 服务启动，监听{1}成功", XfsTimerTool.CurrentTime(), tcpServer.IsRunning);
+            Console.WriteLine("29 {0} 服务启动，准备监听{1}", XfsTimerTool.CurrentTime(), tcpServer.IsRunning);
 
             if (tcpServer != null && !tcpServer.IsRunning)
             {
@@ -47,11 +47,11 @@ namespace Xfs
 
                 tcpServer.IsRunning = true;
 
-                Console.WriteLine("47 {0} 服务启动，监听{1}成功", XfsTimerTool.CurrentTime(), tcpServer.NetSocket.LocalEndPoint);
-                Console.WriteLine("48 {0} 服务启动，监听{1}成功", XfsTimerTool.CurrentTime(), tcpServer.IsRunning);
+                Console.WriteLine("50 {0} 服务启动，监听{1}成功", XfsTimerTool.CurrentTime(), tcpServer.NetSocket.LocalEndPoint);
+                Console.WriteLine("51 {0} 服务启动，监听{1}成功", XfsTimerTool.CurrentTime(), tcpServer.IsRunning);
             }
 
-            Console.WriteLine("57 {0} 服务启动，监听{1}成功", XfsTimerTool.CurrentTime(), tcpServer.NetSocket.LocalEndPoint);
+            Console.WriteLine("54 {0} 服务启动，监听{1}成功", XfsTimerTool.CurrentTime(), tcpServer.NetSocket.LocalEndPoint);
         }
         private void AcceptCallback(IAsyncResult ar)
         {

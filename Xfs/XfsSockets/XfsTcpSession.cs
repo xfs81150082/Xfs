@@ -15,7 +15,7 @@ namespace Xfs
         public override void XfsAwake()
         {
             AddComponent(new XfsSession());
-            AddComponent(new XfsCoolDown(EcsId));
+            AddComponent(new XfsCoolDown(this.EcsId));
         }
         public XfsTcpSession() { }
         #endregion
@@ -34,7 +34,6 @@ namespace Xfs
         public void BeginReceiveMessage(object obj)
         {
             Socket = obj as Socket;
-            OnConnect();
             BufferSize = 1024;
             Buffer = new byte[BufferSize];
             isHead = true;
@@ -42,6 +41,7 @@ namespace Xfs
             surHL = 4;
             surBL = 0;
             IsRunning = true;
+            OnConnect();
             Socket.BeginReceive(Buffer, 0, BufferSize, SocketFlags.None, new AsyncCallback(this.ReceiveCallback), this);
         }
         private void ReceiveCallback(IAsyncResult ar)
@@ -145,12 +145,16 @@ namespace Xfs
                 ///将MvcParameter参数列队
                 //XfsTcpSocket.Instance.RecvParameters.Enqueue(parameter);
 
+                Console.WriteLine(XfsTimerTool.CurrentTime() + "148 XfsTcpSession: "+ IsServer);
+
                 if (IsServer)
                 {
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + "152 XfsTcpSession: " + IsServer + " : Server");
                     XfsGame.XfsSence.GetComponent<XfsTcpServer>().Recv(parameter);
                 }
                 else
                 {
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + "157 XfsTcpSession: " + IsServer + " : Client");
                     XfsGame.XfsSence.GetComponent<XfsTcpClient>().Recv(parameter);
                 }
             }

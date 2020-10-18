@@ -8,6 +8,7 @@ namespace Xfs
         public string EcsId { get; set; }
         public string Back { get; set; }
         public string AtocrId { get; set; }
+        public string Vable { get; set; }
         public List<string> Keys { get; set; } = new List<string>();
         public TenCode TenCode { get; set; }
         public ElevenCode ElevenCode { get; set; }

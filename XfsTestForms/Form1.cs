@@ -5,16 +5,17 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Xfs;
+using XfsClient;
 using XfsServer;
 
 namespace XfsTestForms
 {
     public partial class Form1 : Form
     {
-        public Dictionary<string, XfsServerSocket> Servers = new Dictionary<string, XfsServerSocket>();
-
         public Form1()
         {
             InitializeComponent();
@@ -24,12 +25,36 @@ namespace XfsTestForms
         {
 
         }
+   
+        private void richTextBox2_TextChanged(object sender, EventArgs e)
+        {
 
-        XfsServerSocket gateServer = null;
-
+        }    
+        
         private void button1_Click(object sender, EventArgs e)
         {
-            gateServer = new XfsServerSocket();
+            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ... " + "\r\n");
+            Thread.Sleep(1);
+
+            ///服务器加载组件
+            XfsGame.XfsSence.AddComponent(new XfsNode(XfsNodeType.Login));                        ///服务器加载组件 : 服务器类型组件
+            //XfsGame.XfsSence.AddComponent(new XfsMysql("127.0.0.1", "tumoworld", "root", ""));    ///服务器加载组件 : 数据库链接组件
+            XfsGame.XfsSence.AddComponent(new XfsTcpServer());                                    ///服务器加载组件 : 通信组件Server
+       
+      
+            ///服务器加载组件驱动程序
+            //XfsGame.XfsSystemMananger.AddComponent(new ServerTest());     ///测试用
+            //XfsGame.XfsSence.AddComponent(new XfsMysqlSystem());          ///服务器加载组件 : 数据库链接组件TmSystem类型
+            XfsGame.XfsSence.AddComponent(new XfsTcpServerSystem());      ///服务器加载组件 : 套接字 外网 传输数据组件
+
+       
+            Thread.CurrentThread.Name = "TumoWorld";
+            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ThreadName: " + Thread.CurrentThread.Name + "\r\n");
+            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId + "\r\n");
+
+            //Console.ReadKey();
+            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " 退出监听，并关闭程序。"+"\r\n");
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -88,10 +113,36 @@ namespace XfsTestForms
             {
                 MessageBox.Show(result.ToString());
             }
+
+            richTextBox1.AppendText(richTextBox1.Text + "\r\n");
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
+
+            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ... " + "\r\n");
+            Thread.Sleep(2000);
+
+            new XfsClientInit().Init();
+
+            /////服务器加载组件
+            //XfsGame.XfsSence.AddComponent(new XfsNode(XfsNodeType.Client));                        ///服务器加载组件 : 服务器类型组件
+            //XfsGame.XfsSence.AddComponent(new XfsTcpClient());                                     ///服务器加载组件 : 通信组件Server
+            //XfsGame.XfsSence.AddComponent(new XfsControllers());                                     ///服务器加载组件 : 通信组件Server
+
+            /////服务器加载组件驱动程序
+            //XfsGame.XfsSence.AddComponent(new XfsTcpClientSystem());        ///服务器加载组件 : 套接字 外网 传输数据组件
+
+            ////XfsGame.XfsSence.AddComponent(new XfsTest());                 ///客户端加载组件 : 测试组件1
+
+
+            Thread.CurrentThread.Name = "TumoWorld";
+            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ThreadName:" + Thread.CurrentThread.Name + "\r\n");
+            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ThreadId:" + Thread.CurrentThread.ManagedThreadId + "\r\n");
+
+            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " 退出联接，并关闭程序。" + "\r\n");
+
+
 
         }
 
@@ -127,7 +178,33 @@ namespace XfsTestForms
 
         private void button16_Click(object sender, EventArgs e)
         {
+            if (XfsModelObjects.Tests.Count > 0)
+            {
+                string test = XfsModelObjects.Tests[0];
+                richTextBox1.AppendText(test + "\r\n");
+                richTextBox1.ScrollToCaret();
+                XfsModelObjects.Tests.Remove(XfsModelObjects.Tests[0]);
+            }
+            else
+            {
+                string nt = XfsModelObjects.Tests.Count.ToString();
+                richTextBox1.AppendText(nt + "\r\n");
+                richTextBox1.ScrollToCaret();
+            }
+        }
 
+        private void button17_Click(object sender, EventArgs e)
+        {
+            richTextBox1.AppendText(richTextBox2.Text + "\r\n");
+            richTextBox1.ScrollToCaret();
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            string tt = richTextBox2.Text;
+            XfsParameter parameter = XfsParameterTool.ToParameter(TenCode.Code0001, ElevenCode.Code0001, ElevenCode.Code0001.ToString(),tt);
+
+            XfsGame.XfsSence.GetComponent<XfsTcpClient>().Send(parameter);
         }
     }
 }

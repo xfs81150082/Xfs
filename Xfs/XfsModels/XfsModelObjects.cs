@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 namespace Xfs
 {
     public static class XfsModelObjects
     {
+        public static List<string> Tests { get; set; } = new List<string>();
         public static Dictionary<string, XfsUser> Users { get; set; } = new Dictionary<string, XfsUser>();
         public static Dictionary<int, TmSouler> Soulers { get; set; } = new Dictionary<int, TmSouler>();
         public static Dictionary<int, TmSoulerDB> Bookers { get; set; } = new Dictionary<int, TmSoulerDB>();

@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Games\Handlers\XfsHandlers.cs" />
     <Compile Include="Games\Handlers\XfsBookerHandler.cs" />
     <Compile Include="Games\Handlers\XfsGateHandler.cs" />
     <Compile Include="Games\Handlers\XfsMapHandler.cs" />
@@ -76,7 +77,6 @@
     <Compile Include="Mysqls\XfsMysqlConnection.cs" />
     <Compile Include="Mysqls\XfsUserMysql.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sockets\XfsServerSocket.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -88,6 +88,8 @@
       <Name>Xfs</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Sockets\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

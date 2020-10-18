@@ -6,52 +6,9 @@ namespace Xfs
 {
     public class XfsTcpClient : XfsTcpSocket
     {
-        //#region Methods Callbacks ///接收参数消息
-        //public override void StartConnect()    //开始连接
-        //{
-        //    if (!IsRunning)
-        //    {
-        //        try
-        //        {
-        //            netSocket.BeginConnect(new IPEndPoint(address, Port), new AsyncCallback(this.ConnectCallback), netSocket);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            netSocket.Close();
-        //            IsRunning = false;
-        //            Console.WriteLine(ex.ToString());
-        //        }
-        //    }
-        //}
-        //private void ConnectCallback(IAsyncResult ar)
-        //{
-        //    //创建一个Socket接收传递过来的TmSocket
-        //    Socket tcpSocket = (Socket)ar.AsyncState;
-        //    try
-        //    {
-        //        //得到成功的连接
-        //        tcpSocket.EndConnect(ar);
-        //        ///触发事件///创建一个方法接收peerSocket (在方法里创建一个peer来处理读取数据//开始接受来自该客户端的数据)
-        //        TmReceiveSocket(tcpSocket);
-        //        Console.WriteLine("{0} 连接服务器成功 {1}", XfsTimerTool.CurrentTime(), tcpSocket.RemoteEndPoint.ToString());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.ToString());
-        //    }
-        //}
-        //public void TmReceiveSocket(Socket socket)
-        //{
-        //    ///创建一个TClient接收socket       
-        //    TClient = new XfsClient();
-        //    TClient.BeginReceiveMessage(socket);
-        //    IsRunning = true;
-        //}
-        //#endregion
-
         #region ///处理接受的参数信息
         public void Recv(XfsParameter parameter)
-        {
+        {  
             RecvParameters.Enqueue(parameter);
             OnrRecvParameters();
         }
@@ -64,7 +21,7 @@ namespace Xfs
                     XfsParameter parameter = this.RecvParameters.Dequeue();
                     if (XfsController.Instance != null)
                     {
-                        XfsController.Instance.Recv(parameter);
+                        XfsController.Instance.Recv(this, parameter);
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
                     }
                     else

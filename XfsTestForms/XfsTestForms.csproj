@@ -88,6 +88,10 @@
       <Project>{cbb147ba-a88e-43f3-9af9-8f0d3820b068}</Project>
       <Name>XfsServer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Xfs\Xfs.csproj">
+      <Project>{0252C896-3371-4952-97B0-58F67184DEF6}</Project>
+      <Name>Xfs</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
