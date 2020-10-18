@@ -7,9 +7,9 @@ namespace XfsClient
     {
         static void Main(string[] args)
         {
-            new XfsClientInit().ConsoelInit();          
+            new XfsClientInit().ConsoelInit();            
         }
+        
 
-       
     }
 }

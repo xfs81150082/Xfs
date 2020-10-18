@@ -86,7 +86,7 @@
     <Compile Include="XfsBehaviorTree\XfsTrigger.cs" />
     <Compile Include="XfsEntities\XfsNode.cs" />
     <Compile Include="XfsEntities\XfsComponent.cs" />
-    <Compile Include="XfsEntities\XfsConsoleLog.cs" />
+    <Compile Include="XfsModels\XfsConsoleLog.cs" />
     <Compile Include="XfsSockets\XfsCoolDown.cs" />
     <Compile Include="XfsEntities\XfsEntity.cs" />
     <Compile Include="XfsEntities\XfsGame.cs" />
@@ -140,6 +140,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="XfsEvnts\" />
+    <Folder Include="XfsTasks\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -41,12 +41,13 @@ namespace XfsClient
             
             XfsGame.XfsSence.AddComponent(new XfsTest());                                          ///服务器加载组件 : 通信组件Server
 
+
             ///服务器加载组件驱动程序
-            XfsGame.XfsSence.AddComponent(new XfsTcpClientSystem());        ///服务器加载组件 : 套接字 外网 传输数据组件
-            XfsGame.XfsSence.AddComponent(new XfsTcpSessionSystem());       ///服务器加载组件 : 心跳包 组件
+            XfsGame.XfsSystemMananger.AddComponent(new XfsTcpClientSystem());        ///服务器加载组件 : 套接字 外网 传输数据组件
+            XfsGame.XfsSystemMananger.AddComponent(new XfsTcpSessionSystem());       ///服务器加载组件 : 心跳包 组件
 
 
-            XfsGame.XfsSence.AddComponent(new XfsTestSystem());             ///服务器加载组件 : 套接字 外网 传输数据组件
+            XfsGame.XfsSystemMananger.AddComponent(new XfsTestSystem());             ///服务器加载组件 : 套接字 外网 传输数据组件
 
 
 
