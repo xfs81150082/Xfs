@@ -4,6 +4,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using static Xfs.XfsTcpSocket;
+
 namespace Xfs
 {
     public class XfsTcpSession : XfsEntity
@@ -11,7 +13,8 @@ namespace Xfs
         #region Properties        
         public Socket Socket { get; set; }                ///创建一个套接字，用于储藏代理服务端套接字，与客户端通信///客户端Socket 
         public bool IsRunning { get; set; }
-        public bool IsServer { get; set; } = true;
+        public bool IsServer { get; set; }
+        public NodeType NodeType { get; set; } = NodeType.Node;
         public override void XfsAwake()
         {
             AddComponent(new XfsSession());
@@ -142,20 +145,16 @@ namespace Xfs
             }
             else
             {
-                ///将MvcParameter参数列队
-                //XfsTcpSocket.Instance.RecvParameters.Enqueue(parameter);
-
-                Console.WriteLine(XfsTimerTool.CurrentTime() + "148 XfsTcpSession: "+ IsServer);
-
+                ///将MvcParameter参数分别列队并处理
                 if (IsServer)
                 {
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "152 XfsTcpSession: " + IsServer + " : Server");
-                    XfsGame.XfsSence.GetComponent<XfsTcpServer>().Recv(parameter);
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + "152 XfsTcpSession is Server");
+                    XfsTcpServer.Instance.Recv(parameter, NodeType);
                 }
                 else
                 {
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "157 XfsTcpSession: " + IsServer + " : Client");
-                    XfsGame.XfsSence.GetComponent<XfsTcpClient>().Recv(parameter);
+                    XfsTcpClient.Instance.Recv(parameter, NodeType);
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + "157 XfsTcpSession is Client");
                 }
             }
         }

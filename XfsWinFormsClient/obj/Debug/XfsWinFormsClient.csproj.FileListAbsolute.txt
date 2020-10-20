@@ -7,3 +7,16 @@ G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.csproj.GenerateResource.cac
 G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.csproj.CoreCompileInputs.cache
 G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.exe
 G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.pdb
+G:\Xfs\XfsWinFormsClient\bin\Debug\Xfs.dll
+G:\Xfs\XfsWinFormsClient\bin\Debug\MySql.Data.dll
+G:\Xfs\XfsWinFormsClient\bin\Debug\Newtonsoft.Json.dll
+G:\Xfs\XfsWinFormsClient\bin\Debug\Google.Protobuf.dll
+G:\Xfs\XfsWinFormsClient\bin\Debug\Xfs.pdb
+G:\Xfs\XfsWinFormsClient\bin\Debug\MySql.Data.xml
+G:\Xfs\XfsWinFormsClient\bin\Debug\Newtonsoft.Json.xml
+G:\Xfs\XfsWinFormsClient\bin\Debug\Google.Protobuf.xml
+G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.Form1.resources
+G:\Xfs\XfsWinFormsClient\obj\Debug\XfsWinFormsClient.csproj.CopyComplete
+G:\Xfs\XfsWinFormsClient\bin\Debug\XfsConsoleClient.exe
+G:\Xfs\XfsWinFormsClient\bin\Debug\XfsConsoleClient.pdb
+G:\Xfs\XfsWinFormsClient\bin\Debug\XfsConsoleClient.exe.config

@@ -54,6 +54,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -75,6 +78,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XfsConsoleClient\XfsConsoleClient.csproj">
+      <Project>{1d027ca7-4c85-4bc0-8cf0-46099b9b298e}</Project>
+      <Name>XfsConsoleClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xfs\Xfs.csproj">
+      <Project>{0252c896-3371-4952-97b0-58f67184def6}</Project>
+      <Name>Xfs</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -11,10 +11,11 @@ namespace Xfs
     {
         #region Properties
         public string IpString { get; set; } = "127.0.0.1";                //监听的IP地址  
+        public IPAddress Address { get; set; }                             //监听的IP地址  
         public int Port { get; set; } = 8115;                              //监听的端口  
         public int MaxListenCount { get; set; } = 10;                      //服务器程序允许的最大客户端连接数  
         public bool IsRunning { get; set; } = false;                       //服务器是否正在运行
-        public IPAddress Address { get; set; }                             //监听的IP地址  
+        public virtual NodeType NodeType { get;}            //服务器是否正在运行
         public Socket NetSocket { get; set; }                              //服务器使用的异步socket
         public Queue<Socket> WaitingSockets = new Queue<Socket>();
         public Dictionary<string, XfsTcpSession> TPeers { get; set; } = new Dictionary<string, XfsTcpSession>();
@@ -24,33 +25,29 @@ namespace Xfs
         #endregion
 
         #region Constructor ///构造函数 ///初始化方法
-        public void Init()
-        {
-            Address = IPAddress.Parse(IpString);
-            NetSocket = new Socket(Address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-        }
-        public void Init(string ipString, int port)
-        {
-            this.IpString = ipString;
-            this.Port = port;
-            if (NetSocket != null)
-            {
-                NetSocket.Close();
-            }
-            Address = IPAddress.Parse(ipString);
-            NetSocket = new Socket(Address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-        }
         public void Init(string ipString, int port, int maxListenCount)
         {
             this.IpString = ipString;
             this.Port = port;
             this.MaxListenCount = maxListenCount;
-            Address = IPAddress.Parse(ipString);
-            NetSocket = new Socket(Address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         }
-        public virtual void StartConnect()  { }
-        public virtual void StartListen()  { }
-        #endregion      
-       
+        #endregion
+
+        //public abstract Queue<XfsParameter> RecvParameter();
+        //public abstract Queue<XfsParameter> SendParameter();
     }
+
+    public enum NodeType
+        {
+            Client,
+            Node,
+            Gate,
+            Login,
+            Db,
+            Game,
+            All,
+            None,
+
+        }
+
 }

@@ -5,10 +5,12 @@ namespace Xfs
 {
     public class XfsClient : XfsTcpSession
     {
-        public XfsClient()
+        public XfsClient(NodeType nodeType)
         {
-            XfsGame.XfsSence.GetComponent<XfsTcpClient>().TClient = this;
             this.IsServer = false;
+            this.NodeType = nodeType;
+
+            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsClient:" + this.NodeType + ":" + this.IsServer);
         }
         public override void OnConnect()
         {
@@ -17,18 +19,29 @@ namespace Xfs
         }///与服务器连接时调用  
         public override void XfsDispose()
         {
-            base.XfsDispose();
-            if (XfsGame.XfsSence.GetComponent<XfsTcpClient>() != null)
+            if (XfsTcpClient.Instance.NodeType == this.NodeType)
             {
-                if (XfsGame.XfsSence.GetComponent<XfsTcpClient>().TClient != null && XfsGame.XfsSence.GetComponent<XfsTcpClient>().TClient.EcsId == this.EcsId)
+                base.XfsDispose();
+                if (XfsTcpClient.Instance.TClient != null && XfsTcpClient.Instance.TClient.EcsId == this.EcsId)
                 {
-                    XfsGame.XfsSence.GetComponent<XfsTcpClient>().TClient = null;
+                    XfsTcpClient.Instance.TClient = null;
                 }
                 ///设置连接中断，40秒后会自动重连
-                XfsGame.XfsSence.GetComponent<XfsTcpClient>().IsRunning = false;
+                XfsTcpClient.Instance.IsRunning = false;
+                Console.WriteLine("{0} 服务端{1}断开连接", XfsTimerTool.CurrentTime(), EcsId);
             }
 
-            Console.WriteLine("{0} 服务端{1}断开连接", XfsTimerTool.CurrentTime(), EcsId);
+
+            //if (XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>() != null)
+            //{
+            //    if (XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().TClient != null && XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().TClient.EcsId == this.EcsId)
+            //    {
+            //        XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().TClient = null;
+            //    }
+            //    ///设置连接中断，40秒后会自动重连
+            //    XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().IsRunning = false;
+            //}
+
         }///与服务器断开时调用                      
     }
 }

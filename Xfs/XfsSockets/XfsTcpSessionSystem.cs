@@ -33,13 +33,21 @@ namespace Xfs
 
                 if (isServer)
                 {
-                    XfsGame.XfsSence.GetComponent<XfsTcpServer>().Send(mvc);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
+                        XfsTcpServer.Instance.Send(mvc, (entity as XfsTcpSession).NodeType);
+                    if (XfsTcpServer.Instance.NodeType == (entity as XfsTcpSession).NodeType)
+                    {
+                        Console.WriteLine(XfsTimerTool.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
+                        //XfsGame.XfsSence.GetComponent<XfsTcpServerNodeNet>().Send(mvc);
+                    }
                 }
                 else
                 {
-                    XfsGame.XfsSence.GetComponent<XfsTcpClient>().Send(mvc);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " Client-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
+                        XfsTcpClient.Instance.Send(mvc, (entity as XfsTcpSession).NodeType);
+                    if (XfsTcpClient.Instance.NodeType == (entity as XfsTcpSession).NodeType)
+                    {
+                        Console.WriteLine(XfsTimerTool.CurrentTime() + " Client-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
+                        //XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().Send(mvc);
+                    }
                 }
 
                 //if (XfsGame.XfsSence.GetComponent<XfsTcpServer>() != null)

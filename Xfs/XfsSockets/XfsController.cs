@@ -11,6 +11,6 @@ namespace Xfs
         private static XfsController _instance;
         public static XfsController Instance { get => _instance; }
         public XfsController() { _instance = this; }
-        public abstract void Recv(object obj, XfsParameter parameter);
+        public abstract void Recv(object obj, XfsParameter parameter, NodeType nodeType);
     }
 }

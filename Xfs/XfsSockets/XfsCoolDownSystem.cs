@@ -28,15 +28,15 @@ namespace Xfs
                     cd.Counting = false;
                 }
             }
-            if (cd.Timing)
-            {
-                cd.CdTime += 4;
-                if (cd.CdTime >= cd.MaxCdTime)
-                {
-                    cd.CdTime = 0;
-                    cd.Timing = false;
-                }
-            }
+            //if (cd.Timing)
+            //{
+            //    cd.CdTime += 4;
+            //    if (cd.CdTime >= cd.MaxCdTime)
+            //    {
+            //        cd.CdTime = 0;
+            //        cd.Timing = false;
+            //    }
+            //}
         }
     }
 }

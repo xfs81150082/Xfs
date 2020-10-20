@@ -125,14 +125,12 @@
     <Compile Include="XfsNumeric\XfsNumericWatcherComponent.cs" />
     <Compile Include="XfsSockets\XfsController.cs" />
     <Compile Include="XfsSockets\XfsHandler.cs" />
-    <Compile Include="XfsSockets\XfsTcpServerSystem.cs" />
-    <Compile Include="XfsSockets\XfsTcpClientSystem.cs" />
     <Compile Include="XfsSockets\XfsClient.cs" />
     <Compile Include="XfsSockets\XfsCoolDownSystem.cs" />
     <Compile Include="XfsSockets\XfsPeer.cs" />
     <Compile Include="XfsSockets\XfsSession.cs" />
-    <Compile Include="XfsSockets\XfsTcpSessionSystem.cs" />
     <Compile Include="XfsSockets\XfsTcpClient.cs" />
+    <Compile Include="XfsSockets\XfsTcpSessionSystem.cs" />
     <Compile Include="XfsSockets\XfsTcpServer.cs" />
     <Compile Include="XfsSockets\XfsTcpSession.cs" />
     <Compile Include="XfsSockets\XfsTcpSocket.cs" />
