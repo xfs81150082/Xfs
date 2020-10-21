@@ -33,35 +33,37 @@ namespace Xfs
 
                 if (isServer)
                 {
-                        XfsTcpServer.Instance.Send(mvc, (entity as XfsTcpSession).NodeType);
-                    if (XfsTcpServer.Instance.NodeType == (entity as XfsTcpSession).NodeType)
+                    XfsTcpServer server = XfsSockets.GetTcpServer((entity as XfsTcpSession).NodeType);
+                    if (server != null)
                     {
+                        server.Send(mvc, (entity as XfsTcpSession).NodeType);
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
-                        //XfsGame.XfsSence.GetComponent<XfsTcpServerNodeNet>().Send(mvc);
                     }
+
+                    //if (XfsTcpServer.Instance.NodeType == (entity as XfsTcpSession).NodeType)
+                    //{
+                    //    XfsTcpServer.Instance.Send(mvc, (entity as XfsTcpSession).NodeType);
+                    //    Console.WriteLine(XfsTimerTool.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
+                    //}
                 }
                 else
                 {
-                        XfsTcpClient.Instance.Send(mvc, (entity as XfsTcpSession).NodeType);
-                    if (XfsTcpClient.Instance.NodeType == (entity as XfsTcpSession).NodeType)
+                    XfsTcpClient client = XfsSockets.GetTcpClient((entity as XfsTcpSession).NodeType);
+                    if (client != null)
                     {
+                        client.Send(mvc, (entity as XfsTcpSession).NodeType);
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " Client-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
-                        //XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().Send(mvc);
                     }
-                }
 
-                //if (XfsGame.XfsSence.GetComponent<XfsTcpServer>() != null)
-                //{
-                //    XfsGame.XfsSence.GetComponent<XfsTcpServer>().Send(mvc);
-                //    Console.WriteLine(XfsTimerTool.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
-                //}
-                //if (XfsGame.XfsSence.GetComponent<XfsTcpClient>() != null)
-                //{
-                //    XfsGame.XfsSence.GetComponent<XfsTcpClient>().Send(mvc);
-                //    Console.WriteLine(XfsTimerTool.CurrentTime() + " Client-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
-                //}
+
+
+                    //if (XfsTcpClient.Instance.NodeType == (entity as XfsTcpSession).NodeType)
+                    //{
+                    //    XfsTcpClient.Instance.Send(mvc, (entity as XfsTcpSession).NodeType);
+                    //    Console.WriteLine(XfsTimerTool.CurrentTime() + " Client-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
+                    //}
+                }
             }
-            //Console.WriteLine(XfsTimerTool.CurrentTime() + " CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
         }
 
     }

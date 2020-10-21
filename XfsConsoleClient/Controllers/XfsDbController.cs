@@ -7,14 +7,11 @@ using Xfs;
 
 namespace XfsConsoleClient
 {
-    public class XfsControllers : XfsController
+    public class XfsDbController : XfsController
     {
-        public XfsControllers()
-        {
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsControllers: " + "已启用");
-        }
+        public override NodeType NodeType => NodeType.Db;
 
-        public override void Recv(object obj, XfsParameter parameter,NodeType nodeType)
+        public override void Recv(object obj, XfsParameter parameter, NodeType nodeType)
         {
             TenCode tenCode = parameter.TenCode;
             switch (tenCode)
@@ -26,15 +23,12 @@ namespace XfsConsoleClient
                     string va = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
                     XfsModelObjects.Tests.Add(va);
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "23 XfsHandlers: " + "" + va);
 
-                    //XfsGame.XfsSence.GetComponent<XfsBookerHandler>().OnTransferParameter(this, parameter);
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + "23 XfsHandlers: " + "" + va);
 
                     break;
                 case (TenCode.Code0002):
                     Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsControllers: " + tenCode);
-
-                    //XfsGame.XfsSence.GetComponent<XfsStatusSyncHandler>().OnTransferParameter(this, parameter);
 
                     break;
                 case (TenCode.End):

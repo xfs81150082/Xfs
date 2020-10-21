@@ -9,12 +9,12 @@ namespace XfsDbServer
 {
     public class XfsDbHandler : XfsHandler
     {
+        public override NodeType NodeType => NodeType.Db;
         public XfsDbHandler()
         {
             Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsDbHandler: " + "已启用");
         }
-
-        public override void Recv(object obj, XfsParameter parameter,NodeType nodeType)
+        public override void Recv(object obj, XfsParameter parameter, NodeType nodeType)
         {
             TenCode tenCode = parameter.TenCode;
             switch (tenCode)
@@ -34,16 +34,22 @@ namespace XfsDbServer
                     repsonse.Back = parameter.Back;
                     repsonse.Keys = parameter.Keys;
 
-                    XfsTcpServer.Instance.Send(repsonse, NodeType.Db);
-                    XfsGame.XfsSence.GetComponent<XfsTcpServerDbNet>().Send(repsonse, NodeType.Db);
+
+                    XfsSockets.GetTcpServer(NodeType.Db).Send(parameter, NodeType.Db);
+
 
                     Console.WriteLine(XfsTimerTool.CurrentTime() + "37 XfsHandlers: " + "服务器已发送回信息: " + tt);
 
-                    //XfsGame.XfsSence.GetComponent<XfsBookerHandler>().OnTransferParameter(this, parameter);
+                    //XfsTcpServer.Instance.Send(repsonse, NodeType.Db);
+                    //XfsGame.XfsSence.GetComponent<XfsTcpServerDbNet>().Send(repsonse, NodeType.Db);
+
                     break;
                 case (TenCode.Code0002):
                     Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsHandlers: " + tenCode);
+
+
                     //XfsGame.XfsSence.GetComponent<XfsStatusSyncHandler>().OnTransferParameter(this, parameter);
+
                     break;
                 case (TenCode.End):
                     break;

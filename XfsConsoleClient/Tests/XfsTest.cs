@@ -12,7 +12,7 @@ namespace XfsConsoleClient
 
         public float time = 0;
 
-        public float restime = 600;
+        public float restime = 300;
        
     }
 }

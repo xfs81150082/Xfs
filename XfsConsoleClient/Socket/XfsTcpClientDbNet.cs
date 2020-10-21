@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Xfs;
 
-namespace XfsDbServer
+namespace XfsConsoleClient
 {
-    public class XfsTcpServerDbNet : XfsTcpServer
+    public class XfsTcpClientDbNet : XfsTcpClient
     {
         public override NodeType NodeType => NodeType.Db;
-        public XfsTcpServerDbNet(string ipString, int port, int maxListenCount)
+        public XfsTcpClientDbNet(string ipString, int port, int maxListenCount)
         {
             this.IpString = ipString;
             this.Port = port;
@@ -18,5 +18,6 @@ namespace XfsDbServer
 
             Console.WriteLine(XfsTimerTool.CurrentTime() + " NodeType: " + this.NodeType);
         }
+
     }
 }

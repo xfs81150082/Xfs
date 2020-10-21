@@ -3,11 +3,14 @@ using System.Net;
 using System.Net.Sockets;
 namespace Xfs
 {
-    public class XfsTcpServer : XfsTcpSocket
+    public abstract class XfsTcpServer : XfsTcpSocket
     {
-        private static XfsTcpServer _instance;
-        public static XfsTcpServer Instance { get => _instance; }
-        public XfsTcpServer() { _instance = this; }
+        public abstract NodeType NodeType { get; }                          //服务器类型
+
+        public XfsTcpServer()
+        {
+            XfsSockets.AddTcpServer(this);
+        }
 
 
         #region ///启动保持监听
@@ -72,28 +75,18 @@ namespace Xfs
                 while (this.RecvParameters.Count > 0)
                 {
                     XfsParameter parameter = this.RecvParameters.Dequeue();
-
-                    if (XfsHandler.Instance != null)
+                    XfsHandler handler = null;
+                    XfsSockets.GetXfsHandler(this.NodeType);
+                    if (handler != null)
                     {
-                        XfsHandler.Instance.Recv(this, parameter, NodeType);
+                        handler.Recv(this, parameter, NodeType);
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
                     }
                     else
                     {
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsHandler is null.");
                         break;
-                    }
-
-                    //if (TmGateHandler.Instance != null)
-                    //{
-                    //    TmGateHandler.Instance.OnTransferParameter(this, parameter);
-                    //    Console.WriteLine(TmTimerTool.CurrentTime() + " RecvParameters: " + TcpServer.RecvParameters.Count);
-                    //}
-                    //else
-                    //{
-                    //    Console.WriteLine(TmTimerTool.CurrentTime() + " XfsHandler is null.");
-                    //    break;
-                    //}
+                    }                
                 }
             }
             catch (Exception ex)

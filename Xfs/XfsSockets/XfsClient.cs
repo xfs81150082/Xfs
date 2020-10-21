@@ -19,17 +19,32 @@ namespace Xfs
         }///与服务器连接时调用  
         public override void XfsDispose()
         {
-            if (XfsTcpClient.Instance.NodeType == this.NodeType)
+            XfsTcpClient client = XfsSockets.GetTcpClient(this.NodeType);
+            if (client != null)
             {
                 base.XfsDispose();
-                if (XfsTcpClient.Instance.TClient != null && XfsTcpClient.Instance.TClient.EcsId == this.EcsId)
+                if (client.TClient != null && client.TClient.EcsId == this.EcsId)
                 {
-                    XfsTcpClient.Instance.TClient = null;
+                    client.TClient = null;
                 }
                 ///设置连接中断，40秒后会自动重连
-                XfsTcpClient.Instance.IsRunning = false;
+                client.IsRunning = false;
                 Console.WriteLine("{0} 服务端{1}断开连接", XfsTimerTool.CurrentTime(), EcsId);
+
             }
+
+
+            //if (XfsTcpClient.Instance.NodeType == this.NodeType)
+            //{
+            //    base.XfsDispose();
+            //    if (XfsTcpClient.Instance.TClient != null && XfsTcpClient.Instance.TClient.EcsId == this.EcsId)
+            //    {
+            //        XfsTcpClient.Instance.TClient = null;
+            //    }
+            //    ///设置连接中断，40秒后会自动重连
+            //    XfsTcpClient.Instance.IsRunning = false;
+            //    Console.WriteLine("{0} 服务端{1}断开连接", XfsTimerTool.CurrentTime(), EcsId);
+            //}
 
 
             //if (XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>() != null)

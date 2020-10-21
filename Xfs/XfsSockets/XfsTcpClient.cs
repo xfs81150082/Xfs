@@ -4,11 +4,14 @@ using System.Net.Sockets;
 
 namespace Xfs
 {
-    public class XfsTcpClient : XfsTcpSocket
+    public abstract class XfsTcpClient : XfsTcpSocket
     {
-        private static XfsTcpClient _instance;
-        public static XfsTcpClient Instance { get => _instance; }
-        public XfsTcpClient() { _instance = this; }
+        public abstract NodeType NodeType { get; }                         //服务器类型
+
+        public XfsTcpClient() 
+        {
+            XfsSockets.AddTcpClient(this);
+        }
 
 
         #region ///启动保持连接  
@@ -83,9 +86,11 @@ namespace Xfs
                 while (this.RecvParameters.Count > 0)
                 {
                     XfsParameter parameter = this.RecvParameters.Dequeue();
-                    if (XfsController.Instance != null)
+                    XfsController controller = null;
+                    controller = XfsSockets.GetXfsController(this.NodeType);
+                    if (controller != null)
                     {
-                        XfsController.Instance.Recv(this, parameter, this.NodeType);
+                        controller.Recv(this, parameter, this.NodeType);
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
                     }
                     else

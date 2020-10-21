@@ -34,15 +34,31 @@ namespace XfsConsoleClient
 
             if (text.time > text.restime)
             {
-                text.restime += 600;
+                text.restime += 300;
 
                 string tt = text.longin;
-                tt += " : "+ text.time.ToString();
+                tt += " : " + text.time.ToString();
 
                 XfsParameter parameter = XfsParameterTool.ToParameter(TenCode.Code0001, ElevenCode.Code0001, ElevenCode.Code0001.ToString(), tt);
-                
-                XfsTcpClient.Instance.Send(parameter, NodeType.Client);
-                //XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().Send(parameter, NodeType.Client);
+
+
+                XfsSockets.GetTcpClient(NodeType.Node).Send(parameter, NodeType.Node);
+                XfsSockets.GetTcpClient(NodeType.Db).Send(parameter, NodeType.Db);
+
+
+                //XfsGame.XfsSence.GetComponent<XfsTcpClientDbNet>().Send(parameter, NodeType.Db);
+                //XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().Send(parameter, NodeType.Db);
+
+
+                //XfsTcpClient.Instance.Send(parameter, NodeType.Db);
+                //Console.WriteLine(XfsTimerTool.CurrentTime() + " 45 TcpClient: " + XfsTcpClient.Instance.NodeType);
+                //Thread.Sleep(1);
+                //XfsTcpClient.Instance.Send(parameter, NodeType.Node);
+                //Console.WriteLine(XfsTimerTool.CurrentTime() + " 45 TcpClient: " + XfsTcpClient.Instance.NodeType);
+
+
+
+
             }
 
         }

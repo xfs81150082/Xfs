@@ -87,6 +87,7 @@
     <Compile Include="XfsEntities\XfsNode.cs" />
     <Compile Include="XfsEntities\XfsComponent.cs" />
     <Compile Include="XfsModels\XfsConsoleLog.cs" />
+    <Compile Include="XfsSockets\XfsSockets.cs" />
     <Compile Include="XfsSockets\XfsCoolDown.cs" />
     <Compile Include="XfsEntities\XfsEntity.cs" />
     <Compile Include="XfsEntities\XfsGame.cs" />

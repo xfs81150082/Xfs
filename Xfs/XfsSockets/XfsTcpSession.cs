@@ -148,13 +148,17 @@ namespace Xfs
                 ///将MvcParameter参数分别列队并处理
                 if (IsServer)
                 {
+                    XfsSockets.GetTcpServer(this.NodeType).Recv(parameter, this.NodeType);
                     Console.WriteLine(XfsTimerTool.CurrentTime() + "152 XfsTcpSession is Server");
-                    XfsTcpServer.Instance.Recv(parameter, NodeType);
+
+                    //XfsTcpServer.Instance.Recv(parameter, NodeType);
                 }
                 else
                 {
-                    XfsTcpClient.Instance.Recv(parameter, NodeType);
+                    XfsSockets.GetTcpClient(this.NodeType).Recv(parameter, this.NodeType);
                     Console.WriteLine(XfsTimerTool.CurrentTime() + "157 XfsTcpSession is Client");
+
+                    //XfsTcpClient.Instance.Recv(parameter, NodeType);
                 }
             }
         }

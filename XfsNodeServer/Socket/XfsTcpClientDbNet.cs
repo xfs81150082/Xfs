@@ -9,7 +9,7 @@ namespace XfsNodeServer
 {
     public class XfsTcpClientDbNet : XfsTcpClient
     {
-        public XfsTcpClientDbNet() { }
+        public override NodeType NodeType => NodeType.Node;
         public XfsTcpClientDbNet(string ipString, int port, int maxListenCount)
         {
             this.IpString = ipString;

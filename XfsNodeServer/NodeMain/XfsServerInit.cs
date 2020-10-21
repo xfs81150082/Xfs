@@ -40,9 +40,9 @@ namespace XfsNodeServer
         {
             ///服务器加载组件
             XfsGame.XfsSence.AddComponent(new XfsNode(XfsNodeType.Login));                           ///服务器加载组件 : 服务器类型组件
+            XfsGame.XfsSence.AddComponent(new XfsNodeHandler());                                        ///服务器加载组件 : 通信组件Server
             //XfsGame.XfsSence.AddComponent(new XfsMysql("127.0.0.1", "tumoworld", "root", ""));     ///服务器加载组件 : 数据库链接组件
             XfsGame.XfsSence.AddComponent(new XfsTcpServerNodeNet("127.0.0.1", 8115, 10));                                    ///服务器加载组件 : 通信组件Server
-            XfsGame.XfsSence.AddComponent(new XfsNodeHandler());                                        ///服务器加载组件 : 通信组件Server
 
 
             ///服务器加载组件驱动程序
