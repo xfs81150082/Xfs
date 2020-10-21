@@ -13,7 +13,9 @@ namespace Xfs
         }
         public override void OnConnect()
         {
-            XfsTcpServer server = XfsSockets.GetTcpServer(this.NodeType);
+            XfsTcpServer server = null;
+            XfsSockets.XfsTcpServers.TryGetValue(this.NodeType, out server);
+            //XfsTcpServer server = XfsSockets.GetTcpServer(this.NodeType);
             if (server != null)
             {
                 ///显示与客户端连接
@@ -23,23 +25,14 @@ namespace Xfs
                 server.TPeers.Add(this.EcsId, this);
                 Console.WriteLine(XfsTimerTool.CurrentTime() + " ComponentId: " + this.EcsId + " 已经加入字典");
                 ///显示客户端群中的客户端数量
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " TPeers Count: " + server.TPeers.Count);
-
-                //XfsTcpSession tpeer = null;
-                //bool yes1 = XfsTcpServer.Instance.TPeers.TryGetValue(this.EcsId, out tpeer);
-                //if (yes1 != true)
-                //{
-                //    ///tpeers已经加入字典
-                //    XfsTcpServer.Instance.TPeers.Add(this.EcsId, this);
-                //    Console.WriteLine(XfsTimerTool.CurrentTime() + " ComponentId: " + this.EcsId + " 已经加入字典");
-                //}
-                /////显示客户端群中的客户端数量
-                //Console.WriteLine(XfsTimerTool.CurrentTime() + " TPeers Count: " + XfsTcpServer.Instance.TPeers.Count);
+                Console.WriteLine(XfsTimerTool.CurrentTime() + " TPeers Count: " + server.TPeers.Count);              
             }
         }
         public override void XfsDispose()
         {
-            XfsTcpServer server = XfsSockets.GetTcpServer(this.NodeType);
+            XfsTcpServer server = null;
+            XfsSockets.XfsTcpServers.TryGetValue(this.NodeType, out server);
+            //XfsTcpServer server = XfsSockets.GetTcpServer(this.NodeType);
             if (server != null)
             {
                 base.XfsDispose();

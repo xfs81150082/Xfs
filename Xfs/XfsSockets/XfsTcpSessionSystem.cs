@@ -33,22 +33,21 @@ namespace Xfs
 
                 if (isServer)
                 {
-                    XfsTcpServer server = XfsSockets.GetTcpServer((entity as XfsTcpSession).NodeType);
+                    XfsTcpServer server = null;
+                    XfsSockets.XfsTcpServers.TryGetValue((entity as XfsTcpSession).NodeType, out server);                 
+
+                    //XfsTcpServer server = XfsSockets.GetTcpServer((entity as XfsTcpSession).NodeType);
                     if (server != null)
                     {
                         server.Send(mvc, (entity as XfsTcpSession).NodeType);
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
-                    }
-
-                    //if (XfsTcpServer.Instance.NodeType == (entity as XfsTcpSession).NodeType)
-                    //{
-                    //    XfsTcpServer.Instance.Send(mvc, (entity as XfsTcpSession).NodeType);
-                    //    Console.WriteLine(XfsTimerTool.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
-                    //}
+                    }                 
                 }
                 else
                 {
-                    XfsTcpClient client = XfsSockets.GetTcpClient((entity as XfsTcpSession).NodeType);
+                    XfsTcpClient client = null;
+                    XfsSockets.XfsTcpClients.TryGetValue((entity as XfsTcpSession).NodeType, out client);
+                    //XfsTcpClient client = XfsSockets.GetTcpClient((entity as XfsTcpSession).NodeType);
                     if (client != null)
                     {
                         client.Send(mvc, (entity as XfsTcpSession).NodeType);

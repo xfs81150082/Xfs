@@ -11,7 +11,7 @@ namespace XfsConsoleClient
     {
         public override NodeType NodeType => NodeType.Db;
 
-        public override void Recv(object obj, XfsParameter parameter, NodeType nodeType)
+        public override void Recv(object obj, XfsParameter parameter)
         {
             TenCode tenCode = parameter.TenCode;
             switch (tenCode)

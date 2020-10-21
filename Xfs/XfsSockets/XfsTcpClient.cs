@@ -10,7 +10,7 @@ namespace Xfs
 
         public XfsTcpClient() 
         {
-            XfsSockets.AddTcpClient(this);
+            XfsSockets.XfsTcpClients.Add(this.NodeType, this);
         }
 
 
@@ -71,13 +71,10 @@ namespace Xfs
         #endregion
 
         #region ///接收参数信息
-        public void Recv(XfsParameter parameter, NodeType nodeType)
+        public void Recv(XfsParameter parameter)
         {
-            if (this.NodeType == nodeType)
-            {
-                RecvParameters.Enqueue(parameter);
-                OnrRecvParameters();
-            }
+            RecvParameters.Enqueue(parameter);
+            OnrRecvParameters();
         }
         void OnrRecvParameters()
         {
@@ -87,15 +84,16 @@ namespace Xfs
                 {
                     XfsParameter parameter = this.RecvParameters.Dequeue();
                     XfsController controller = null;
-                    controller = XfsSockets.GetXfsController(this.NodeType);
+                    XfsSockets.XfsControllers.TryGetValue(this.NodeType,out controller);
+                    //controller = XfsSockets.GetXfsController(this.NodeType);
                     if (controller != null)
                     {
-                        controller.Recv(this, parameter, this.NodeType);
+                        controller.Recv(this, parameter);
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
                     }
                     else
                     {
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " TumoGate is null.");
+                        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsController is null.");
                         break;
                     }                  
                 }

@@ -19,7 +19,8 @@ namespace Xfs
         }///与服务器连接时调用  
         public override void XfsDispose()
         {
-            XfsTcpClient client = XfsSockets.GetTcpClient(this.NodeType);
+            XfsTcpClient client = null;
+            XfsSockets.XfsTcpClients.TryGetValue(this.NodeType, out client);
             if (client != null)
             {
                 base.XfsDispose();

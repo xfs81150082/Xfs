@@ -12,10 +12,8 @@ namespace Xfs
         public abstract NodeType NodeType { get; }
         public XfsController() 
         {
-            XfsSockets.AddXfsController(this);
-
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsController:" + this.NodeType + "已注册");
+            XfsSockets.XfsControllers.Add(this.NodeType, this);
         }
-        public abstract void Recv(object obj, XfsParameter parameter, NodeType nodeType);  
+        public abstract void Recv(object obj, XfsParameter parameter);  
     }
 }

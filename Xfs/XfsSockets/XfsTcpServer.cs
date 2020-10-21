@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 namespace Xfs
@@ -9,7 +11,7 @@ namespace Xfs
 
         public XfsTcpServer()
         {
-            XfsSockets.AddTcpServer(this);
+            XfsSockets.XfsTcpServers.Add(this.NodeType, this);
         }
 
 
@@ -60,13 +62,10 @@ namespace Xfs
         #endregion
 
         #region ///接收参数信息
-        public void Recv (XfsParameter parameter, NodeType nodeType)
+        public void Recv (XfsParameter parameter)
         {
-            if (this.NodeType == nodeType)
-            {
                 this.RecvParameters.Enqueue(parameter);
                 this.OnrRecvParameters();
-            }
         }
         void OnrRecvParameters()
         {
@@ -76,10 +75,10 @@ namespace Xfs
                 {
                     XfsParameter parameter = this.RecvParameters.Dequeue();
                     XfsHandler handler = null;
-                    XfsSockets.GetXfsHandler(this.NodeType);
+                    XfsSockets.XfsHandlers.TryGetValue(this.NodeType, out handler);
                     if (handler != null)
                     {
-                        handler.Recv(this, parameter, NodeType);
+                        handler.Recv(this, parameter);
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
                     }
                     else

@@ -36,8 +36,9 @@ namespace XfsConsoleClient
             ///服务器加载组件
             XfsGame.XfsSence.AddComponent(new XfsNode(XfsNodeType.Client));                        ///服务器加载组件 : 服务器类型组件
             XfsGame.XfsSence.AddComponent(new XfsTcpClientNodeNet("127.0.0.1", 8115, 10));         ///服务器加载组件 : 通信组件Server
-            XfsGame.XfsSence.AddComponent(new XfsTcpClientDbNet("127.0.0.1", 1001, 10));         ///服务器加载组件 : 通信组件Server
-            XfsGame.XfsSence.AddComponent(new XfsNodeController());                                   ///服务器加载组件 : 通信组件Server 
+            XfsGame.XfsSence.AddComponent(new XfsTcpClientDbNet("127.0.0.1", 1001, 10));           ///服务器加载组件 : 通信组件Server
+            XfsGame.XfsSence.AddComponent(new XfsDbController());                                  ///服务器加载组件 : 通信组件Server 
+            XfsGame.XfsSence.AddComponent(new XfsNodeController());                                ///服务器加载组件 : 通信组件Server 
 
 
             XfsGame.XfsSence.AddComponent(new XfsTest());                                          ///服务器加载组件 : 通信组件Server

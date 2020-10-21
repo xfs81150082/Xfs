@@ -148,17 +148,26 @@ namespace Xfs
                 ///将MvcParameter参数分别列队并处理
                 if (IsServer)
                 {
-                    XfsSockets.GetTcpServer(this.NodeType).Recv(parameter, this.NodeType);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "152 XfsTcpSession is Server");
+                    XfsTcpServer server = null;
+                    XfsSockets.XfsTcpServers.TryGetValue(this.NodeType, out server);
+                    if (server != null)
+                    {
+                        server.Recv(parameter);
+                    }
 
-                    //XfsTcpServer.Instance.Recv(parameter, NodeType);
+                    //XfsSockets.GetTcpServer(this.NodeType).Recv(parameter);
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 152 XfsTcpSession is Server");
                 }
                 else
                 {
-                    XfsSockets.GetTcpClient(this.NodeType).Recv(parameter, this.NodeType);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "157 XfsTcpSession is Client");
-
-                    //XfsTcpClient.Instance.Recv(parameter, NodeType);
+                    XfsTcpClient client = null;
+                    XfsSockets.XfsTcpClients.TryGetValue(this.NodeType, out client);
+                    if (client != null)
+                    {
+                        client.Recv(parameter);
+                    }
+                    //XfsSockets.GetTcpClient(this.NodeType).Recv(parameter);
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 157 XfsTcpSession is Client");
                 }
             }
         }

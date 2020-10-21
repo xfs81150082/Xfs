@@ -12,35 +12,29 @@ namespace XfsDbServer
         public override NodeType NodeType => NodeType.Db;
         public XfsDbHandler()
         {
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsDbHandler: " + "已启用");
         }
-        public override void Recv(object obj, XfsParameter parameter, NodeType nodeType)
+        public override void Recv(object obj, XfsParameter parameter)
         {
             TenCode tenCode = parameter.TenCode;
             switch (tenCode)
             {
                 case (TenCode.Code0001):
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "22 XfsHandlers: " + tenCode);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "23 XfsHandlers: " + parameter.ElevenCode);
-
                     string va = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "27 XfsHandlers: " + "" + va);
-
-
-                    string sv = "--(" + XfsTimerTool.CurrentTime() + "+服务器回复)";
-                    string tt = va + sv;
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsDbHandler，已收到客户端信息: " + va);
+                    
+                    string sv = XfsTimerTool.CurrentTime() + " 服务器" + this.NodeType + "回复，收到并返回原信息：";
+                    string tt = sv + "(" + va + ")";
                     XfsParameter repsonse = XfsParameterTool.ToParameter(TenCode.Code0001, ElevenCode.Code0001, ElevenCode.Code0001.ToString(), tt);
                     repsonse.Back = parameter.Back;
                     repsonse.Keys = parameter.Keys;
 
+                    XfsTcpServer server = null;
+                    XfsSockets.XfsTcpServers.TryGetValue(NodeType.Db, out server);
+                    server.Send(repsonse, NodeType.Db);
 
-                    XfsSockets.GetTcpServer(NodeType.Db).Send(parameter, NodeType.Db);
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 服务器" + this.NodeType + "已完成发送回的信息");
 
-
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "37 XfsHandlers: " + "服务器已发送回信息: " + tt);
-
-                    //XfsTcpServer.Instance.Send(repsonse, NodeType.Db);
                     //XfsGame.XfsSence.GetComponent<XfsTcpServerDbNet>().Send(repsonse, NodeType.Db);
 
                     break;

@@ -8,107 +8,113 @@ namespace Xfs
 {
     public static class XfsSockets
     {
-        private static Dictionary<NodeType, XfsTcpClient> XfsTcpClients = new Dictionary<NodeType, XfsTcpClient>();
-        private static Dictionary<NodeType, XfsTcpServer> XfsTcpServers = new Dictionary<NodeType, XfsTcpServer>();
-        private static Dictionary<NodeType, XfsController> XfsControllers = new Dictionary<NodeType, XfsController>();
-        private static Dictionary<NodeType, XfsHandler> XfsHandlers = new Dictionary<NodeType, XfsHandler>();
+        public static Dictionary<NodeType, XfsTcpClient> XfsTcpClients { get; set; } = new Dictionary<NodeType, XfsTcpClient>();
+        public static Dictionary<NodeType, XfsTcpServer> XfsTcpServers { get; set; } = new Dictionary<NodeType, XfsTcpServer>();
+        public static Dictionary<NodeType, XfsController> XfsControllers { get; set; } = new Dictionary<NodeType, XfsController>();
+        public static Dictionary<NodeType, XfsHandler> XfsHandlers { get; set; } = new Dictionary<NodeType, XfsHandler>();
 
-        public static void AddXfsController(XfsController tcpClient)
-        {
-            XfsController client = null;
-            XfsControllers.TryGetValue(tcpClient.NodeType, out client);
-            if (client != null)
-            {
-                XfsControllers.Add(tcpClient.NodeType, tcpClient);
-            }
-            else
-            {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTcpClient 已存在:" + tcpClient.NodeType);
-            }
-
-
-        }
-        public static XfsController GetXfsController(NodeType nodeType)
-        {
-            XfsController client = null;
-            XfsControllers.TryGetValue(nodeType, out client);
-            if (client != null)
-            {
-                return client;
-            }
-            return null;
-        }
-        public static XfsHandler GetXfsHandler(NodeType nodeType)
-        {
-            XfsHandler server = null;
-            XfsHandlers.TryGetValue(nodeType, out server);
-            if (server != null)
-            {
-                return server;
-            }
-            return null;
-        }
-        public static void AddXfsHandler(XfsHandler tcpServer)
-        {
-            XfsHandler server = null;
-            XfsHandlers.TryGetValue(tcpServer.NodeType, out server);
-            if (server == null)
-            {
-                XfsHandlers.Add(tcpServer.NodeType, tcpServer);
-            }
-            else
-            {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTcpServer 已存在:" + tcpServer.NodeType);
-            }
-        }
+        //public static void AddXfsController(NodeType nodeType,XfsController tcpClient)
+        //{
+        //    XfsController client = null;
+        //    XfsControllers.TryGetValue(nodeType, out client);
+        //    if (client == null)
+        //    {
+        //        XfsControllers.Add(nodeType, tcpClient);
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsController 已注册:" + nodeType + " Cout:" + XfsControllers.Count);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsController 已存在:" + nodeType);
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsControllers Cout:" + XfsControllers.Count);
+        //    }
 
 
-        public static void AddTcpClient(XfsTcpClient tcpClient)
-        {
-            XfsTcpClient client = null;
-            XfsTcpClients.TryGetValue(tcpClient.NodeType, out client);
-            if (client == null)
-            {
-                XfsTcpClients.Add(tcpClient.NodeType, tcpClient);
-            }
-            else
-            {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTcpClient 已存在:" + tcpClient.NodeType);
-            }
-        }
-        public static XfsTcpClient GetTcpClient(NodeType nodeType)
-        {
-            XfsTcpClient client = null;
-            XfsTcpClients.TryGetValue(nodeType, out client);
-            if (client != null)
-            {
-                return client;
-            }
-            return null;
-        }
-        public static void AddTcpServer(XfsTcpServer tcpServer)
-        {
-            XfsTcpServer server = null;
-            XfsTcpServers.TryGetValue(tcpServer.NodeType, out server);
-            if (server == null)
-            {
-                XfsTcpServers.Add(tcpServer.NodeType, tcpServer);
-            }
-            else
-            {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTcpServer 已存在:" + tcpServer.NodeType);
-            }
-        }
-        public static XfsTcpServer GetTcpServer(NodeType nodeType)
-        {
-            XfsTcpServer server = null;
-            XfsTcpServers.TryGetValue(nodeType, out server);
-            if (server != null)
-            {
-                return server;
-            }
-            return null;
-        }
+        //}
+        //public static XfsController GetXfsController(NodeType nodeType)
+        //{
+        //    XfsController client = null;
+        //    XfsControllers.TryGetValue(nodeType, out client);
+        //    if (client == null)
+        //    {
+        //        return null;
+        //    }
+        //    return client;
+        //}
+        //public static void AddXfsHandler(NodeType nodeType, XfsHandler tcpServer)
+        //{
+        //    XfsHandler server = null;
+        //    XfsHandlers.TryGetValue(nodeType, out server);
+        //    if (server == null)
+        //    {
+        //        XfsHandlers.Add(nodeType, tcpServer);
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsHandler 已注册:" + nodeType);
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsHandlers Cout:" + XfsHandlers.Count);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsHandler 已存在:" + nodeType);
+        //    }
+        //}
+        //public static XfsHandler GetXfsHandler(NodeType nodeType)
+        //{
+        //    XfsHandler client = null;
+        //    XfsHandlers.TryGetValue(nodeType, out client);
+        //    if (client == null)
+        //    {
+        //        return null;
+        //    }
+        //    return client;
+        //}
+        //public static void AddTcpClient(NodeType nodeType, XfsTcpClient tcpClient)
+        //{
+        //    XfsTcpClient client = null;
+        //    XfsTcpClients.TryGetValue(nodeType, out client);
+        //    if (client == null)
+        //    {
+        //        XfsTcpClients.Add(nodeType, tcpClient);
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTcpClient 已注册:" + nodeType);
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTcpClients Cout:" + XfsTcpClients.Count);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTcpClient 已存在:" + nodeType);
+        //    }
+        //}
+        //public static XfsTcpClient GetTcpClient(NodeType nodeType)
+        //{
+        //    XfsTcpClient client = null;
+        //    XfsTcpClients.TryGetValue(nodeType, out client);
+        //    if (client == null)
+        //    {
+        //        return null;
+        //    }
+        //    return client;
+        //}
+        //public static void AddTcpServer(NodeType nodeType, XfsTcpServer tcpServer)
+        //{
+        //    XfsTcpServer server = null;
+        //    XfsTcpServers.TryGetValue(nodeType, out server);
+        //    if (server == null)
+        //    {
+        //        XfsTcpServers.Add(nodeType, tcpServer);
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTcpServer 已注册:" + nodeType);
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTcpServers Cout:" + XfsTcpServers.Count);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTcpServer 已存在:" + nodeType);
+        //    }
+        //}
+        //public static XfsTcpServer GetTcpServer(NodeType nodeType)
+        //{
+        //    XfsTcpServer server = null;
+        //    XfsTcpServers.TryGetValue(nodeType, out server);
+        //    if (server == null)
+        //    {
+        //        return null;
+        //    }
+        //    return server;
+        //}
 
 
 

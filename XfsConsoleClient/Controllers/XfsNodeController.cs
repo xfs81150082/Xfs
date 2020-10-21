@@ -14,7 +14,7 @@ namespace XfsConsoleClient
         {
             Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsControllers: " + "已启用");
         }
-        public override void Recv(object obj, XfsParameter parameter,NodeType nodeType)
+        public override void Recv(object obj, XfsParameter parameter)
         {
             TenCode tenCode = parameter.TenCode;
             switch (tenCode)
