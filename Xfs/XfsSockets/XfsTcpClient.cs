@@ -85,7 +85,6 @@ namespace Xfs
                     XfsParameter parameter = this.RecvParameters.Dequeue();
                     XfsController controller = null;
                     XfsSockets.XfsControllers.TryGetValue(this.NodeType,out controller);
-                    //controller = XfsSockets.GetXfsController(this.NodeType);
                     if (controller != null)
                     {
                         controller.Recv(this, parameter);
@@ -106,13 +105,10 @@ namespace Xfs
         #endregion
 
         #region ///发送参数信息
-        public void Send(XfsParameter mvc, NodeType nodeType)
+        public void Send(XfsParameter mvc)
         {
-            if (this.NodeType == nodeType)
-            {
-                SendParameters.Enqueue(mvc);
-                OnSendParameters();
-            }
+            SendParameters.Enqueue(mvc);
+            OnSendParameters();
         }
         ///处理发送参数信息
         void OnSendParameters()

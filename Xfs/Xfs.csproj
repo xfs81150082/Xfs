@@ -92,8 +92,8 @@
     <Compile Include="XfsEntities\XfsEntity.cs" />
     <Compile Include="XfsEntities\XfsGame.cs" />
     <Compile Include="XfsEntities\XfsIdGenerater.cs" />
-    <Compile Include="XfsEntities\XfsJson.cs" />
-    <Compile Include="XfsEntities\XfsMD5Tool.cs" />
+    <Compile Include="XfsSockets\XfsJson.cs" />
+    <Compile Include="XfsSockets\XfsMD5Tool.cs" />
     <Compile Include="XfsModels\TmChangeType.cs" />
     <Compile Include="XfsModels\TmInfoType.cs" />
     <Compile Include="XfsModels\TmName.cs" />
@@ -106,10 +106,10 @@
     <Compile Include="XfsModels\TmTransform.cs" />
     <Compile Include="XfsModels\XfsUser.cs" />
     <Compile Include="XfsModels\XfsModelObjects.cs" />
-    <Compile Include="XfsEntities\XfsParameter.cs" />
-    <Compile Include="XfsEntities\XfsParameterTool.cs" />
-    <Compile Include="XfsEntities\XfsRequest.cs" />
-    <Compile Include="XfsEntities\XfsResponse.cs" />
+    <Compile Include="XfsSockets\XfsParameter.cs" />
+    <Compile Include="XfsSockets\XfsParameterTool.cs" />
+    <Compile Include="XfsSockets\XfsRequest.cs" />
+    <Compile Include="XfsSockets\XfsResponse.cs" />
     <Compile Include="XfsEntities\XfsSence.cs" />
     <Compile Include="XfsEntities\XfsSystem.cs" />
     <Compile Include="XfsEntities\XfsSystemMananger.cs" />

@@ -43,8 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\XfsDbController.cs" />
     <Compile Include="Controllers\XfsBookerController.cs" />
+    <Compile Include="Controllers\XfsDbController.cs" />
     <Compile Include="Controllers\XfsNodeController.cs" />
     <Compile Include="ConsoleMain\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

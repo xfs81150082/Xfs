@@ -6,10 +6,11 @@ namespace Xfs
     public class XfsParameter
     {
         public string EcsId { get; set; }
-        public string Back { get; set; }
+        public bool Back { get; set; } = false;
+        public string BackId { get; set; } = null;
         public string AtocrId { get; set; }
-        public string Vable { get; set; }
         public List<string> Keys { get; set; } = new List<string>();
+        public Dictionary<NodeType,string> PeerIds { get; set; } = new Dictionary<NodeType, string>();
         public TenCode TenCode { get; set; }
         public ElevenCode ElevenCode { get; set; }
         public Dictionary<string, object> Parameters { get; set; } = new Dictionary<string, object>();

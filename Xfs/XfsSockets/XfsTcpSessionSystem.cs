@@ -39,7 +39,7 @@ namespace Xfs
                     //XfsTcpServer server = XfsSockets.GetTcpServer((entity as XfsTcpSession).NodeType);
                     if (server != null)
                     {
-                        server.Send(mvc, (entity as XfsTcpSession).NodeType);
+                        server.Send(mvc);
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
                     }                 
                 }
@@ -50,7 +50,7 @@ namespace Xfs
                     //XfsTcpClient client = XfsSockets.GetTcpClient((entity as XfsTcpSession).NodeType);
                     if (client != null)
                     {
-                        client.Send(mvc, (entity as XfsTcpSession).NodeType);
+                        client.Send(mvc);
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " Client-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
                     }
 

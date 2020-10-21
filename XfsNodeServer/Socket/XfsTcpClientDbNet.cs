@@ -9,12 +9,14 @@ namespace XfsNodeServer
 {
     public class XfsTcpClientDbNet : XfsTcpClient
     {
-        public override NodeType NodeType => NodeType.Node;
+        public override NodeType NodeType => NodeType.Db;
         public XfsTcpClientDbNet(string ipString, int port, int maxListenCount)
         {
             this.IpString = ipString;
             this.Port = port;
             this.MaxListenCount = maxListenCount;
+
+            Console.WriteLine(XfsTimerTool.CurrentTime() + " NodeType: " + this.NodeType);
         }
 
     }

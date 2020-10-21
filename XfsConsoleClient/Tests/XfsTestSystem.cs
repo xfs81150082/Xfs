@@ -27,6 +27,36 @@ namespace XfsConsoleClient
 
         private void UpdateTest(XfsEntity entity)
         {
+            ////NodtTest(entity);
+
+            DbTest(entity);
+        }
+        void DbTest(XfsEntity entity)
+        {
+            XfsTest text = entity.GetComponent<XfsTest>();
+            text.time += 1;
+            if (text.time > text.restime)
+            {
+                text.restime += 300;
+
+                string tt = "客户端-Node-Db";
+
+                XfsParameter parameter = XfsParameterTool.ToParameter(TenCode.Code0002, ElevenCode.Code0002, ElevenCode.Code0002.ToString(), tt);
+                parameter.Back = true;
+                parameter.BackId = XfsIdGenerater.GetId();
+
+                XfsTcpClient client = null;
+                XfsSockets.XfsTcpClients.TryGetValue(NodeType.Node, out client);
+                if (client != null)
+                {
+                    (client as XfsTcpClientNodeNet).Send(parameter);
+                }
+
+                Console.WriteLine(XfsTimerTool.CurrentTime() + " 58 XfsTestSystem: " + text.time);
+            }
+        }
+        void NodtTest(XfsEntity entity)
+        {
             XfsTest text = entity.GetComponent<XfsTest>();
             text.time += 1;
 
@@ -34,7 +64,7 @@ namespace XfsConsoleClient
 
             if (text.time > text.restime)
             {
-                text.restime += 300;
+                text.restime += 600;
 
                 string tt = text.longin;
                 tt += " : " + text.time.ToString();
@@ -47,7 +77,7 @@ namespace XfsConsoleClient
                 XfsSockets.XfsTcpClients.TryGetValue(NodeType.Db, out client);
                 if (client != null)
                 {
-                    client.Send(parameter, NodeType.Db);
+                    client.Send(parameter);
                 }
 
 
@@ -56,17 +86,11 @@ namespace XfsConsoleClient
 
 
                 //XfsGame.XfsSence.GetComponent<XfsTcpClientDbNet>().Send(parameter, NodeType.Db);
-                XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().Send(parameter, NodeType.Node);
+                XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().Send(parameter);
 
                 Console.WriteLine(XfsTimerTool.CurrentTime() + " 53 XfsTestSystem: " + text.time);
-
-
             }
-
         }
-
-
-
         #region
         void TmDebugLog(XfsTest text)
         {

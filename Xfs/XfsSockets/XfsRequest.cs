@@ -10,13 +10,11 @@ namespace Xfs
         public XfsRequest()
         {
             this.EcsId = XfsIdGenerater.GetId();
-            this.Back = "";
-
         }
         public void BackInit()
         {
             this.EcsId = XfsIdGenerater.GetId();
-            this.Back = this.EcsId;
+            this.BackId = this.EcsId;
         }
 
     }

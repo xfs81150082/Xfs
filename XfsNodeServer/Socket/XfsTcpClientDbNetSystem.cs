@@ -7,7 +7,7 @@ using Xfs;
 
 namespace XfsNodeServer
 {
-    public class XfsTcpClientDbNettSystem : XfsSystem
+    public class XfsTcpClientDbNetSystem : XfsSystem
     {
         public override void XfsAwake()
         {

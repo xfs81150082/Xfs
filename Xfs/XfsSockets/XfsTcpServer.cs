@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management;
 using System.Net;
 using System.Net.Sockets;
 namespace Xfs
@@ -96,13 +97,17 @@ namespace Xfs
         #endregion       
 
         #region ///发送参数信息
-        public void Send(XfsParameter mvc, NodeType nodeType)
+        public void Send(XfsParameter mvc)
         {
-            if (this.NodeType == nodeType)
+            if (mvc.Back)
             {
-                SendParameters.Enqueue(mvc);
-                OnSendMvcParameters();
+                string bp = null;
+                mvc.PeerIds.TryGetValue(this.NodeType, out bp);
+                mvc.Keys.Clear();
+                mvc.Keys.Add(bp);
             }
+            SendParameters.Enqueue(mvc);
+            OnSendMvcParameters();
         }
         ///处理发送参数信息
         void OnSendMvcParameters()
@@ -112,6 +117,8 @@ namespace Xfs
                 while (SendParameters.Count > 0)
                 {
                     XfsParameter mvc = SendParameters.Dequeue();
+                  
+
                     while (mvc.Keys.Count > 0)
                     {
                         XfsTcpSession tpeer;

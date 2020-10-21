@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -138,7 +139,6 @@ namespace Xfs
         public override void OnTransferParameter(object obj, XfsParameter parameter)
         {
             ///将字符串string,用json反序列化转换成MvcParameter参数
-            parameter.Keys.Add(this.EcsId);
             if (parameter.TenCode == TenCode.Zero)
             {
                 this.GetComponent<XfsCoolDown>().CdCount = 0;
@@ -148,15 +148,21 @@ namespace Xfs
                 ///将MvcParameter参数分别列队并处理
                 if (IsServer)
                 {
+                    parameter.Keys.Clear();
+                    parameter.Keys.Add(this.EcsId);
+                    if (parameter.Back)
+                    {                       
+                        parameter.PeerIds.Add(this.NodeType, this.EcsId);
+
+                        Console.WriteLine(XfsTimerTool.CurrentTime() + " parameter.PeerIds.count: " + parameter.PeerIds.Count);
+                    }
+
                     XfsTcpServer server = null;
                     XfsSockets.XfsTcpServers.TryGetValue(this.NodeType, out server);
                     if (server != null)
                     {
                         server.Recv(parameter);
                     }
-
-                    //XfsSockets.GetTcpServer(this.NodeType).Recv(parameter);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 152 XfsTcpSession is Server");
                 }
                 else
                 {
