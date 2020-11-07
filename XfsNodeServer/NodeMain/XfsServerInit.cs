@@ -33,7 +33,7 @@ namespace XfsNodeServer
             XfsGame.XfsSence.AddComponent(new XfsDbController());                                    ///服务器加载组件 : 通信组件Server
             XfsGame.XfsSence.AddComponent(new XfsNodeHandler());                                     ///服务器加载组件 : 通信组件Server
             //XfsGame.XfsSence.AddComponent(new XfsMysql("127.0.0.1", "tumoworld", "root", ""));     ///服务器加载组件 : 数据库链接组件
-            XfsGame.XfsSence.AddComponent(new XfsTcpClientDbNet("127.0.0.1", 1001, 10));             ///服务器加载组件 : 通信组件Server
+            //XfsGame.XfsSence.AddComponent(new XfsTcpClientDbNet("127.0.0.1", 1001, 10));             ///服务器加载组件 : 通信组件Server
             XfsGame.XfsSence.AddComponent(new XfsTcpServerNodeNet("127.0.0.1", 2001, 10));           ///服务器加载组件 : 通信组件Server
 
             ///服务器加载组件驱动程序

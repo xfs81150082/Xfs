@@ -50,6 +50,7 @@
     <Compile Include="TestAttribute\TestAttributeInit.cs" />
     <Compile Include="TestAttribute\DeBugInfo.cs" />
     <Compile Include="TestAttribute\Rectangle.cs" />
+    <Compile Include="TestAwait\TestCallInit.cs" />
     <Compile Include="TestAwait\TestActionInit.cs" />
     <Compile Include="TestAwait\TestNodeTask.cs" />
     <Compile Include="TestAwait\TestAwaitInit.cs" />

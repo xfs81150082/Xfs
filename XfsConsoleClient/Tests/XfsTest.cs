@@ -13,6 +13,10 @@ namespace XfsConsoleClient
         public float time = 0;
 
         public float restime = 300;
+
+
+
+        public string call = "发送测试回调请求-20201106";
        
     }
 }

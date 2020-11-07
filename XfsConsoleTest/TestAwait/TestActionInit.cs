@@ -16,8 +16,14 @@ namespace XfsConsoleTest.TestAwait
 
         }
 
+        //Dictionary<string ,Action<>>
+        void TestCall2()
+        {
 
 
+
+
+        }
 
 
 

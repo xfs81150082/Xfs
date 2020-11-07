@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 
@@ -74,15 +75,25 @@ namespace Xfs
         public void Recv(XfsParameter parameter)
         {
             RecvParameters.Enqueue(parameter);
-            OnrRecvParameters();
+            OnRecvParameters();
         }
-        void OnrRecvParameters()
+        void OnRecvParameters()
         {
             try
             {
                 while (this.RecvParameters.Count > 0)
                 {
                     XfsParameter parameter = this.RecvParameters.Dequeue();
+
+                    ///requestCallback 如果回复信息，侧调用回调委托2020.11.6
+                    Action<XfsParameter> action;
+                    if (this.requestCallback.TryGetValue(parameter.RpcId, out action))
+                    {
+                        this.requestCallback.Remove(parameter.RpcId);
+                        action(parameter);
+                        break;
+                    }
+
                     XfsController controller = null;
                     XfsSockets.XfsControllers.TryGetValue(this.NodeType,out controller);
                     if (controller != null)
@@ -102,6 +113,34 @@ namespace Xfs
                 Console.WriteLine(XfsTimerTool.CurrentTime() + " " + ex.Message);
             }
         }
+        #endregion
+
+        #region
+        private static int RpcId { get; set; }
+        private readonly Dictionary<int, Action<XfsParameter>> requestCallback = new Dictionary<int, Action<XfsParameter>>();
+        public XfsTask<XfsParameter> Call(XfsParameter request)
+        {
+            int rpcId = ++RpcId;
+            var tcs = new XfsTaskCompletionSource<XfsParameter>();
+
+            this.requestCallback[rpcId] = (response) =>
+            {
+                try
+                {
+                    tcs.SetResult(response);
+                }
+                catch (Exception e)
+                {
+                    //tcs.SetException(new Exception($"Rpc Error: {request.GetType().FullName}", e));
+                    tcs.SetException(new Exception($"Rpc Error: {request.EcsId}", e));
+                }
+            };
+
+            request.RpcId = rpcId;
+            this.Send(request);
+            return tcs.Task;
+        }
+
         #endregion
 
         #region ///发送参数信息

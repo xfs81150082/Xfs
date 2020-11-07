@@ -29,7 +29,36 @@ namespace XfsConsoleClient
         {
             ////NodtTest(entity);
 
-            DbTest(entity);
+            TestCall(entity);
+        }
+        async void TestCall(XfsEntity entity)
+        {
+            XfsTest test = entity.GetComponent<XfsTest>();
+            test.time += 1;
+            if (test.time > test.restime)
+            {
+                test.restime += 300;
+
+                string tt = test.call;
+                XfsParameter parameter = XfsParameterTool.ToParameter(TenCode.Code0004, ElevenCode.Code0004, ElevenCode.Code0004.ToString(), tt);
+                parameter.Back = true;
+                parameter.EcsId = XfsIdGenerater.GetId();
+
+                XfsTcpClient client = null;
+                XfsSockets.XfsTcpClients.TryGetValue(NodeType.Node, out client);
+                if (client != null)
+                {
+                    //(client as XfsTcpClientNodeNet).Send(parameter);
+
+                    XfsParameter response = await (client as XfsTcpClientNodeNet).Call(parameter);
+                    string res = XfsParameterTool.GetValue<string>(response, response.ElevenCode.ToString());
+
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 58: " + res);
+
+                }
+
+                //Console.WriteLine(XfsTimerTool.CurrentTime() + " 55 XfsTestSystem: " + test.time);
+            }
         }
         void DbTest(XfsEntity entity)
         {
@@ -43,7 +72,7 @@ namespace XfsConsoleClient
 
                 XfsParameter parameter = XfsParameterTool.ToParameter(TenCode.Code0002, ElevenCode.Code0002, ElevenCode.Code0002.ToString(), tt);
                 parameter.Back = true;
-                parameter.BackId = XfsIdGenerater.GetId();
+                parameter.EcsId = XfsIdGenerater.GetId();
 
                 XfsTcpClient client = null;
                 XfsSockets.XfsTcpClients.TryGetValue(NodeType.Node, out client);

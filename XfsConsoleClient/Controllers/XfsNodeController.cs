@@ -42,6 +42,14 @@ namespace XfsConsoleClient
                     Console.WriteLine(XfsTimerTool.CurrentTime() + " 42 XfsNodeController: " + TenCode.Code0003);
 
                     break;
+                case (TenCode.Code0004):
+                    string va4 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
+
+
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + "41 XfsNodeController: " + tenCode + " : " + va4);
+
+
+                    break;
                 case (TenCode.End):
                     break;
                 default:

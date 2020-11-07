@@ -77,13 +77,36 @@ namespace XfsNodeServer
                 case (TenCode.Code0003):
                     string va3 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsHandlers: " + tenCode+""+va3);
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsHandlers: " + tenCode + "" + va3);
 
                     XfsTcpServer server3 = null;
                     XfsSockets.XfsTcpServers.TryGetValue(NodeType.Node, out server3);
                     if (server3 != null)
                     {
                         (server3 as XfsTcpServerNodeNet).Send(parameter);
+                    }
+
+                    break;
+                case (TenCode.Code0004):
+                    string va4 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
+
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " Node，已收到客户端信息: " + va4);
+
+                    string res4 = "服务器回复信息：已收到请求-20201106";
+                    XfsParameter request4 = XfsParameterTool.ToParameter(TenCode.Code0004, ElevenCode.Code0004, ElevenCode.Code0004.ToString(), res4);
+                    if (parameter.Back)
+                    {
+                        request4.Back = true;
+                        request4.RpcId = parameter.RpcId;
+                    }
+                    request4.Keys = parameter.Keys;
+                    request4.PeerIds = parameter.PeerIds;
+
+                    XfsTcpServer server4 = null;
+                    XfsSockets.XfsTcpServers.TryGetValue(NodeType.Node, out server4);
+                    if (server4 != null)
+                    {
+                        (server4 as XfsTcpServerNodeNet).Send(request4);
                     }
 
                     break;

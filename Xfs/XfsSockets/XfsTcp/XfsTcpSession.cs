@@ -172,7 +172,6 @@ namespace Xfs
                     {
                         client.Recv(parameter);
                     }
-                    //XfsSockets.GetTcpClient(this.NodeType).Recv(parameter);
                     Console.WriteLine(XfsTimerTool.CurrentTime() + " 157 XfsTcpSession is Client");
                 }
             }
