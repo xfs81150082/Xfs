@@ -46,23 +46,10 @@ namespace Xfs
             ///将MvcParameter参数分别列队并处理
             if (request.Back)
             {
-
-
-            }
-               
+            }               
             request.Keys.Add(this.EcsId);
-
             this.Recv(request);
-
-            //XfsTcpServer server = null;
-            //XfsSockets.XfsTcpServers.TryGetValue(this.NodeType, out server);
-            //if (server != null)
-            //{
-            //    server.Recv(request);
-            //}
-
         }
-
         #region ///接收参数信息
         public void Recv(XfsParameter parameter)
         {
@@ -95,8 +82,7 @@ namespace Xfs
                 Console.WriteLine(XfsTimerTool.CurrentTime() + ex.Message);
             }
         }
-        #endregion       
-
+        #endregion
         #region ///发送参数信息
         public void Send(XfsParameter mvc)
         {
@@ -145,7 +131,6 @@ namespace Xfs
             }
         }
         #endregion
-
         public override void XfsDispose()
         {
             XfsTcpServer server = null;

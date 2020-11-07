@@ -33,7 +33,6 @@ namespace Xfs
                 ///开始一个异步操作以接受传入的一个连接尝试
                 this.NetSocket.BeginAccept(new AsyncCallback(this.AcceptCallback), this.NetSocket);
             }
-            //Console.WriteLine("54 {0} 服务启动，监听{1}成功", XfsTimerTool.CurrentTime(), this.NetSocket.LocalEndPoint);
         }
         private void AcceptCallback(IAsyncResult ar)
         {
@@ -58,87 +57,7 @@ namespace Xfs
                 new XfsPeer(this.NodeType).BeginReceiveMessage(socket);
             }
         }
-        #endregion
-
-        //#region ///接收参数信息
-        //public void Recv(XfsParameter parameter)
-        //{
-        //        this.RecvParameters.Enqueue(parameter);
-        //        this.OnrRecvParameters();
-        //}
-        //void OnrRecvParameters()
-        //{
-        //    try
-        //    {
-        //        while (this.RecvParameters.Count > 0)
-        //        {
-        //            XfsParameter parameter = this.RecvParameters.Dequeue();
-        //            XfsHandler handler = null;
-        //            XfsSockets.XfsHandlers.TryGetValue(this.NodeType, out handler);
-        //            if (handler != null)
-        //            {
-        //                handler.Recv(this, parameter);
-        //                Console.WriteLine(XfsTimerTool.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
-        //            }
-        //            else
-        //            {
-        //                Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsHandler is null.");
-        //                break;
-        //            }                
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(XfsTimerTool.CurrentTime() + ex.Message);
-        //    }
-        //}
-        //#endregion       
-
-        //#region ///发送参数信息
-        //public void Send(XfsParameter mvc)
-        //{
-        //    this.SendParameters.Enqueue(mvc);
-        //    OnSendMvcParameters();
-        //}
-        /////处理发送参数信息
-        //void OnSendMvcParameters()
-        //{
-        //    try
-        //    {
-        //        while (this.SendParameters.Count > 0)
-        //        {
-        //            XfsParameter response = SendParameters.Dequeue();
-
-        //            //Console.WriteLine(XfsTimerTool.CurrentTime() + " OnSendMvcParameters，Keys: " + response.Keys[0]);
-        //            //Console.WriteLine(XfsTimerTool.CurrentTime() + " OnSendMvcParameters，TPeers: " + this.TPeers.ToList()[0]);
-
-
-        //            while (response.Keys.Count > 0)
-        //            {
-        //                XfsPeer tpeer;
-        //                this.TPeers.TryGetValue(response.Keys[0], out tpeer);
-        //                ///用Json将参数（MvcParameter）,序列化转换成字符串（string）
-        //                string mvcJsons = XfsJson.ToString<XfsParameter>(response);
-        //                if (tpeer != null)
-        //                {
-        //                    tpeer.SendString(mvcJsons);
-        //                }
-        //                else
-        //                {
-        //                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 没找TPeer，用Key: " + response.Keys[0]);
-        //                    break;
-        //                }
-        //                response.Keys.Remove(response.Keys[0]);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(XfsTimerTool.CurrentTime() + " OnSendMvcParameters143: " + ex.Message);
-        //    }
-        //}
-        //#endregion
-        
+        #endregion        
         
     }
 }

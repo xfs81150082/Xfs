@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-//using UnityEngine;
 
 namespace Xfs
 {
@@ -34,18 +33,8 @@ namespace Xfs
                 this.GetComponent<XfsCoolDown>().CdCount = 0;
                 return;
             }
-
             this.Recv(parameter);
-
-            //XfsTcpClient client = null;
-            //XfsSockets.XfsTcpClients.TryGetValue(this.NodeType, out client);
-            //if (client != null)
-            //{
-            //    client.Recv(parameter);
-            //}
-          
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " 157 XfsTcpSession is Client");
-       
+            //Console.WriteLine(XfsTimerTool.CurrentTime() + " 157 XfsTcpSession is Client");       
         }
         #region ///接收参数信息
         public void Recv(XfsParameter response)
@@ -90,8 +79,6 @@ namespace Xfs
             }
         }
         #endregion
-
-
         #region ///发送参数信息,需要回复，Call
         private static int RpcId { get; set; }
         private readonly Dictionary<int, Action<XfsParameter>> requestCallback = new Dictionary<int, Action<XfsParameter>>();
@@ -118,7 +105,6 @@ namespace Xfs
         }
 
         #endregion
-
         #region ///发送参数信息
         public void Send(XfsParameter mvc)
         {
@@ -158,9 +144,6 @@ namespace Xfs
             }
         }
         #endregion
-
-
-
         public override void XfsDispose()
         {
             XfsTcpClient client = null;

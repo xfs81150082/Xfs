@@ -48,7 +48,7 @@ namespace XfsConsoleClient
 
                 XfsTcpClient client = null;
                 XfsSockets.XfsTcpClients.TryGetValue(NodeType.Node, out client);
-                if (client != null)
+                if (client != null && client.TClient != null)
                 {
                     //(client as XfsTcpClientNodeNet).Send(parameter);
                     Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTestSystem-54,开始打电话给服务器。 ");
