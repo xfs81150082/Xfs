@@ -18,8 +18,8 @@ namespace Xfs
         public NodeType NodeType { get; set; } = NodeType.Node;
         public override void XfsAwake()
         {
-            AddComponent(new XfsSession());
-            AddComponent(new XfsCoolDown(this.EcsId));
+            //AddComponent(new XfsSession());
+            //AddComponent(new XfsCoolDown(this.EcsId));
         }
         public XfsTcpSession() { }
         #endregion
@@ -126,7 +126,7 @@ namespace Xfs
                         Console.WriteLine(XfsTimerTool.CurrentTime() + " Recv {0} Bytes. ThreadId:{1}", BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
                         XfsParameter parameter = XfsJson.ToObject<XfsParameter>(mvcString);
                         ///这个方法用来处理参数Mvc，并让结果给客户端响应（当客户端发起请求时调用）
-                        OnTransferParameter(this, parameter);
+                        this.OnTransferParameter(this, parameter);
                     }
                 }
             }
@@ -136,46 +136,46 @@ namespace Xfs
                 Dispose();
             }
         }
-        public override void OnTransferParameter(object obj, XfsParameter parameter)
-        {
-            ///将字符串string,用json反序列化转换成MvcParameter参数
-            if (parameter.TenCode == TenCode.Zero)
-            {
-                this.GetComponent<XfsCoolDown>().CdCount = 0;
-            }
-            else
-            {
-                ///将MvcParameter参数分别列队并处理
-                if (IsServer)
-                {
-                    parameter.Keys.Clear();
-                    parameter.Keys.Add(this.EcsId);
-                    if (parameter.Back)
-                    {                       
-                        parameter.PeerIds.Add(this.NodeType, this.EcsId);
+        //public override void OnTransferParameter(object obj, XfsParameter parameter)
+        //{
+        //    ///将字符串string,用json反序列化转换成MvcParameter参数
+        //    if (parameter.TenCode == TenCode.Zero)
+        //    {
+        //        this.GetComponent<XfsCoolDown>().CdCount = 0;
+        //    }
+        //    else
+        //    {
+        //        ///将MvcParameter参数分别列队并处理
+        //        if (IsServer)
+        //        {
+        //            //parameter.Keys.Clear();
+        //            parameter.Keys.Add(this.EcsId);
+        //            if (parameter.Back)
+        //            {                       
+        //                parameter.PeerIds.Add(this.NodeType, this.EcsId);
 
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " parameter.PeerIds.count: " + parameter.PeerIds.Count);
-                    }
+        //                Console.WriteLine(XfsTimerTool.CurrentTime() + " parameter.PeerIds.count: " + parameter.PeerIds.Count);
+        //            }
 
-                    XfsTcpServer server = null;
-                    XfsSockets.XfsTcpServers.TryGetValue(this.NodeType, out server);
-                    if (server != null)
-                    {
-                        server.Recv(parameter);
-                    }
-                }
-                else
-                {
-                    XfsTcpClient client = null;
-                    XfsSockets.XfsTcpClients.TryGetValue(this.NodeType, out client);
-                    if (client != null)
-                    {
-                        client.Recv(parameter);
-                    }
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 157 XfsTcpSession is Client");
-                }
-            }
-        }
+        //            XfsTcpServer server = null;
+        //            XfsSockets.XfsTcpServers.TryGetValue(this.NodeType, out server);
+        //            if (server != null)
+        //            {
+        //                server.Recv(parameter);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            XfsTcpClient client = null;
+        //            XfsSockets.XfsTcpClients.TryGetValue(this.NodeType, out client);
+        //            if (client != null)
+        //            {
+        //                client.Recv(parameter);
+        //            }
+        //            Console.WriteLine(XfsTimerTool.CurrentTime() + " 157 XfsTcpSession is Client");
+        //        }
+        //    }
+        //}
         #endregion
         #region AddRange        
         void CutTo(List<byte> BuffList, byte[] bytes, int bytesoffset, int size)

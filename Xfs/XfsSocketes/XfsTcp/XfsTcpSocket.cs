@@ -32,8 +32,6 @@ namespace Xfs
         }
         #endregion
 
-        //public abstract Queue<XfsParameter> RecvParameter();
-        //public abstract Queue<XfsParameter> SendParameter();
     }
 
     public enum NodeType

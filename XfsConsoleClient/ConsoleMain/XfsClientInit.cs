@@ -45,7 +45,8 @@ namespace XfsConsoleClient
             ///服务器加载组件驱动程序
             //XfsGame.XfsSystemMananger.AddComponent(new XfsTcpClientDbNetSystem());        ///服务器加载组件 : 套接字 外网 传输数据组件
             XfsGame.XfsSystemMananger.AddComponent(new XfsTcpClientNodeNetSystem());        ///服务器加载组件 : 套接字 外网 传输数据组件
-            XfsGame.XfsSystemMananger.AddComponent(new XfsTcpSessionSystem());              ///服务器加载组件 : 心跳包 组件
+            XfsGame.XfsSystemMananger.AddComponent(new XfsClientSystem());            ///服务器加载组件 : 心跳包 组件
+            //XfsGame.XfsSystemMananger.AddComponent(new XfsTcpSessionSystem());              ///服务器加载组件 : 心跳包 组件
 
             XfsGame.XfsSystemMananger.AddComponent(new XfsTestSystem());                    ///服务器加载组件 : 套接字 外网 传输数据组件
 

@@ -24,12 +24,14 @@ namespace XfsConsoleClient
             }
         }
 
-
         private void UpdateTest(XfsEntity entity)
         {
             ////NodtTest(entity);
-
+            ///Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTestSystem-32,开始打电话给服务器。 ");
+           
             TestCall(entity);
+            
+            ///Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTestSystem-34,打电话方法的后面一行。 ");
         }
         async void TestCall(XfsEntity entity)
         {
@@ -49,11 +51,13 @@ namespace XfsConsoleClient
                 if (client != null)
                 {
                     //(client as XfsTcpClientNodeNet).Send(parameter);
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTestSystem-54,开始打电话给服务器。 ");
 
-                    XfsParameter response = await (client as XfsTcpClientNodeNet).Call(parameter);
+                    //XfsParameter response = await (client as XfsTcpClientNodeNet).Call(parameter);
+                    XfsParameter response = await client.Call(parameter);
                     string res = XfsParameterTool.GetValue<string>(response, response.ElevenCode.ToString());
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 58: " + res);
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTestSystem-59: " + res);
 
                 }
 

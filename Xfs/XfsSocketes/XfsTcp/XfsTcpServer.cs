@@ -63,7 +63,7 @@ namespace Xfs
         #endregion
 
         #region ///接收参数信息
-        public void Recv (XfsParameter parameter)
+        public void Recv(XfsParameter parameter)
         {
                 this.RecvParameters.Enqueue(parameter);
                 this.OnrRecvParameters();
@@ -99,14 +99,7 @@ namespace Xfs
         #region ///发送参数信息
         public void Send(XfsParameter mvc)
         {
-            if (mvc.Back)
-            {
-                string bp = null;
-                mvc.PeerIds.TryGetValue(this.NodeType, out bp);
-                mvc.Keys.Clear();
-                mvc.Keys.Add(bp);
-            }
-            SendParameters.Enqueue(mvc);
+            this.SendParameters.Enqueue(mvc);
             OnSendMvcParameters();
         }
         ///处理发送参数信息
@@ -114,33 +107,36 @@ namespace Xfs
         {
             try
             {
-                while (SendParameters.Count > 0)
+                while (this.SendParameters.Count > 0)
                 {
-                    XfsParameter mvc = SendParameters.Dequeue();
-                  
+                    XfsParameter response = SendParameters.Dequeue();
 
-                    while (mvc.Keys.Count > 0)
+                    //Console.WriteLine(XfsTimerTool.CurrentTime() + " OnSendMvcParameters，Keys: " + response.Keys[0]);
+                    //Console.WriteLine(XfsTimerTool.CurrentTime() + " OnSendMvcParameters，TPeers: " + this.TPeers.ToList()[0]);
+
+
+                    while (response.Keys.Count > 0)
                     {
                         XfsTcpSession tpeer;
-                        this.TPeers.TryGetValue(mvc.Keys[0], out tpeer);
+                        this.TPeers.TryGetValue(response.Keys[0], out tpeer);
                         ///用Json将参数（MvcParameter）,序列化转换成字符串（string）
-                        string mvcJsons = XfsJson.ToString<XfsParameter>(mvc);
+                        string mvcJsons = XfsJson.ToString<XfsParameter>(response);
                         if (tpeer != null)
                         {
                             tpeer.SendString(mvcJsons);
                         }
                         else
                         {
-                            Console.WriteLine(XfsTimerTool.CurrentTime() + " 没找TPeer，用Key: " + mvc.Keys[0]);
+                            Console.WriteLine(XfsTimerTool.CurrentTime() + " 没找TPeer，用Key: " + response.Keys[0]);
                             break;
                         }
-                        mvc.Keys.Remove(mvc.Keys[0]);
+                        response.Keys.Remove(response.Keys[0]);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " OnSendMvcParameters: " + ex.Message);
+                Console.WriteLine(XfsTimerTool.CurrentTime() + " OnSendMvcParameters143: " + ex.Message);
             }
         }
         #endregion

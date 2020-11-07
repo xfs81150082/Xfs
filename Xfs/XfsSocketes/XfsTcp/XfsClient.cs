@@ -5,12 +5,39 @@ namespace Xfs
 {
     public class XfsClient : XfsTcpSession
     {
+        public XfsClient()
+        {
+            AddComponent(new XfsClientSession());
+            AddComponent(new XfsCoolDown(this.EcsId));
+            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.NodeType + ":" + this.IsServer);
+        }
         public XfsClient(NodeType nodeType)
         {
             this.IsServer = false;
             this.NodeType = nodeType;
+            AddComponent(new XfsClientSession());
+            AddComponent(new XfsCoolDown(this.EcsId));
 
             Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsClient:" + this.NodeType + ":" + this.IsServer);
+        }
+        public override void OnTransferParameter(object obj, XfsParameter parameter)
+        {
+            ///将字符串string,用json反序列化转换成MvcParameter参数
+            if (parameter.TenCode == TenCode.Zero)
+            {
+                this.GetComponent<XfsCoolDown>().CdCount = 0;
+                return;
+            }
+
+            XfsTcpClient client = null;
+            XfsSockets.XfsTcpClients.TryGetValue(this.NodeType, out client);
+            if (client != null)
+            {
+                client.Recv(parameter);
+            }
+          
+            Console.WriteLine(XfsTimerTool.CurrentTime() + " 157 XfsTcpSession is Client");
+       
         }
         public override void OnConnect()
         {

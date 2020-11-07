@@ -40,7 +40,9 @@ namespace XfsNodeServer
             //XfsGame.XfsSystemMananger.AddComponent(new XfsMysqlSystem());               ///服务器加载组件 : 数据库链接组件TmSystem类型
             XfsGame.XfsSystemMananger.AddComponent(new XfsTcpClientDbNetSystem());        ///服务器加载组件 : 套接字 外网 传输数据组件
             XfsGame.XfsSystemMananger.AddComponent(new XfsTcpServerNodeNetSystem());      ///服务器加载组件 : 套接字 外网 传输数据组件
-            XfsGame.XfsSystemMananger.AddComponent(new XfsTcpSessionSystem());            ///服务器加载组件 : 心跳包 组件
+            XfsGame.XfsSystemMananger.AddComponent(new XfsClientSystem());            ///服务器加载组件 : 心跳包 组件
+            XfsGame.XfsSystemMananger.AddComponent(new XfsPeerSystem());            ///服务器加载组件 : 心跳包 组件
+            //XfsGame.XfsSystemMananger.AddComponent(new XfsTcpSessionSystem());            ///服务器加载组件 : 心跳包 组件
 
         }
 
