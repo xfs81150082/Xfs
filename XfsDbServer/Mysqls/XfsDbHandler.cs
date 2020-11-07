@@ -31,7 +31,7 @@ namespace XfsDbServer
 
                     XfsTcpServer server = null;
                     XfsSockets.XfsTcpServers.TryGetValue(NodeType.Db, out server);
-                    server.Send(repsonse);
+                    //server.Send(repsonse);
 
                     Console.WriteLine(XfsTimerTool.CurrentTime() + " 服务器" + this.NodeType + "已完成发送回的信息");
 
@@ -56,7 +56,7 @@ namespace XfsDbServer
                     XfsSockets.XfsTcpServers.TryGetValue(NodeType.Db, out server2);
                     if (server2 != null)
                     {
-                        (server2 as XfsTcpServerDbNet).Send(repsonse2);
+                        //(server2 as XfsTcpServerDbNet).Send(repsonse2);
                     }
 
                     break;

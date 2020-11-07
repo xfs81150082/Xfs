@@ -34,14 +34,17 @@ namespace Xfs
                 //发送心跳检测（并等待签到，签到入口在TmTcpSession里，双向发向即：客户端向服务端发送，服务端向客户端发送）
                 XfsParameter mvc = XfsParameterTool.ToParameter(TenCode.Zero, ElevenCode.Zero);
                 mvc.Keys.Add(entity.EcsId);
+                (entity as XfsClient).Send(mvc);
 
-                XfsTcpClient client = null;
-                XfsSockets.XfsTcpClients.TryGetValue((entity as XfsTcpSession).NodeType, out client);
-                if (client != null)
-                {
-                    client.Send(mvc);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " Client-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
-                }
+                Console.WriteLine(XfsTimerTool.CurrentTime() + " Client-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
+
+                //XfsTcpClient client = null;
+                //XfsSockets.XfsTcpClients.TryGetValue((entity as XfsTcpSession).NodeType, out client);
+                //if (client != null)
+                //{
+                //    client.Send(mvc);
+                //    Console.WriteLine(XfsTimerTool.CurrentTime() + " Client-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
+                //}
             }
         }
 

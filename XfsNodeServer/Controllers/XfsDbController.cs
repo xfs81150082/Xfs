@@ -40,7 +40,7 @@ namespace XfsNodeServer
                     XfsSockets.XfsTcpServers.TryGetValue(NodeType.Node, out server3);
                     if (server3 != null)
                     {
-                        (server3 as XfsTcpServerNodeNet).Send(parameter);
+                        //(server3 as XfsTcpServerNodeNet).Send(parameter);
                     }
                     break;
                 case (TenCode.End):

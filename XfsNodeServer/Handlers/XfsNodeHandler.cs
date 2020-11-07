@@ -36,7 +36,7 @@ namespace XfsNodeServer
                     XfsSockets.XfsTcpServers.TryGetValue(NodeType.Node, out server);
                     if (server != null)
                     {
-                        (server as XfsTcpServerNodeNet).Send(repsonse);
+                        //(server as XfsTcpServerNodeNet).Send(repsonse);
                     }
 
                     Console.WriteLine(XfsTimerTool.CurrentTime() + " 服务器" + this.NodeType + "已完成发送回的信息");
@@ -49,7 +49,7 @@ namespace XfsNodeServer
 
                     XfsTcpClient clientDb = null;
                     XfsSockets.XfsTcpClients.TryGetValue(NodeType.Db, out clientDb);
-                    (clientDb as XfsTcpClientDbNet).Send(requst);
+                    //(clientDb as XfsTcpClientDbNet).Send(requst);
 
 
                     //XfsGame.XfsSence.GetComponent<XfsTcpServerNodeNet>().Send(repsonse, NodeType.Node);
@@ -71,7 +71,7 @@ namespace XfsNodeServer
                     XfsSockets.XfsTcpClients.TryGetValue(NodeType.Db, out client2);
                     if (client2 != null)
                     {
-                        (client2 as XfsTcpClientDbNet).Send(request2);
+                        //(client2 as XfsTcpClientDbNet).Send(request2);
                     }                   
 
                     break;
@@ -84,7 +84,7 @@ namespace XfsNodeServer
                     XfsSockets.XfsTcpServers.TryGetValue(NodeType.Node, out server3);
                     if (server3 != null)
                     {
-                        (server3 as XfsTcpServerNodeNet).Send(request);
+                        //(server3 as XfsTcpServerNodeNet).Send(request);
                     }
 
                     break;
@@ -114,7 +114,14 @@ namespace XfsNodeServer
                     if (server4 != null)
                     {
                         //(server4 as XfsTcpServerNodeNet).Send(request4);
-                        server4.Send(response4);
+                        //server4.Send(response4);
+
+                        XfsPeer peer = null;
+                        server4.TPeers.TryGetValue(response4.Keys[0], out peer);
+                        if (peer != null)
+                        {
+                            peer.Send(response4);
+                        }
                     }
 
                     break;
