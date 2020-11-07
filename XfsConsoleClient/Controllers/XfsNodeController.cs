@@ -37,8 +37,9 @@ namespace XfsConsoleClient
                 case (TenCode.Code0003):
                     string va3 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
 
-
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 40 XfsNodeController: " + TenCode.Code0003);
                     Console.WriteLine(XfsTimerTool.CurrentTime() + "41 XfsNodeController: " + tenCode + " : " + va3);
+                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 42 XfsNodeController: " + TenCode.Code0003);
 
                     break;
                 case (TenCode.End):

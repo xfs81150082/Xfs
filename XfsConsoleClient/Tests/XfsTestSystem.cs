@@ -52,7 +52,8 @@ namespace XfsConsoleClient
                     (client as XfsTcpClientNodeNet).Send(parameter);
                 }
 
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " 58 XfsTestSystem: " + text.time);
+                Console.WriteLine(XfsTimerTool.CurrentTime() + " 55 XfsTestSystem: " + text.time);
+                Console.WriteLine(XfsTimerTool.CurrentTime() + " 56 XfsTestSystem: " + text.time);
             }
         }
         void NodtTest(XfsEntity entity)

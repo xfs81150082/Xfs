@@ -1,0 +1,7 @@
+G:\Xfs\XfsConsoleTest\bin\Debug\XfsConsoleTest.exe.config
+G:\Xfs\XfsConsoleTest\bin\Debug\XfsConsoleTest.exe
+G:\Xfs\XfsConsoleTest\bin\Debug\XfsConsoleTest.pdb
+G:\Xfs\XfsConsoleTest\obj\Debug\XfsConsoleTest.csprojAssemblyReference.cache
+G:\Xfs\XfsConsoleTest\obj\Debug\XfsConsoleTest.csproj.CoreCompileInputs.cache
+G:\Xfs\XfsConsoleTest\obj\Debug\XfsConsoleTest.exe
+G:\Xfs\XfsConsoleTest\obj\Debug\XfsConsoleTest.pdb
