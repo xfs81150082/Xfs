@@ -94,8 +94,24 @@
     <Compile Include="XfsBehaviorTree\XfsSelector.cs" />
     <Compile Include="XfsBehaviorTree\XfsSequence.cs" />
     <Compile Include="XfsBehaviorTree\XfsTrigger.cs" />
-    <Compile Include="XfsEntities\XfsObject.cs" />
-    <Compile Include="XfsEntities\XfsComponent.cs" />
+    <Compile Include="XfsEntities\20201108\XfsUnOrderMultiMap.cs" />
+    <Compile Include="XfsEntities\20201108\XfsEventSystem.cs" />
+    <Compile Include="XfsEntities\20201108\XfsTimeHelper.cs" />
+    <Compile Include="XfsEntities\20201108\XfsObjectPool.cs" />
+    <Compile Include="XfsEntities\20201108\XfsComponentWithId.cs" />
+    <Compile Include="XfsEntities\20201108\XfsObject.cs" />
+    <Compile Include="XfsEntities\20201108\XfsComponent.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\IXfsLoadSystem.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\IXfsLateUpdateSystem.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\IXfsDestroySystem.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\IXfsDeserializeSystem.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\IXfsChangeSystem.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\IXfsUpdateSystem.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\IXfsStartSystem.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\IXfsAwakeSystem.cs" />
+    <Compile Include="XfsEvnts\XfsEventProxy.cs" />
+    <Compile Include="XfsEvnts\XfsEntityEventAttribute.cs" />
+    <Compile Include="XfsEvnts\IXfsEvent.cs" />
     <Compile Include="XfsMainboxes\XfsMailboxComponentSystem.cs" />
     <Compile Include="XfsMainboxes\XfsMailboxComponent.cs" />
     <Compile Include="XfsModels\XfsConsoleLog.cs" />
@@ -105,9 +121,9 @@
     <Compile Include="XfsSocketes\XfsHeart\XfsClientSession.cs" />
     <Compile Include="XfsSocketes\XfsHeart\XfsPeerSession.cs" />
     <Compile Include="XfsSocketes\XfsHeart\XfsCoolDown.cs" />
-    <Compile Include="XfsEntities\XfsEntity.cs" />
-    <Compile Include="XfsEntities\XfsGame.cs" />
-    <Compile Include="XfsEntities\XfsIdGenerater.cs" />
+    <Compile Include="XfsEntities\20201108\XfsEntity.cs" />
+    <Compile Include="XfsEntities\20201108\XfsGame.cs" />
+    <Compile Include="XfsEntities\20201108\XfsIdGenerater.cs" />
     <Compile Include="XfsSocketes\XfsBase\XfsJson.cs" />
     <Compile Include="XfsSocketes\XfsBase\XfsMD5Tool.cs" />
     <Compile Include="XfsModels\TmChangeType.cs" />
@@ -124,7 +140,7 @@
     <Compile Include="XfsModels\XfsModelObjects.cs" />
     <Compile Include="XfsSocketes\XfsBase\XfsParameter.cs" />
     <Compile Include="XfsSocketes\XfsBase\XfsParameterTool.cs" />
-    <Compile Include="XfsEntities\XfsSence.cs" />
+    <Compile Include="XfsEntities\20201108\XfsSence.cs" />
     <Compile Include="XfsEntities\XfsSystem.cs" />
     <Compile Include="XfsEntities\XfsSystemMananger.cs" />
     <Compile Include="XfsEntities\XfsTimerTool.cs" />
@@ -153,8 +169,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="XfsEvnts\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

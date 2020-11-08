@@ -6,9 +6,26 @@ namespace Xfs
     {
         public long InstanceId { get; private set; }     /// 身份证号0
         public string EcsId { get; set; }                /// 身份证号
-        public XfsEntity Parent { get; set; }
+        public XfsComponent Parent { get; set; }
+
+        public T GetParent<T>() where T : Component
+        {
+            return this.Parent as T;
+        }
+        public XfsEntity Entity
+        {
+            get
+            {
+                return this.Parent as XfsEntity;
+            }
+        }
+
+
+
         public XfsComponent()
         {
+            this.InstanceId = XfsIdGenerater.GenerateInstanceId();
+
             this.EcsId = XfsIdGenerater.GetId();
             XfsComponent component;
             XfsObjects.Components.TryGetValue(EcsId, out component);
@@ -40,10 +57,10 @@ namespace Xfs
                     if (Parent != null)
                     {
                         XfsComponent tm;
-                        Parent.Components.TryGetValue(this.GetType().Name, out tm);
+                        (Parent as XfsEntity).Components.TryGetValue(this.GetType().Name, out tm);
                         if (tm != null)
                         {
-                            Parent.Components.Remove(this.GetType().Name);
+                            (Parent as XfsEntity).Components.Remove(this.GetType().Name);
                         }
                         Parent = null;
                     }
@@ -67,10 +84,34 @@ namespace Xfs
             //Game.EventSystem.Deserialize(this);
         }
 
-        //public override string ToString()
-        //{
-        //    //return MongoHelper.ToJson(this);
-        //}
+        public override string ToString()
+        {
+            return XfsJson.ToString(this);
+        }
+
+        private bool isFromPool;
+        public bool IsFromPool
+        {
+            get
+            {
+                return this.isFromPool;
+            }
+            set
+            {
+                this.isFromPool = value;
+
+                if (!this.isFromPool)
+                {
+                    return;
+                }
+                if (this.InstanceId == 0)
+                {
+                    this.InstanceId = XfsIdGenerater.GenerateInstanceId();
+                }
+            }
+        }
+
+
 
     }
 }

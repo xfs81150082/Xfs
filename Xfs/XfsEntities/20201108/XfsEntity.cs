@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 namespace Xfs
 {
-    public abstract class XfsEntity : XfsComponent
+    public abstract class XfsEntity : XfsComponentWithId
     {
+        private HashSet<XfsComponent> components = new HashSet<XfsComponent>();
+        private Dictionary<Type, XfsComponent> componentDict = new Dictionary<Type, XfsComponent>();
+
         public Dictionary<string, XfsComponent> Components { get; set; } = new Dictionary<string, XfsComponent>();
         public XfsEntity()
         {
             XfsObjects.Entities.Add(this);
+        }
+        protected XfsEntity(long id) : base(id)
+        {
         }
         public T GetComponent<T>() where T : class
         {

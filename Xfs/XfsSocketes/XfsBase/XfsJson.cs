@@ -15,5 +15,11 @@ namespace Xfs
             string jsonData = JsonConvert.SerializeObject(value);
             return jsonData;
         }
+        public static string ToJson<T>(T value)
+        {
+            //Json.NET序列化
+            string jsonData = JsonConvert.SerializeObject(value);
+            return jsonData;
+        }
     }
 }

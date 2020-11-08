@@ -37,12 +37,12 @@ namespace XfsGateSever
             XfsGame.XfsSence.AddComponent(new XfsTcpServerGateNet("127.0.0.1", 2001, 10));           ///服务器加载组件 : 通信组件Server
 
             ///服务器加载组件驱动程序
-            XfsGame.XfsSystemMananger.AddComponent(new XfsClientSystem());                ///服务器加载组件 : 心跳包 组件
-            XfsGame.XfsSystemMananger.AddComponent(new XfsPeerSystem());                  ///服务器加载组件 : 心跳包 组件
-            //XfsGame.XfsSystemMananger.AddComponent(new XfsMysqlSystem());               ///服务器加载组件 : 数据库链接组件TmSystem类型
-            //XfsGame.XfsSystemMananger.AddComponent(new XfsTcpClientDbNetSystem());      ///服务器加载组件 : 套接字 外网 传输数据组件
-            XfsGame.XfsSystemMananger.AddComponent(new XfsTcpServerGateNetSystem());      ///服务器加载组件 : 套接字 外网 传输数据组件
-            //XfsGame.XfsSystemMananger.AddComponent(new XfsTcpSessionSystem());            ///服务器加载组件 : 心跳包 组件
+            XfsGame.XfsSence.AddComponent(new XfsClientSystem());                ///服务器加载组件 : 心跳包 组件
+            XfsGame.XfsSence.AddComponent(new XfsPeerSystem());                  ///服务器加载组件 : 心跳包 组件
+            //XfsGame.XfsSence.AddComponent(new XfsMysqlSystem());               ///服务器加载组件 : 数据库链接组件TmSystem类型
+            //XfsGame.XfsSence.AddComponent(new XfsTcpClientDbNetSystem());      ///服务器加载组件 : 套接字 外网 传输数据组件
+            XfsGame.XfsSence.AddComponent(new XfsTcpServerGateNetSystem());      ///服务器加载组件 : 套接字 外网 传输数据组件
+            //XfsGame.XfsSence.AddComponent(new XfsTcpSessionSystem());            ///服务器加载组件 : 心跳包 组件
 
         }
 

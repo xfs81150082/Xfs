@@ -1,9 +1,13 @@
 ﻿namespace Xfs
 {
-    public class XfsSence : XfsEntity
+    public sealed class XfsSence : XfsEntity
     {
         public XfsSenceType Type { get; set; }
         public XfsSence() { }
+        public string Name { get; set; }
+        public XfsSence(long id) : base(id)
+        {
+        }
         public XfsSence(XfsSenceType type)
         {
             this.Type = type;           
