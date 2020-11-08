@@ -94,6 +94,7 @@
     <Compile Include="XfsBehaviorTree\XfsSelector.cs" />
     <Compile Include="XfsBehaviorTree\XfsSequence.cs" />
     <Compile Include="XfsBehaviorTree\XfsTrigger.cs" />
+    <Compile Include="XfsEntities\XfsObject.cs" />
     <Compile Include="XfsEntities\XfsComponent.cs" />
     <Compile Include="XfsMainboxes\XfsMailboxComponentSystem.cs" />
     <Compile Include="XfsMainboxes\XfsMailboxComponent.cs" />

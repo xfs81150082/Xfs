@@ -2,7 +2,7 @@
 using System.ComponentModel;
 namespace Xfs
 {
-    public abstract class XfsComponent : IDisposable, ISupportInitialize
+    public abstract class XfsComponent : XfsObject, IDisposable
     {
         public string EcsId { get; set; }           /// 身份证号
         public XfsEntity Parent { get; set; }
