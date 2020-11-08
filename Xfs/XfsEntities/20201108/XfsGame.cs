@@ -24,23 +24,6 @@
 			}
 		}
 
-		//public static XfsSence XfsSence { get; set; } = new XfsSence();
-		//public static XfsSystemMananger XfsSystemMananger { get; set; } = new XfsSystemMananger();
-
-		//private static XfsSystemMananger xfsSystemMananger;
-		//public static XfsSystemMananger XfsSystemMananger
-		//{
-		//	get
-		//	{
-		//		if (xfsSystemMananger != null)
-		//		{
-		//			return xfsSystemMananger;
-		//		}
-		//		xfsSystemMananger = new XfsSystemMananger();
-		//		return xfsSystemMananger;
-		//	}
-		//}
-
 		private static XfsObjectPool objectPool;
 		public static XfsObjectPool ObjectPool
 		{
