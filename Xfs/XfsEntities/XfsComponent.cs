@@ -2,9 +2,10 @@
 using System.ComponentModel;
 namespace Xfs
 {
-    public abstract class XfsComponent : IDisposable, ISupportInitialize
+    public abstract class XfsComponent : XfsObject, IDisposable
     {
-        public string EcsId { get; set; }           /// 身份证号
+        public long InstanceId { get; private set; }     /// 身份证号0
+        public string EcsId { get; set; }                /// 身份证号
         public XfsEntity Parent { get; set; }
         public XfsComponent()
         {
@@ -20,9 +21,7 @@ namespace Xfs
             XfsAwake();
             EndInit();
         }
-        public virtual void BeginInit() { }
         public virtual void XfsAwake() { }
-        public virtual void EndInit() { }
         public virtual void OnTransferParameter(object sender, XfsParameter parameter) { }
         #region Dispose
         ///是否已释放了资源，true时方法都不可用了。
@@ -62,6 +61,16 @@ namespace Xfs
         /// 2. 为派生类提供了根据Dispose()或终结器的需要进行资源清理的必要入口。
         public virtual void XfsDispose() { }
         #endregion
+
+        public override void EndInit()
+        {
+            //Game.EventSystem.Deserialize(this);
+        }
+
+        //public override string ToString()
+        //{
+        //    //return MongoHelper.ToJson(this);
+        //}
 
     }
 }
