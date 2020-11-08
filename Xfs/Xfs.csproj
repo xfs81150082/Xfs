@@ -95,7 +95,10 @@
     <Compile Include="XfsBehaviorTree\XfsSequence.cs" />
     <Compile Include="XfsBehaviorTree\XfsTrigger.cs" />
     <Compile Include="XfsEntities\20201108\XfsUnOrderMultiMap.cs" />
-    <Compile Include="XfsEntities\20201108\XfsEventSystem.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\XfsObjectHelper.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\XfsEventAttribute.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\XfsObjectSystemAttribute.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\XfsEventSystem.cs" />
     <Compile Include="XfsEntities\20201108\XfsTimeHelper.cs" />
     <Compile Include="XfsEntities\20201108\XfsObjectPool.cs" />
     <Compile Include="XfsEntities\20201108\XfsComponentWithId.cs" />
@@ -111,7 +114,7 @@
     <Compile Include="XfsEntities\XfsSystemes\IXfsAwakeSystem.cs" />
     <Compile Include="XfsEvnts\XfsEventProxy.cs" />
     <Compile Include="XfsEvnts\XfsEntityEventAttribute.cs" />
-    <Compile Include="XfsEvnts\IXfsEvent.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\IXfsEvent.cs" />
     <Compile Include="XfsMainboxes\XfsMailboxComponentSystem.cs" />
     <Compile Include="XfsMainboxes\XfsMailboxComponent.cs" />
     <Compile Include="XfsModels\XfsConsoleLog.cs" />
