@@ -95,11 +95,12 @@
     <Compile Include="XfsBehaviorTree\XfsSequence.cs" />
     <Compile Include="XfsBehaviorTree\XfsTrigger.cs" />
     <Compile Include="XfsEntities\20201108\XfsUnOrderMultiMap.cs" />
-    <Compile Include="XfsEntities\XfsSystemes\XfsObjectHelper.cs" />
+    <Compile Include="XfsHelpers\RandomHelper.cs" />
+    <Compile Include="XfsHelpers\XfsObjectHelper.cs" />
     <Compile Include="XfsEntities\XfsSystemes\XfsEventAttribute.cs" />
     <Compile Include="XfsEntities\XfsSystemes\XfsObjectSystemAttribute.cs" />
     <Compile Include="XfsEntities\XfsSystemes\XfsEventSystem.cs" />
-    <Compile Include="XfsEntities\20201108\XfsTimeHelper.cs" />
+    <Compile Include="XfsHelpers\XfsTimeHelper.cs" />
     <Compile Include="XfsEntities\20201108\XfsObjectPool.cs" />
     <Compile Include="XfsEntities\20201108\XfsComponentWithId.cs" />
     <Compile Include="XfsEntities\20201108\XfsObject.cs" />
@@ -115,6 +116,12 @@
     <Compile Include="XfsEvnts\XfsEventProxy.cs" />
     <Compile Include="XfsEvnts\XfsEntityEventAttribute.cs" />
     <Compile Include="XfsEntities\XfsSystemes\IXfsEvent.cs" />
+    <Compile Include="XfsHelpers\XfsNetHelper.cs" />
+    <Compile Include="XfsHelpers\XfsEnumHelper.cs" />
+    <Compile Include="XfsHelpers\XfsFileHelper.cs" />
+    <Compile Include="XfsHelpers\XfsMethodInfoHelper.cs" />
+    <Compile Include="XfsHelpers\XfsDllHelper.cs" />
+    <Compile Include="XfsHelpers\XfsByteHelper.cs" />
     <Compile Include="XfsMainboxes\XfsMailboxComponentSystem.cs" />
     <Compile Include="XfsMainboxes\XfsMailboxComponent.cs" />
     <Compile Include="XfsModels\XfsConsoleLog.cs" />
@@ -145,7 +152,6 @@
     <Compile Include="XfsSocketes\XfsBase\XfsParameterTool.cs" />
     <Compile Include="XfsEntities\20201108\XfsSence.cs" />
     <Compile Include="XfsEntities\XfsSystem.cs" />
-    <Compile Include="XfsEntities\XfsSystemMananger.cs" />
     <Compile Include="XfsEntities\XfsTimerTool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XfsEntities\XfsObjects.cs" />
