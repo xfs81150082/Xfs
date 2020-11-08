@@ -1,0 +1,16 @@
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\XfsGateSever.exe.config
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\XfsGateSever.exe
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\XfsGateSever.pdb
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\obj\Debug\XfsGateSever.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\obj\Debug\XfsGateSever.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\obj\Debug\XfsGateSever.exe
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\obj\Debug\XfsGateSever.pdb
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\Xfs.dll
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\MySql.Data.dll
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\Google.Protobuf.dll
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\Xfs.pdb
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\MySql.Data.xml
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\Google.Protobuf.xml
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\obj\Debug\XfsGateSever.csproj.CopyComplete

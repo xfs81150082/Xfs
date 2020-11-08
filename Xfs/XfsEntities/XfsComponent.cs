@@ -8,7 +8,7 @@ namespace Xfs
         public XfsEntity Parent { get; set; }
         public XfsComponent()
         {
-            EcsId = XfsIdGenerater.GetId();
+            this.EcsId = XfsIdGenerater.GetId();
             XfsComponent component;
             XfsObjects.Components.TryGetValue(EcsId, out component);
             if (component != null)
@@ -26,11 +26,11 @@ namespace Xfs
         public virtual void OnTransferParameter(object sender, XfsParameter parameter) { }
         #region Dispose
         ///是否已释放了资源，true时方法都不可用了。
-        private bool isDisposed { get; set; } = false;
+        public bool IsDisposed { get; private set; } = false;
         ///供程序员显式调用的Dispose方法
         public virtual void Dispose()
         {
-            if (!isDisposed)
+            if (!IsDisposed)
             {
                 XfsObjects.Components.Remove(EcsId);
                 XfsDispose();   /// 为继承类释放时使用，用抽象方法
@@ -54,7 +54,7 @@ namespace Xfs
                     Console.WriteLine(XfsTimerTool.CurrentTime() + " ex:" + ex.Message + " TmComponent释放资源异常...");
                 }
 
-                isDisposed = true;
+                this.IsDisposed = true;
             }
         }
         /// 为继承类释放时使用(Note:这儿为什么要写成虚方法呢？)

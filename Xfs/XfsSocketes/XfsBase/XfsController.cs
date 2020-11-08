@@ -9,10 +9,10 @@ namespace Xfs
 {
     public abstract class XfsController : XfsEntity
     {
-        public abstract NodeType NodeType { get; }
+        public abstract XfsSenceType SenceType { get; }
         public XfsController() 
         {
-            XfsSockets.XfsControllers.Add(this.NodeType, this);
+            XfsSockets.XfsControllers.Add(this.SenceType, this);
         }
         public abstract void Recv(object obj, XfsParameter parameter);  
     }

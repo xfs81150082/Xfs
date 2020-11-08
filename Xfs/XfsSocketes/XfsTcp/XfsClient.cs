@@ -7,18 +7,19 @@ namespace Xfs
     {
         public XfsClient()
         {
+            this.IsPeer = false;
             AddComponent(new XfsClientSession());
             AddComponent(new XfsCoolDown(this.EcsId));
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.NodeType + ":" + this.IsServer);
+            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
-        public XfsClient(NodeType nodeType)
+        public XfsClient(XfsSenceType senceType)
         {
-            this.IsServer = false;
-            this.NodeType = nodeType;
+            this.IsPeer = false;
+            this.SenceType = senceType;
             AddComponent(new XfsClientSession());
             AddComponent(new XfsCoolDown(this.EcsId));
 
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsClient:" + this.NodeType + ":" + this.IsServer);
+            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsClient:" + this.SenceType + ":" + this.IsPeer);
         }
         public override void OnConnect()
         {
@@ -60,7 +61,7 @@ namespace Xfs
                     }
 
                     XfsController controller = null;
-                    XfsSockets.XfsControllers.TryGetValue(this.NodeType, out controller);
+                    XfsSockets.XfsControllers.TryGetValue(this.SenceType, out controller);
                     if (controller != null)
                     {
                         controller.Recv(this, response);
@@ -147,7 +148,7 @@ namespace Xfs
         public override void XfsDispose()
         {
             XfsTcpClient client = null;
-            XfsSockets.XfsTcpClients.TryGetValue(this.NodeType, out client);
+            XfsSockets.XfsTcpClients.TryGetValue(this.SenceType, out client);
             if (client != null)
             {
                 base.XfsDispose();

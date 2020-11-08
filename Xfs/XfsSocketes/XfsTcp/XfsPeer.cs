@@ -6,23 +6,24 @@ namespace Xfs
     {
         public XfsPeer()
         {
+            this.IsPeer = true;
             AddComponent(new XfsPeerSession());
             AddComponent(new XfsCoolDown(this.EcsId));
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.NodeType + ":" + this.IsServer);
+            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
-        public XfsPeer(NodeType nodeType)
+        public XfsPeer(XfsSenceType senceType)
         {
-            this.IsServer = true;
-            this.NodeType = nodeType;
+            this.SenceType = senceType;
+            this.IsPeer = true;
             AddComponent(new XfsPeerSession());
             AddComponent(new XfsCoolDown(this.EcsId));
 
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.NodeType + ":" + this.IsServer);
+            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
         public override void OnConnect()
         {
             XfsTcpServer server = null;
-            XfsSockets.XfsTcpServers.TryGetValue(this.NodeType, out server);
+            XfsSockets.XfsTcpServers.TryGetValue(this.SenceType, out server);
             if (server != null)
             {
                 ///显示与客户端连接
@@ -64,7 +65,7 @@ namespace Xfs
                 {
                     XfsParameter parameter = this.RecvParameters.Dequeue();
                     XfsHandler handler = null;
-                    XfsSockets.XfsHandlers.TryGetValue(this.NodeType, out handler);
+                    XfsSockets.XfsHandlers.TryGetValue(this.SenceType, out handler);
                     if (handler != null)
                     {
                         handler.Recv(this, parameter);
@@ -134,7 +135,7 @@ namespace Xfs
         public override void XfsDispose()
         {
             XfsTcpServer server = null;
-            XfsSockets.XfsTcpServers.TryGetValue(this.NodeType, out server);
+            XfsSockets.XfsTcpServers.TryGetValue(this.SenceType, out server);
             if (server != null)
             {
                 base.XfsDispose();

@@ -9,13 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsWinFormsClient", "XfsWin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsWinFormsServer", "XfsWinFormsServer\XfsWinFormsServer.csproj", "{0D6C84E5-252F-4B87-8E99-78D5BFBFD9A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsNodeServer", "XfsNodeServer\XfsNodeServer.csproj", "{EBCEFE6F-35F5-4944-B2D8-45EB3D7341ED}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsDbServer", "XfsDbServer\XfsDbServer.csproj", "{D6B6C8E6-ED79-4C05-9764-5EE3EFE965E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsConsoleClient", "XfsConsoleClient\XfsConsoleClient.csproj", "{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsConsoleTest", "XfsConsoleTest\XfsConsoleTest.csproj", "{EE0AF489-8A9E-401D-9526-C06ED5D6D6A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsGateSever", "XfsGateSever\XfsGateSever.csproj", "{136E8F07-6A7A-453A-B5F9-4F9272C786A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,6 @@ Global
 		{0D6C84E5-252F-4B87-8E99-78D5BFBFD9A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D6C84E5-252F-4B87-8E99-78D5BFBFD9A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D6C84E5-252F-4B87-8E99-78D5BFBFD9A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EBCEFE6F-35F5-4944-B2D8-45EB3D7341ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBCEFE6F-35F5-4944-B2D8-45EB3D7341ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBCEFE6F-35F5-4944-B2D8-45EB3D7341ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBCEFE6F-35F5-4944-B2D8-45EB3D7341ED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D6B6C8E6-ED79-4C05-9764-5EE3EFE965E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D6B6C8E6-ED79-4C05-9764-5EE3EFE965E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6B6C8E6-ED79-4C05-9764-5EE3EFE965E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{EE0AF489-8A9E-401D-9526-C06ED5D6D6A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE0AF489-8A9E-401D-9526-C06ED5D6D6A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE0AF489-8A9E-401D-9526-C06ED5D6D6A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{136E8F07-6A7A-453A-B5F9-4F9272C786A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{136E8F07-6A7A-453A-B5F9-4F9272C786A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{136E8F07-6A7A-453A-B5F9-4F9272C786A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{136E8F07-6A7A-453A-B5F9-4F9272C786A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

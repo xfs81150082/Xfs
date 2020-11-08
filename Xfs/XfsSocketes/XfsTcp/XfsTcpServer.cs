@@ -8,11 +8,11 @@ namespace Xfs
 {
     public abstract class XfsTcpServer : XfsTcpSocket
     {
-        public abstract NodeType NodeType { get; }                          //服务器类型
+        public abstract XfsSenceType SenceType { get; }                          //服务器类型
         public Dictionary<string, XfsPeer> TPeers { get; set; } = new Dictionary<string, XfsPeer>();
         public XfsTcpServer()
         {
-            XfsSockets.XfsTcpServers.Add(this.NodeType, this);
+            XfsSockets.XfsTcpServers.Add(this.SenceType, this);
         }
         #region ///启动保持监听
         public void Listening()
@@ -54,7 +54,7 @@ namespace Xfs
             else
             {
                 ///创建一个TPeer接收socket
-                new XfsPeer(this.NodeType).BeginReceiveMessage(socket);
+                new XfsPeer(this.SenceType).BeginReceiveMessage(socket);
             }
         }
         #endregion        

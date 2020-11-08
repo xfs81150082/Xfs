@@ -24,7 +24,7 @@ namespace Xfs
         void CheckSession(XfsEntity entity)
         {
             XfsCoolDown cd = entity.GetComponent<XfsCoolDown>();
-            bool isServer = (entity as XfsTcpSession).IsServer;
+            bool isServer = (entity as XfsTcpSession).IsPeer;
             if (!cd.Counting)
             {
                 entity.Dispose();

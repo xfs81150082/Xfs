@@ -8,12 +8,13 @@ namespace Xfs
         public string EcsId { get; set; }
         public int RpcId { get; set; }
         public bool Back { get; set; } = false;
-        public NodeType StartNode { get; set; }
-        public NodeType GoalNode { get; set; }
+        public int StartActorId { get; set; }
+        public int GoalActorId { get; set; }
+        public short tpye { get; set; }
         public TenCode TenCode { get; set; }
         public ElevenCode ElevenCode { get; set; }
         public List<string> Keys { get; set; } = new List<string>();
-        public Dictionary<NodeType,string> PeerIds { get; set; } = new Dictionary<NodeType, string>();
+        public Dictionary<XfsSenceType, string> PeerIds { get; set; } = new Dictionary<XfsSenceType, string>();
         public Dictionary<string, object> Parameters { get; set; } = new Dictionary<string, object>();
     }
 

@@ -12,10 +12,11 @@ namespace XfsConsoleClient
         public override void XfsAwake()
         {
             ValTime = 4000;
+            //this.AddComponent(new XfsTcpClientDbNet());
         }
         public override void XfsUpdate()
         {
-            XfsGame.XfsSence.GetComponent<XfsTcpClientDbNet>().Connecting();
+            //XfsGame.XfsSence().GetComponent<XfsTcpClientDbNet>().Connecting();
         }
     }
 }

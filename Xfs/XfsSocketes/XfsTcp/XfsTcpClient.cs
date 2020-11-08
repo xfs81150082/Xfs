@@ -7,11 +7,11 @@ namespace Xfs
 {
     public abstract class XfsTcpClient : XfsTcpSocket
     {
-        public abstract NodeType NodeType { get; }                         //服务器类型
+        public abstract XfsSenceType SenceType { get; }                         //服务器类型
         public XfsClient TClient { get; set; }
         public XfsTcpClient() 
         {
-            XfsSockets.XfsTcpClients.Add(this.NodeType, this);
+            XfsSockets.XfsTcpClients.Add(this.SenceType, this);
         }
         #region ///启动保持连接  
         public void Connecting()    //连接服务器
@@ -62,7 +62,7 @@ namespace Xfs
             if (this.TClient == null)
             {
                 ///创建一个TClient接收socket       
-                this.TClient = new XfsClient(this.NodeType);
+                this.TClient = new XfsClient(this.SenceType);
             }
             this.TClient.BeginReceiveMessage(socket);
             this.IsRunning = true;

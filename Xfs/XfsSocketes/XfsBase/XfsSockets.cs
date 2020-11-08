@@ -8,10 +8,10 @@ namespace Xfs
 {
     public static class XfsSockets
     {
-        public static Dictionary<NodeType, XfsTcpClient> XfsTcpClients { get; set; } = new Dictionary<NodeType, XfsTcpClient>();
-        public static Dictionary<NodeType, XfsTcpServer> XfsTcpServers { get; set; } = new Dictionary<NodeType, XfsTcpServer>();
-        public static Dictionary<NodeType, XfsController> XfsControllers { get; set; } = new Dictionary<NodeType, XfsController>();
-        public static Dictionary<NodeType, XfsHandler> XfsHandlers { get; set; } = new Dictionary<NodeType, XfsHandler>();
+        public static Dictionary<XfsSenceType, XfsTcpClient> XfsTcpClients { get; set; } = new Dictionary<XfsSenceType, XfsTcpClient>();
+        public static Dictionary<XfsSenceType, XfsTcpServer> XfsTcpServers { get; set; } = new Dictionary<XfsSenceType, XfsTcpServer>();
+        public static Dictionary<XfsSenceType, XfsController> XfsControllers { get; set; } = new Dictionary<XfsSenceType, XfsController>();
+        public static Dictionary<XfsSenceType, XfsHandler> XfsHandlers { get; set; } = new Dictionary<XfsSenceType, XfsHandler>();
         //public static Dictionary<string, string> PeerEcids { get; set; } = new Dictionary<string, string>();
 
 

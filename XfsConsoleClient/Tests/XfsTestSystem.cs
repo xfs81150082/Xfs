@@ -47,7 +47,7 @@ namespace XfsConsoleClient
                 request.EcsId = XfsIdGenerater.GetId();
 
                 XfsTcpClient client = null;
-                XfsSockets.XfsTcpClients.TryGetValue(NodeType.Node, out client);
+                XfsSockets.XfsTcpClients.TryGetValue(XfsSenceType.Client, out client);
                 if (client != null && client.TClient != null)
                 {
                     //(client as XfsTcpClientNodeNet).Send(parameter);
@@ -81,7 +81,7 @@ namespace XfsConsoleClient
                 parameter.EcsId = XfsIdGenerater.GetId();
 
                 XfsTcpClient client = null;
-                XfsSockets.XfsTcpClients.TryGetValue(NodeType.Node, out client);
+                XfsSockets.XfsTcpClients.TryGetValue(XfsSenceType.Gate, out client);
                 if (client != null)
                 {
                     //(client as XfsTcpClientNodeNet).Send(parameter);
@@ -110,7 +110,7 @@ namespace XfsConsoleClient
                 Console.WriteLine(XfsTimerTool.CurrentTime() + " 44 XfsTestSystem: " + text.time);
 
                 XfsTcpClient client = null;
-                XfsSockets.XfsTcpClients.TryGetValue(NodeType.Db, out client);
+                XfsSockets.XfsTcpClients.TryGetValue(XfsSenceType.Db, out client);
                 if (client != null)
                 {
                     //client.Send(parameter);

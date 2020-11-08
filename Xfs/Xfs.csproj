@@ -71,6 +71,8 @@
     <Compile Include="XfsAsyncs\XfsTask.cs" />
     <Compile Include="XfsAsyncs\IXfsAwaiter.cs" />
     <Compile Include="XfsAsyncs\XfsTaskFactory.cs" />
+    <Compile Include="XfsAttributes\XfsObjectSystemAttribute.cs" />
+    <Compile Include="XfsAttributes\XfsBaseAttribute.cs" />
     <Compile Include="XfsBehaviorTree\XfsMonsterBtComponent.cs" />
     <Compile Include="XfsBehaviorTree\XfsPlayerBtComponent.cs" />
     <Compile Include="XfsBehaviorTree\XfsTestOne.cs" />
@@ -92,8 +94,9 @@
     <Compile Include="XfsBehaviorTree\XfsSelector.cs" />
     <Compile Include="XfsBehaviorTree\XfsSequence.cs" />
     <Compile Include="XfsBehaviorTree\XfsTrigger.cs" />
-    <Compile Include="XfsEntities\XfsNode.cs" />
     <Compile Include="XfsEntities\XfsComponent.cs" />
+    <Compile Include="XfsMainboxes\XfsMailboxComponentSystem.cs" />
+    <Compile Include="XfsMainboxes\XfsMailboxComponent.cs" />
     <Compile Include="XfsModels\XfsConsoleLog.cs" />
     <Compile Include="XfsMessages\IXfsMessage.cs" />
     <Compile Include="XfsSocketes\XfsBase\XfsErrorCode.cs" />
@@ -141,7 +144,6 @@
     <Compile Include="XfsSocketes\XfsTcp\XfsClient.cs" />
     <Compile Include="XfsSocketes\XfsHeart\XfsCoolDownSystem.cs" />
     <Compile Include="XfsSocketes\XfsTcp\XfsPeer.cs" />
-    <Compile Include="XfsSocketes\XfsHeart\XfsSession.cs" />
     <Compile Include="XfsSocketes\XfsTcp\XfsTcpClient.cs" />
     <Compile Include="XfsSocketes\XfsTcp\XfsTcpServer.cs" />
     <Compile Include="XfsSocketes\XfsTcp\XfsTcpSession.cs" />

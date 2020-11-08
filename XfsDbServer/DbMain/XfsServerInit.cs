@@ -28,8 +28,8 @@ namespace XfsDbServer
 
         public void Init()
         {
-            ///服务器加载组件
-            XfsGame.XfsSence.AddComponent(new XfsNode(XfsNodeType.BD));                           ///服务器加载组件 : 服务器类型组件
+            //XfsGame.XfsSence/服务器加载组件(D)
+            XfsGame.XfsSence.Type = XfsSenceType.Db;
             XfsGame.XfsSence.AddComponent(new XfsDbHandler());                                        ///服务器加载组件 : 通信组件Server
             //XfsGame.XfsSence.AddComponent(new XfsMysql("127.0.0.1", "tumoworld", "root", ""));     ///服务器加载组件 : 数据库链接组件
             XfsGame.XfsSence.AddComponent(new XfsTcpServerDbNet("127.0.0.1", 1001, 10));                                    ///服务器加载组件 : 通信组件Server

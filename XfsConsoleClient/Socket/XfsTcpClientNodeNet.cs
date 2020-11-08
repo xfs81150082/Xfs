@@ -9,14 +9,15 @@ namespace XfsConsoleClient
 {
     public class XfsTcpClientNodeNet : XfsTcpClient
     {
-        public override NodeType NodeType => NodeType.Node;       
+        public override XfsSenceType SenceType => XfsSenceType.Client;
+        public XfsTcpClientNodeNet() { }
         public XfsTcpClientNodeNet(string ipString, int port, int maxListenCount)
         {
             this.IpString = ipString;
             this.Port = port;
             this.MaxListenCount = maxListenCount;
 
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " NodeType: " + this.NodeType);
+            Console.WriteLine(XfsTimerTool.CurrentTime() + " SenceType: " + this.SenceType);
         }
     }
 }

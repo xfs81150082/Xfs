@@ -9,7 +9,7 @@ namespace XfsConsoleClient
 {
     public class XfsDbController : XfsController
     {
-        public override NodeType NodeType => NodeType.Db;
+        public override XfsSenceType SenceType => XfsSenceType.Db;
 
         public override void Recv(object obj, XfsParameter parameter)
         {

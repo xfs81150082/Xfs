@@ -8,10 +8,10 @@ namespace Xfs
 {
     public abstract class XfsHandler : XfsEntity
     {
-        public abstract NodeType NodeType { get; }
+        public abstract XfsSenceType SenceType { get; }
         public XfsHandler() 
         {
-            XfsSockets.XfsHandlers.Add(this.NodeType,this);
+            XfsSockets.XfsHandlers.Add(this.SenceType, this);
         }
         public abstract void Recv(object obj, XfsParameter parameter);
         

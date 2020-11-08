@@ -14,10 +14,11 @@ namespace Xfs
         #region Properties        
         public Socket Socket { get; set; }                ///创建一个套接字，用于储藏代理服务端套接字，与客户端通信///客户端Socket 
         public bool IsRunning { get; set; }
-        public bool IsServer { get; set; }
-        public NodeType NodeType { get; set; } = NodeType.Node;
+        public bool IsPeer { get; set; }
+        public XfsSenceType SenceType { get; set; }
         public Queue<XfsParameter> RecvParameters { get; set; } = new Queue<XfsParameter>();
         protected Queue<XfsParameter> SendParameters { get; set; } = new Queue<XfsParameter>();
+        protected Queue<XfsParameter> WaitingParameters { get; set; } = new Queue<XfsParameter>();
         public XfsTcpSession() { }
         #endregion
         #region byte[] Bytes        

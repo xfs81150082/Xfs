@@ -30,17 +30,17 @@ namespace Xfs
 
     }
 
-    public enum NodeType
-        {
-            Client,
-            Node,
-            Gate,
-            Login,
-            Db,
-            Game,
-            All,
-            None,
+    //public enum NodeType
+    //    {
+    //        Client,
+    //        Node,
+    //        Gate,
+    //        Login,
+    //        Db,
+    //        Game,
+    //        All,
+    //        None,
 
-        }
+    //    }
 
 }

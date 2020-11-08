@@ -9,7 +9,7 @@ namespace XfsConsoleClient
 {
     public class XfsNodeController : XfsController
     {
-        public override NodeType NodeType => NodeType.Node;
+        public override XfsSenceType SenceType => XfsSenceType.Gate;
         public XfsNodeController()
         {
             Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsNodeController: " + "已启用");
