@@ -11,15 +11,30 @@ using Xfs;
 
 namespace XfsGateSever
 {
-    public class XfsTcpServerGateNetSystem : XfsSystem
+    [XfsObjectSystem]
+    public class XfsTcpServerGateNetAwakeSystem : XfsAwakeSystem<XfsTcpServerGateNet>
     {
-        public override void XfsAwake()
+        public override void Awake(XfsTcpServerGateNet self)
         {
-            ValTime = 4000;
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " Awake: " + this.GetType());
+            self.Init("127.0.0.1", 2001, 10);
+
         }
-        public override void XfsUpdate()
+    }   
+
+    [XfsObjectSystem]
+    public class XfsTcpServerGateNetUpdateSystem : XfsUpdateSystem<XfsTcpServerGateNet>
+    {
+        int timer = 0;
+        public override void Update(XfsTcpServerGateNet self)
         {
-            XfsGame.XfsSence.GetComponent<XfsTcpServerGateNet>().Listening();
+            timer += 1;
+            if (timer > self.ValTime)
+            {
+                timer = 0;
+                self.Listening();
+                //XfsGame.XfsSence.GetComponent<XfsTcpServerGateNet>().Listening();
+            }
         }
 
 

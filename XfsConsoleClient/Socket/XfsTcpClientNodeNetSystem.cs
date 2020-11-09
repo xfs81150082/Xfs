@@ -10,16 +10,31 @@ using Xfs;
 
 namespace XfsConsoleClient
 {
-    public class XfsTcpClientNodeNetSystem : XfsSystem
+    [XfsObjectSystem]
+    public class XfsTcpClientNodeNetAwakeSystem : XfsAwakeSystem<XfsTcpClientNodeNet>
     {
-        public override void XfsAwake()
+        public override void Awake(XfsTcpClientNodeNet self)
         {
-            ValTime = 4000;
+            self.Init("127.0.0.1", 2001);
         }
-        public override void XfsUpdate()
-        {
-            XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().Connecting();
-        }
-      
     }
+    [XfsObjectSystem]
+    public class XfsTcpClientNodeNetUpdateSystem : XfsUpdateSystem<XfsTcpClientNodeNet>
+    {
+        int timer = 0;
+        public override void Update(XfsTcpClientNodeNet self)
+        {
+            timer += 1;
+            if (timer > self.ValTime)
+            {
+                timer = 0;
+                self.Connecting();
+            }
+        }
+
+
+    }
+
+
+
 }

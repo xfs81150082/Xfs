@@ -14,6 +14,12 @@ namespace Xfs
             XfsSockets.XfsTcpClients.Add(this.SenceType, this);
         }
         #region ///启动保持连接  
+        public void Init(string ipString, int port)
+        {
+            this.IpString = ipString;
+            this.Port = port;           
+        }
+
         public void Connecting()    //连接服务器
         {
             if (!this.IsRunning)

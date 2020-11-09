@@ -8,11 +8,20 @@ namespace Xfs
 {
     public abstract class XfsTcpServer : XfsTcpSocket
     {
+        public int MaxListenCount { get; set; } = 10;                      //服务器程序允许的最大客户端连接数  
+      
+        public Queue<Socket> WaitingSockets = new Queue<Socket>();
         public abstract XfsSenceType SenceType { get; }                          //服务器类型
         public Dictionary<long, XfsPeer> TPeers { get; set; } = new Dictionary<long, XfsPeer>();
         public XfsTcpServer()
         {
             XfsSockets.XfsTcpServers.Add(this.SenceType, this);
+        }
+        public void Init(string ipString, int port, int maxListenCount)
+        {
+            this.IpString = ipString;
+            this.Port = port;
+            this.MaxListenCount = maxListenCount;
         }
         #region ///启动保持监听
         public void Listening()

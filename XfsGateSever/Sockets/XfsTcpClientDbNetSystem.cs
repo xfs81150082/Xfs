@@ -7,15 +7,37 @@ using Xfs;
 
 namespace XfsGateSever
 {
-    public class XfsTcpClientDbNetSystem : XfsSystem
+    [XfsObjectSystem]
+    public class XfsTcpClientDbNetAwakeSystem : XfsAwakeSystem<XfsTcpClientDbNet>
     {
-        public override void XfsAwake()
+        public override void Awake(XfsTcpClientDbNet self)
         {
-            ValTime = 4000;
+            self.ValTime = 4000;
         }
-        public override void XfsUpdate()
-        {
-            XfsGame.XfsSence.GetComponent<XfsTcpClientDbNet>().Connecting();
-        }
+
+        //public override void XfsAwake()
+        //{
+        //    ValTime = 4000;
+        //}
+    
     }
+
+    [XfsObjectSystem]
+    public class XfsTcpClientDbNetUpdateSystem : XfsUpdateSystem<XfsTcpClientDbNet>
+    {
+     int timer = 0;
+        public override void Update(XfsTcpClientDbNet self)
+        {
+            timer += 1;
+            if (timer > self.ValTime)
+            {
+                XfsGame.XfsSence.GetComponent<XfsTcpClientDbNet>().Connecting();
+                timer = 0;
+            }
+        }
+
+        
+    }
+
+
 }

@@ -3,7 +3,7 @@ using System.Threading;
 using Xfs;
 namespace XfsConsoleClient
 {
-    class XfsTest : XfsEntity
+    public class XfsTest : XfsEntity
     {
         public string longin = "2020-10-18";
         public string par { get; set; }
@@ -12,7 +12,7 @@ namespace XfsConsoleClient
 
         public float time = 0;
 
-        public float restime = 300;
+        public float restime = 3000;
 
 
 

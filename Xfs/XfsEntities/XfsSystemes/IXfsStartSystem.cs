@@ -25,8 +25,4 @@ namespace Xfs
 
 		public abstract void Start(T self);
 	}
-
-
-
-
 }

@@ -10,14 +10,7 @@ namespace XfsGateSever
     public class XfsTcpClientDbNet : XfsTcpClient
     {
         public override XfsSenceType SenceType => XfsSenceType.Db;
-        public XfsTcpClientDbNet(string ipString, int port, int maxListenCount)
-        {
-            this.IpString = ipString;
-            this.Port = port;
-            this.MaxListenCount = maxListenCount;
-
-            Console.WriteLine(XfsTimeHelper.CurrentTime() + " NodeType: " + this.SenceType);
-        }
+      
 
     }
 }

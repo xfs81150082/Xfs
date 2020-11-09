@@ -11,13 +11,6 @@ namespace XfsConsoleClient
     {
         public override XfsSenceType SenceType => XfsSenceType.Client;
         public XfsTcpClientNodeNet() { }
-        public XfsTcpClientNodeNet(string ipString, int port, int maxListenCount)
-        {
-            this.IpString = ipString;
-            this.Port = port;
-            this.MaxListenCount = maxListenCount;
-
-            Console.WriteLine(XfsTimeHelper.CurrentTime() + " SenceType: " + this.SenceType);
-        }
+      
     }
 }

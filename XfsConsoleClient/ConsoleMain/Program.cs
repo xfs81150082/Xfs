@@ -10,7 +10,7 @@ namespace XfsConsoleClient
     {
         static void Main(string[] args)
         {
-            new XfsClientInit().ConsoelInit();
+            new XfsClientInit().Start();
 
         }
     }
