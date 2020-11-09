@@ -16,14 +16,14 @@ namespace Xfs
 				component = (XfsComponent)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			component.Parent = parent;
 			if (component is XfsComponentWithId componentWithId)
 			{
 				componentWithId.Id = component.InstanceId;
 			}
-			XfsGame.EventsSystem.Awake(component);
+			XfsGame.EventSystem.Awake(component);
 			return component;
 		}
 
@@ -41,14 +41,14 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			component.Parent = parent;
 			if (component is XfsComponentWithId componentWithId)
 			{
 				componentWithId.Id = component.InstanceId;
 			}
-			XfsGame.EventsSystem.Awake(component);
+			XfsGame.EventSystem.Awake(component);
 			return component;
 		}
 
@@ -66,14 +66,14 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			component.Parent = parent;
 			if (component is XfsComponentWithId componentWithId)
 			{
 				componentWithId.Id = component.InstanceId;
 			}
-			XfsGame.EventsSystem.Awake(component, a);
+			XfsGame.EventSystem.Awake(component, a);
 			return component;
 		}
 
@@ -91,14 +91,14 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			component.Parent = parent;
 			if (component is XfsComponentWithId componentWithId)
 			{
 				componentWithId.Id = component.InstanceId;
 			}
-			XfsGame.EventsSystem.Awake(component, a, b);
+			XfsGame.EventSystem.Awake(component, a, b);
 			return component;
 		}
 
@@ -116,14 +116,14 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			component.Parent = parent;
 			if (component is XfsComponentWithId componentWithId)
 			{
 				componentWithId.Id = component.InstanceId;
 			}
-			XfsGame.EventsSystem.Awake(component, a, b, c);
+			XfsGame.EventSystem.Awake(component, a, b, c);
 			return component;
 		}
 
@@ -141,13 +141,13 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			if (component is XfsComponentWithId componentWithId)
 			{
 				componentWithId.Id = component.InstanceId;
 			}
-			XfsGame.EventsSystem.Awake(component);
+			XfsGame.EventSystem.Awake(component);
 			return component;
 		}
 
@@ -165,13 +165,13 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			if (component is XfsComponentWithId componentWithId)
 			{
 				componentWithId.Id = component.InstanceId;
 			}
-			XfsGame.EventsSystem.Awake(component, a);
+			XfsGame.EventSystem.Awake(component, a);
 			return component;
 		}
 
@@ -189,13 +189,13 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			if (component is XfsComponentWithId componentWithId)
 			{
 				componentWithId.Id = component.InstanceId;
 			}
-			XfsGame.EventsSystem.Awake(component, a, b);
+			XfsGame.EventSystem.Awake(component, a, b);
 			return component;
 		}
 
@@ -213,13 +213,13 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			if (component is XfsComponentWithId componentWithId)
 			{
 				componentWithId.Id = component.InstanceId;
 			}
-			XfsGame.EventsSystem.Awake(component, a, b, c);
+			XfsGame.EventSystem.Awake(component, a, b, c);
 			return component;
 		}
 
@@ -237,10 +237,10 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			component.Id = id;
-			XfsGame.EventsSystem.Awake(component);
+			XfsGame.EventSystem.Awake(component);
 			return component;
 		}
 
@@ -258,10 +258,10 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			component.Id = id;
-			XfsGame.EventsSystem.Awake(component, a);
+			XfsGame.EventSystem.Awake(component, a);
 			return component;
 		}
 
@@ -279,10 +279,10 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			component.Id = id;
-			XfsGame.EventsSystem.Awake(component, a, b);
+			XfsGame.EventSystem.Awake(component, a, b);
 			return component;
 		}
 
@@ -300,10 +300,10 @@ namespace Xfs
 				component = (T)Activator.CreateInstance(type);
 			}
 
-			XfsGame.EventsSystem.Add(component);
+			XfsGame.EventSystem.Add(component);
 
 			component.Id = id;
-			XfsGame.EventsSystem.Awake(component, a, b, c);
+			XfsGame.EventSystem.Awake(component, a, b, c);
 			return component;
 		}
 	}

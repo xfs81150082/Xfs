@@ -27,8 +27,8 @@ namespace XfsGateSever
                 XfsDLLType dllType2 = XfsDLLType.XfsGateSever;
                 Assembly assembly1 = XfsDllHelper.GetAssembly(dllType1.ToString());
                 Assembly assembly2 = XfsDllHelper.GetAssembly(dllType2.ToString());
-                XfsGame.EventsSystem.Add(dllType1, assembly1);
-                XfsGame.EventsSystem.Add(dllType2, assembly2);
+                XfsGame.EventSystem.Add(dllType1, assembly1);
+                XfsGame.EventSystem.Add(dllType2, assembly2);
 
 
                 ///服务器加载组件
@@ -52,7 +52,7 @@ namespace XfsGateSever
                     {
                         Thread.Sleep(1);
                         //XfsOneThreadSynchronizationContext.Instance.Update();
-                        XfsGame.EventsSystem.Update();
+                        XfsGame.EventSystem.Update();
                     }
                     catch (Exception e)
                     {

@@ -114,9 +114,9 @@ namespace Xfs
             }
 
             // 触发Destroy事件
-            XfsGame.EventsSystem.Destroy(this);
+            XfsGame.EventSystem.Destroy(this);
 
-            XfsGame.EventsSystem.Remove(this.InstanceId);
+            XfsGame.EventSystem.Remove(this.InstanceId);
 
             this.InstanceId = 0;
 

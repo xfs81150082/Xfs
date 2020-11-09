@@ -2,47 +2,58 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Xfs
-{	
+{
+	public enum XfsDLLType
+	{
+		Xfs,
+		XfsConsoleClient,
+		XfsGateSever,
+		XfsChatServer,
+		XfsDbServer,
+		XfsWinFormsClient,
+		XfsWinFormsServer,
+		Editor,
+		XfsConsoleTest,
+	}
+
 	public sealed class XfsEventSystem
-    {
+	{
 		private readonly Dictionary<long, XfsComponent> allComponents = new Dictionary<long, XfsComponent>();
 
 		private readonly Dictionary<XfsDLLType, Assembly> assemblies = new Dictionary<XfsDLLType, Assembly>();
 		private readonly XfsUnOrderMultiMap<Type, Type> types = new XfsUnOrderMultiMap<Type, Type>();
 
 		private readonly Dictionary<string, List<IXfsEvent>> allEvents = new Dictionary<string, List<IXfsEvent>>();
-
+	
 		private readonly XfsUnOrderMultiMap<Type, IXfsAwakeSystem> awakeSystems = new XfsUnOrderMultiMap<Type, IXfsAwakeSystem>();
 
 		private readonly XfsUnOrderMultiMap<Type, IXfsStartSystem> startSystems = new XfsUnOrderMultiMap<Type, IXfsStartSystem>();
 
+		private readonly XfsUnOrderMultiMap<Type, IXfsUpdateSystem> updateSystems = new XfsUnOrderMultiMap<Type, IXfsUpdateSystem>();
+
+		private readonly XfsUnOrderMultiMap<Type, IXfsChangeSystem> changeSystems = new XfsUnOrderMultiMap<Type, IXfsChangeSystem>();
+	
 		private readonly XfsUnOrderMultiMap<Type, IXfsDestroySystem> destroySystems = new XfsUnOrderMultiMap<Type, IXfsDestroySystem>();
 
 		private readonly XfsUnOrderMultiMap<Type, IXfsLoadSystem> loadSystems = new XfsUnOrderMultiMap<Type, IXfsLoadSystem>();
 
-		private readonly XfsUnOrderMultiMap<Type, IXfsUpdateSystem> updateSystems = new XfsUnOrderMultiMap<Type, IXfsUpdateSystem>();
-
 		private readonly XfsUnOrderMultiMap<Type, IXfsLateUpdateSystem> lateUpdateSystems = new XfsUnOrderMultiMap<Type, IXfsLateUpdateSystem>();
 
-		private readonly XfsUnOrderMultiMap<Type, IXfsChangeSystem> changeSystems = new XfsUnOrderMultiMap<Type, IXfsChangeSystem>();
-
 		private readonly XfsUnOrderMultiMap<Type, IXfsDeserializeSystem> deserializeSystems = new XfsUnOrderMultiMap<Type, IXfsDeserializeSystem>();
-
+	
+		private readonly Queue<long> starts = new Queue<long>();
+	
 		private Queue<long> updates = new Queue<long>();
 		private Queue<long> updates2 = new Queue<long>();
-
-		private readonly Queue<long> starts = new Queue<long>();
-
-		private Queue<long> loaders = new Queue<long>();
-		private Queue<long> loaders2 = new Queue<long>();
 
 		private Queue<long> lateUpdates = new Queue<long>();
 		private Queue<long> lateUpdates2 = new Queue<long>();
 
+		private Queue<long> loaders = new Queue<long>();
+		private Queue<long> loaders2 = new Queue<long>();
+	
 		public void Add(XfsDLLType dllType, Assembly assembly)
 		{
 			this.assemblies[dllType] = assembly;
@@ -51,17 +62,15 @@ namespace Xfs
 			{
 				foreach (Type type in value.GetTypes())
 				{
-					//object[] objects = type.GetCustomAttributes(typeof(XfsBaseAttribute), false);
-
 					object[] objects = type.GetCustomAttributes(typeof(XfsBaseAttribute), true);
-
 					if (objects.Length == 0)
 					{
 						continue;
 					}
-
 					XfsBaseAttribute baseAttribute = (XfsBaseAttribute)objects[0];
 					this.types.Add(baseAttribute.AttributeType, type);
+
+					Console.WriteLine(XfsTimerTool.CurrentTime() + " types: " + this.types.Count);
 				}
 			}
 
@@ -74,43 +83,42 @@ namespace Xfs
 			this.destroySystems.Clear();
 			this.deserializeSystems.Clear();
 
-			//Console.WriteLine(XfsTimerTool.CurrentTime() + " Keys[0]: " + this.types.Keys()[0]);
-			//Console.WriteLine(XfsTimerTool.CurrentTime() + " this[t]: " + typeof(XfsObjectSystemAttribute));
+			if (types.Count == 0) return;
+			Console.WriteLine(XfsTimerTool.CurrentTime() + " this[t]: " + typeof(XfsObjectSystemAttribute));
 
-			if (types.Count < 0) return;
 			foreach (Type type in types[typeof(XfsObjectSystemAttribute)])
-            {
+			{
 				object[] attrs = type.GetCustomAttributes(typeof(XfsObjectSystemAttribute), false);
-
 				if (attrs.Length == 0)
 				{
 					continue;
 				}
-
 				object obj = Activator.CreateInstance(type);
-
 				switch (obj)
 				{
-					case IXfsAwakeSystem objectSystem:
-						this.awakeSystems.Add(objectSystem.Type(), objectSystem);
+					case IXfsAwakeSystem awakeSystem:
+						this.awakeSystems.Add(awakeSystem.Type(), awakeSystem);
+						Console.WriteLine(XfsTimerTool.CurrentTime() + " IXfsAwakeSystems: " + this.awakeSystems.Count);
+						break;
+					case IXfsStartSystem startSystem:
+						this.startSystems.Add(startSystem.Type(), startSystem);
+						Console.WriteLine(XfsTimerTool.CurrentTime() + " IXfsStartSystems: " + this.startSystems.Count);
 						break;
 					case IXfsUpdateSystem updateSystem:
 						this.updateSystems.Add(updateSystem.Type(), updateSystem);
+						Console.WriteLine(XfsTimerTool.CurrentTime() + " IXfsUpdateSystems: " + this.updateSystems.Count);
 						break;
 					case IXfsLateUpdateSystem lateUpdateSystem:
 						this.lateUpdateSystems.Add(lateUpdateSystem.Type(), lateUpdateSystem);
 						break;
-					case IXfsStartSystem startSystem:
-						this.startSystems.Add(startSystem.Type(), startSystem);
-						break;
-					case IXfsDestroySystem destroySystem:
-						this.destroySystems.Add(destroySystem.Type(), destroySystem);
+					case IXfsChangeSystem changeSystem:
+						this.changeSystems.Add(changeSystem.Type(), changeSystem);
 						break;
 					case IXfsLoadSystem loadSystem:
 						this.loadSystems.Add(loadSystem.Type(), loadSystem);
 						break;
-					case IXfsChangeSystem changeSystem:
-						this.changeSystems.Add(changeSystem.Type(), changeSystem);
+					case IXfsDestroySystem destroySystem:
+						this.destroySystems.Add(destroySystem.Type(), destroySystem);
 						break;
 					case IXfsDeserializeSystem deserializeSystem:
 						this.deserializeSystems.Add(deserializeSystem.Type(), deserializeSystem);
@@ -133,10 +141,12 @@ namespace Xfs
 						Console.WriteLine($"{obj.GetType().Name} 没有继承IEvent");
 					}
 					this.RegisterEvent(aEventAttribute.Type, iEvent);
+					Console.WriteLine(XfsTimerTool.CurrentTime() + " allEvents: " + this.allEvents.Count);
 				}
 			}
 			this.Load();
 		}
+	
 		public void RegisterEvent(string eventId, IXfsEvent e)
 		{
 			if (!this.allEvents.ContainsKey(eventId))
@@ -145,10 +155,12 @@ namespace Xfs
 			}
 			this.allEvents[eventId].Add(e);
 		}
+	
 		public Assembly Get(XfsDLLType dllType)
 		{
 			return this.assemblies[dllType];
 		}
+	
 		public List<Type> GetTypes(Type systemAttributeType)
 		{
 			if (!this.types.ContainsKey(systemAttributeType))
@@ -157,44 +169,124 @@ namespace Xfs
 			}
 			return this.types[systemAttributeType];
 		}
+	
 		public void Add(XfsComponent component)
 		{
 			this.allComponents.Add(component.InstanceId, component);
 
 			Type type = component.GetType();
 
-			if (this.loadSystems.ContainsKey(type))
+			if (this.startSystems.ContainsKey(type))
 			{
-				this.loaders.Enqueue(component.InstanceId);
+				this.starts.Enqueue(component.InstanceId);
+				Console.WriteLine(XfsTimerTool.CurrentTime() + " starts: " + this.starts.Count);
 			}
 
 			if (this.updateSystems.ContainsKey(type))
 			{
 				this.updates.Enqueue(component.InstanceId);
-			}
-
-			if (this.startSystems.ContainsKey(type))
-			{
-				this.starts.Enqueue(component.InstanceId);
+				Console.WriteLine(XfsTimerTool.CurrentTime() + " updates: " + this.updates.Count);
 			}
 
 			if (this.lateUpdateSystems.ContainsKey(type))
 			{
 				this.lateUpdates.Enqueue(component.InstanceId);
 			}
-		}
+		
+			if (this.loadSystems.ContainsKey(type))
+			{
+				this.loaders.Enqueue(component.InstanceId);
+			}
 
+		}
+	
 		public void Remove(long instanceId)
 		{
 			this.allComponents.Remove(instanceId);
-		}
-
+		}		
+	
 		public XfsComponent Get(long instanceId)
 		{
 			XfsComponent component = null;
 			this.allComponents.TryGetValue(instanceId, out component);
 			return component;
 		}
+	
+		private void Start()
+		{
+			while (this.starts.Count > 0)
+			{
+				long instanceId = this.starts.Dequeue();
+				XfsComponent component;
+				if (!this.allComponents.TryGetValue(instanceId, out component))
+				{
+					continue;
+				}
+
+				List<IXfsStartSystem> iStartSystems = this.startSystems[component.GetType()];
+				if (iStartSystems == null)
+				{
+					continue;
+				}
+
+				foreach (IXfsStartSystem iStartSystem in iStartSystems)
+				{
+					try
+					{
+						iStartSystem.Run(component);
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+					}
+				}
+			}
+		}
+	
+		public void Update()
+		{
+			this.Start();
+			//Console.WriteLine(XfsTimerTool.CurrentTime() + " : Update1.... " + this.updates.Count);
+
+			while (this.updates.Count > 0)
+			{
+				long instanceId = this.updates.Dequeue();
+				XfsComponent component;
+				if (!this.allComponents.TryGetValue(instanceId, out component))
+				{
+					continue;
+				}
+				if (component.IsDisposed)
+				{
+					continue;
+				}
+
+				List<IXfsUpdateSystem> iUpdateSystems = this.updateSystems[component.GetType()];
+
+				if (iUpdateSystems == null)
+				{
+					continue;
+				}
+
+				this.updates2.Enqueue(instanceId);
+
+				foreach (IXfsUpdateSystem iUpdateSystem in iUpdateSystems)
+				{
+					try
+					{
+						iUpdateSystem.Run(component);
+						//Console.WriteLine(XfsTimerTool.CurrentTime() + " : Update2.... " + this.updates.Count);
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+					}
+				}
+			}
+
+			XfsObjectHelper.Swap(ref this.updates, ref this.updates2);
+		}
+	
 		public void Deserialize(XfsComponent component)
 		{
 			List<IXfsDeserializeSystem> iDeserializeSystems = this.deserializeSystems[component.GetType()];
@@ -217,11 +309,10 @@ namespace Xfs
 				catch (Exception e)
 				{
 					//Log.Error(e);
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
 				}
 			}
 		}
-
+	
 		public void Awake(XfsComponent component)
 		{
 			List<IXfsAwakeSystem> iAwakeSystems = this.awakeSystems[component.GetType()];
@@ -249,12 +340,11 @@ namespace Xfs
 				}
 				catch (Exception e)
 				{
-					//Log.Error(e);
 					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
 				}
 			}
 		}
-
+	
 		public void Awake<P1>(XfsComponent component, P1 p1)
 		{
 			List<IXfsAwakeSystem> iAwakeSystems = this.awakeSystems[component.GetType()];
@@ -287,7 +377,7 @@ namespace Xfs
 				}
 			}
 		}
-
+	
 		public void Awake<P1, P2>(XfsComponent component, P1 p1, P2 p2)
 		{
 			List<IXfsAwakeSystem> iAwakeSystems = this.awakeSystems[component.GetType()];
@@ -320,7 +410,7 @@ namespace Xfs
 				}
 			}
 		}
-
+	
 		public void Awake<P1, P2, P3>(XfsComponent component, P1 p1, P2 p2, P3 p3)
 		{
 			List<IXfsAwakeSystem> iAwakeSystems = this.awakeSystems[component.GetType()];
@@ -348,30 +438,29 @@ namespace Xfs
 				}
 				catch (Exception e)
 				{
-					//Log.Error(e);
 					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
 				}
 			}
 		}
-
-		public void Change(XfsComponent component)
+	
+		public void Destroy(XfsComponent component)
 		{
-			List<IXfsChangeSystem> iChangeSystems = this.changeSystems[component.GetType()];
-			if (iChangeSystems == null)
+			List<IXfsDestroySystem> iDestroySystems = this.destroySystems[component.GetType()];
+			if (iDestroySystems == null)
 			{
 				return;
 			}
 
-			foreach (IXfsChangeSystem iChangeSystem in iChangeSystems)
+			foreach (IXfsDestroySystem iDestroySystem in iDestroySystems)
 			{
-				if (iChangeSystem == null)
+				if (iDestroySystem == null)
 				{
 					continue;
 				}
 
 				try
 				{
-					iChangeSystem.Run(component);
+					iDestroySystem.Run(component);
 				}
 				catch (Exception e)
 				{
@@ -380,7 +469,7 @@ namespace Xfs
 				}
 			}
 		}
-
+	
 		public void Load()
 		{
 			while (this.loaders.Count > 0)
@@ -412,7 +501,6 @@ namespace Xfs
 					}
 					catch (Exception e)
 					{
-						//Log.Error(e);
 						Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
 					}
 				}
@@ -420,108 +508,33 @@ namespace Xfs
 
 			XfsObjectHelper.Swap(ref this.loaders, ref this.loaders2);
 		}
-
-		private void Start()
+	
+		public void Change(XfsComponent component)
 		{
-			while (this.starts.Count > 0)
-			{
-				long instanceId = this.starts.Dequeue();
-				XfsComponent component;
-				if (!this.allComponents.TryGetValue(instanceId, out component))
-				{
-					continue;
-				}
-
-				List<IXfsStartSystem> iStartSystems = this.startSystems[component.GetType()];
-				if (iStartSystems == null)
-				{
-					continue;
-				}
-
-				foreach (IXfsStartSystem iStartSystem in iStartSystems)
-				{
-					try
-					{
-						iStartSystem.Run(component);
-					}
-					catch (Exception e)
-					{
-						//Log.Error(e);
-						Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
-					}
-				}
-			}
-		}
-
-		public void Destroy(XfsComponent component)
-		{
-			List<IXfsDestroySystem> iDestroySystems = this.destroySystems[component.GetType()];
-			if (iDestroySystems == null)
+			List<IXfsChangeSystem> iChangeSystems = this.changeSystems[component.GetType()];
+			if (iChangeSystems == null)
 			{
 				return;
 			}
 
-			foreach (IXfsDestroySystem iDestroySystem in iDestroySystems)
+			foreach (IXfsChangeSystem iChangeSystem in iChangeSystems)
 			{
-				if (iDestroySystem == null)
+				if (iChangeSystem == null)
 				{
 					continue;
 				}
 
 				try
 				{
-					iDestroySystem.Run(component);
+					iChangeSystem.Run(component);
 				}
 				catch (Exception e)
 				{
-					//Log.Error(e);
 					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
 				}
 			}
 		}
-
-		public void Update()
-		{
-			this.Start();
-
-			while (this.updates.Count > 0)
-			{
-				long instanceId = this.updates.Dequeue();
-				XfsComponent component;
-				if (!this.allComponents.TryGetValue(instanceId, out component))
-				{
-					continue;
-				}
-				if (component.IsDisposed)
-				{
-					continue;
-				}
-
-				List<IXfsUpdateSystem> iUpdateSystems = this.updateSystems[component.GetType()];
-				if (iUpdateSystems == null)
-				{
-					continue;
-				}
-
-				this.updates2.Enqueue(instanceId);
-
-				foreach (IXfsUpdateSystem iUpdateSystem in iUpdateSystems)
-				{
-					try
-					{
-						iUpdateSystem.Run(component);
-					}
-					catch (Exception e)
-					{
-						//Log.Error(e);
-						Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
-					}
-				}
-			}
-
-			XfsObjectHelper.Swap(ref this.updates, ref this.updates2);
-		}
-
+		
 		public void LateUpdate()
 		{
 			while (this.lateUpdates.Count > 0)
@@ -554,14 +567,13 @@ namespace Xfs
 					catch (Exception e)
 					{
 						//Log.Error(e);
-						Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
 					}
 				}
 			}
 
 			XfsObjectHelper.Swap(ref this.lateUpdates, ref this.lateUpdates2);
 		}
-
+		
 		public void Run(string type)
 		{
 			List<IXfsEvent> iEvents;
@@ -578,11 +590,10 @@ namespace Xfs
 				catch (Exception e)
 				{
 					//Log.Error(e);
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
 				}
 			}
 		}
-
+	
 		public void Run<A>(string type, A a)
 		{
 			List<IXfsEvent> iEvents;
@@ -599,11 +610,10 @@ namespace Xfs
 				catch (Exception e)
 				{
 					//Log.Error(e);
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
 				}
 			}
 		}
-
+	
 		public void Run<A, B>(string type, A a, B b)
 		{
 			List<IXfsEvent> iEvents;
@@ -620,11 +630,10 @@ namespace Xfs
 				catch (Exception e)
 				{
 					//Log.Error(e);
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
 				}
 			}
 		}
-
+	
 		public void Run<A, B, C>(string type, A a, B b, C c)
 		{
 			List<IXfsEvent> iEvents;
@@ -641,11 +650,11 @@ namespace Xfs
 				catch (Exception e)
 				{
 					//Log.Error(e);
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
 				}
 			}
 		}
 
-			
+
 	}
+
 }

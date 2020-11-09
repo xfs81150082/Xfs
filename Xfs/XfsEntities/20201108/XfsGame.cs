@@ -15,14 +15,7 @@
 				return xfsSence;
 			}
 		}
-		private static XfsEventsSystem eventsSystem;
-		public static XfsEventsSystem EventsSystem
-		{
-			get
-			{
-				return eventsSystem ?? (eventsSystem = new XfsEventsSystem());
-			}
-		}
+	
 		private static XfsEventSystem eventSystem;
 		public static XfsEventSystem EventSystem
 		{
@@ -40,15 +33,13 @@
 				return objectPool ?? (objectPool = new XfsObjectPool());
 			}
 		}
-
 		public static void Close()
 		{
 			xfsSence.Dispose();
 			xfsSence = null;
-
 			objectPool = null;
-
-			//eventSystem = null;
+			eventSystem = null;
 		}
+	
 	}
 }

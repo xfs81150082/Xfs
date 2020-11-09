@@ -37,7 +37,7 @@ namespace Xfs
 		{
             this.allWatchers = new Dictionary<XfsNumericType, List<IXfsNumericWatcher>>();
 
-            List<Type> types = XfsGame.EventsSystem.GetTypes(typeof(XfsNumericWatcherAttribute));
+            List<Type> types = XfsGame.EventSystem.GetTypes(typeof(XfsNumericWatcherAttribute));
             foreach (Type type in types)
             {
                 object[] attrs = type.GetCustomAttributes(typeof(XfsNumericWatcherAttribute), false);

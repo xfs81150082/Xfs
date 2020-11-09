@@ -96,7 +96,7 @@
     <Compile Include="XfsEntities\20201108\IXfsSerializeToEntity.cs" />
     <Compile Include="XfsEntities\20201108\XfsComponentFactory.cs" />
     <Compile Include="XfsEntities\20201108\XfsUnOrderMultiMap.cs" />
-    <Compile Include="XfsEntities\XfsSystemes\XfsEventsSystem.cs" />
+    <Compile Include="XfsEventSystem.cs" />
     <Compile Include="XfsEvnts\XfsEventTestComponent.cs" />
     <Compile Include="XfsEvnts\XfsEventTestComponentEvent.cs" />
     <Compile Include="XfsEvnts\XfsEventIdType.cs" />
@@ -105,7 +105,6 @@
     <Compile Include="XfsHelpers\XfsObjectHelper.cs" />
     <Compile Include="XfsEntities\XfsSystemes\XfsEventAttribute.cs" />
     <Compile Include="XfsEntities\XfsSystemes\XfsObjectSystemAttribute.cs" />
-    <Compile Include="XfsEntities\XfsSystemes\XfsEventSystem.cs" />
     <Compile Include="XfsHelpers\XfsTimeHelper.cs" />
     <Compile Include="XfsEntities\20201108\XfsObjectPool.cs" />
     <Compile Include="XfsEntities\20201108\XfsComponentWithId.cs" />
