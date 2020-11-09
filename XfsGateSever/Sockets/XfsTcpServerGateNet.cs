@@ -14,13 +14,11 @@ namespace XfsGateSever
         {
             Console.WriteLine(XfsTimerTool.CurrentTime() + " NodeType: " + this.SenceType);
         }
-        public XfsTcpServerGateNet(string ipString, int port, int maxListenCount)
+        public void Init(string ipString, int port, int maxListenCount)
         {
             this.IpString = ipString;
             this.Port = port;
             this.MaxListenCount = maxListenCount;
-
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " NodeType: " + this.SenceType);
         }
 
 

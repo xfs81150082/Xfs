@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsDbServer", "XfsDbServer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsConsoleClient", "XfsConsoleClient\XfsConsoleClient.csproj", "{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsConsoleTest", "XfsConsoleTest\XfsConsoleTest.csproj", "{EE0AF489-8A9E-401D-9526-C06ED5D6D6A5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsGateSever", "XfsGateSever\XfsGateSever.csproj", "{136E8F07-6A7A-453A-B5F9-4F9272C786A8}"
 EndProject
 Global
@@ -43,10 +41,6 @@ Global
 		{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE0AF489-8A9E-401D-9526-C06ED5D6D6A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE0AF489-8A9E-401D-9526-C06ED5D6D6A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE0AF489-8A9E-401D-9526-C06ED5D6D6A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE0AF489-8A9E-401D-9526-C06ED5D6D6A5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{136E8F07-6A7A-453A-B5F9-4F9272C786A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{136E8F07-6A7A-453A-B5F9-4F9272C786A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{136E8F07-6A7A-453A-B5F9-4F9272C786A8}.Release|Any CPU.ActiveCfg = Release|Any CPU

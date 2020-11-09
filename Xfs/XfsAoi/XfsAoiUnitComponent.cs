@@ -27,7 +27,7 @@ namespace Xfs
             npcerIds = new XfsAoiUintInfo { MovesSet = new HashSet<long>(), OldMovesSet = new HashSet<long>(), Enters = new HashSet<long>(), Leaves = new HashSet<long>() };
         }      
 
-        public override void XfsDispose()
+        public override void Dispose()
         {
             playerIds.Dispose();
             enemyIds.Dispose();

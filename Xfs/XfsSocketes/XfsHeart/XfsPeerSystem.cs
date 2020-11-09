@@ -33,7 +33,7 @@ namespace Xfs
             {
                 //发送心跳检测（并等待签到，签到入口在TmTcpSession里，双向发向即：客户端向服务端发送，服务端向客户端发送）
                 XfsParameter mvc = XfsParameterTool.ToParameter(TenCode.Zero, ElevenCode.Zero);
-                mvc.Keys.Add(entity.EcsId);
+                mvc.Keys.Add(entity.InstanceId);
                 (entity as XfsPeer).Send(mvc);
 
                 Console.WriteLine(XfsTimerTool.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);

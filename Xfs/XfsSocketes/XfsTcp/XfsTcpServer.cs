@@ -9,7 +9,7 @@ namespace Xfs
     public abstract class XfsTcpServer : XfsTcpSocket
     {
         public abstract XfsSenceType SenceType { get; }                          //服务器类型
-        public Dictionary<string, XfsPeer> TPeers { get; set; } = new Dictionary<string, XfsPeer>();
+        public Dictionary<long, XfsPeer> TPeers { get; set; } = new Dictionary<long, XfsPeer>();
         public XfsTcpServer()
         {
             XfsSockets.XfsTcpServers.Add(this.SenceType, this);

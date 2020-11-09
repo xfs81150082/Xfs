@@ -8,7 +8,7 @@ namespace Xfs
         {
             this.IsPeer = true;
             AddComponent(new XfsPeerSession());
-            AddComponent(new XfsCoolDown(this.EcsId));
+            AddComponent(new XfsCoolDown(this.InstanceId));
             Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
         public XfsPeer(XfsSenceType senceType)
@@ -16,7 +16,7 @@ namespace Xfs
             this.SenceType = senceType;
             this.IsPeer = true;
             AddComponent(new XfsPeerSession());
-            AddComponent(new XfsCoolDown(this.EcsId));
+            AddComponent(new XfsCoolDown(this.InstanceId));
 
             Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
@@ -30,8 +30,8 @@ namespace Xfs
                 Console.WriteLine("{0} 客户端{1}连接成功", XfsTimerTool.CurrentTime(), Socket.RemoteEndPoint);
 
                 ///tpeer已经加入字典
-                server.TPeers.Add(this.EcsId, this);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " ComponentId: " + this.EcsId + " 已经加入字典");
+                server.TPeers.Add(this.InstanceId, this);
+                Console.WriteLine(XfsTimerTool.CurrentTime() + " ComponentId: " + this.InstanceId + " 已经加入字典");
                 ///显示客户端群中的客户端数量
                 Console.WriteLine(XfsTimerTool.CurrentTime() + " TPeers Count: " + server.TPeers.Count);              
             }
@@ -48,7 +48,7 @@ namespace Xfs
             if (request.Back)
             {
             }               
-            request.Keys.Add(this.EcsId);
+            request.Keys.Add(this.InstanceId);
             this.Recv(request);
         }
         #region ///接收参数信息
@@ -132,16 +132,16 @@ namespace Xfs
             }
         }
         #endregion
-        public override void XfsDispose()
+        public override void Dispose()
         {
             XfsTcpServer server = null;
             XfsSockets.XfsTcpServers.TryGetValue(this.SenceType, out server);
             if (server != null)
             {
-                base.XfsDispose();
+                base.Dispose();
                 ///删除掉心跳包群中对应的peer
-                server.TPeers.Remove(EcsId);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + "{0} 服务端{1}断开连接", XfsTimerTool.CurrentTime(), EcsId);
+                server.TPeers.Remove(InstanceId);
+                Console.WriteLine(XfsTimerTool.CurrentTime() + "{0} 服务端{1}断开连接", XfsTimerTool.CurrentTime(), InstanceId);
                 Console.WriteLine(XfsTimerTool.CurrentTime() + " 一个客户端:已经中断连接" + " TPeers: " + server.TPeers.Count);
 
             }

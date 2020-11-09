@@ -15,6 +15,14 @@
 				return xfsSence;
 			}
 		}
+		private static XfsEventsSystem eventsSystem;
+		public static XfsEventsSystem EventsSystem
+		{
+			get
+			{
+				return eventsSystem ?? (eventsSystem = new XfsEventsSystem());
+			}
+		}
 		private static XfsEventSystem eventSystem;
 		public static XfsEventSystem EventSystem
 		{

@@ -13,7 +13,7 @@ namespace Xfs
         void Handle(object a, object b);
         void Handle(object a, object b, object c);
     }
-	public abstract class AXfsEvent : IXfsEvent
+	public abstract class XfsAEvent : IXfsEvent
 	{
 		public void Handle()
 		{
@@ -33,7 +33,7 @@ namespace Xfs
 		}
 		public abstract void Run();
 	}
-	public abstract class AXfsEvent<A> : IXfsEvent
+	public abstract class XfsAEvent<A> : IXfsEvent
 	{
 		public void Handle()
 		{
@@ -58,7 +58,7 @@ namespace Xfs
 		public abstract void Run(A a);
 	}
 
-	public abstract class AXfsEvent<A, B> : IXfsEvent
+	public abstract class XfsAEvent<A, B> : IXfsEvent
 	{
 		public void Handle()
 		{
@@ -83,7 +83,7 @@ namespace Xfs
 		public abstract void Run(A a, B b);
 	}
 
-	public abstract class AXfsEvent<A, B, C> : IXfsEvent
+	public abstract class XfsAEvent<A, B, C> : IXfsEvent
 	{
 		public void Handle()
 		{

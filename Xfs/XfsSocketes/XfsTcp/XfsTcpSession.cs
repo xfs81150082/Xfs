@@ -210,16 +210,16 @@ namespace Xfs
         }
         #endregion
         #region   dispose OnConnect
-        public override void XfsDispose()
+        public override void Dispose()
         {
-            base.XfsDispose();
+            base.Dispose();
             try
             {
                 Socket.Shutdown(SocketShutdown.Both);
                 IsRunning = false;
                 Socket.Close();
                 Socket = null;
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " EcsId:" + EcsId + " TmTcpSession释放资源");
+                Console.WriteLine(XfsTimerTool.CurrentTime() + " EcsId:" + InstanceId + " TmTcpSession释放资源");
             }
             catch (Exception ex)
             {

@@ -9,7 +9,7 @@ namespace Xfs
         {
             this.IsPeer = false;
             AddComponent(new XfsClientSession());
-            AddComponent(new XfsCoolDown(this.EcsId));
+            AddComponent(new XfsCoolDown(this.InstanceId));
             Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
         public XfsClient(XfsSenceType senceType)
@@ -17,7 +17,7 @@ namespace Xfs
             this.IsPeer = false;
             this.SenceType = senceType;
             AddComponent(new XfsClientSession());
-            AddComponent(new XfsCoolDown(this.EcsId));
+            AddComponent(new XfsCoolDown(this.InstanceId));
 
             Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsClient:" + this.SenceType + ":" + this.IsPeer);
         }
@@ -145,20 +145,20 @@ namespace Xfs
             }
         }
         #endregion
-        public override void XfsDispose()
+        public override void Dispose()
         {
             XfsTcpClient client = null;
             XfsSockets.XfsTcpClients.TryGetValue(this.SenceType, out client);
             if (client != null)
             {
-                base.XfsDispose();
-                if (client.TClient != null && client.TClient.EcsId == this.EcsId)
+                base.Dispose();
+                if (client.TClient != null && client.TClient.InstanceId == this.InstanceId)
                 {
                     client.TClient = null;
                 }
                 ///设置连接中断，40秒后会自动重连
                 client.IsRunning = false;
-                Console.WriteLine("{0} 服务端{1}断开连接", XfsTimerTool.CurrentTime(), EcsId);
+                Console.WriteLine("{0} 服务端{1}断开连接", XfsTimerTool.CurrentTime(), InstanceId);
 
             }
 

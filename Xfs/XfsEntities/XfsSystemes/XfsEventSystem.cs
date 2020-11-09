@@ -6,25 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Xfs
-{
-	public enum DLLType
-	{
-		Xfs,
-		XfsConsoleClient,
-		XfsConsoleTest,
-		XfsDbServer,
-		XfsGateSever,
-		XfsWinFormsClient,
-		XfsWinFormsServer,
-		//Model,
-		//Hotfix,
-		Editor,
-	}
+{	
 	public sealed class XfsEventSystem
     {
 		private readonly Dictionary<long, XfsComponent> allComponents = new Dictionary<long, XfsComponent>();
 
-		private readonly Dictionary<DLLType, Assembly> assemblies = new Dictionary<DLLType, Assembly>();
+		private readonly Dictionary<XfsDLLType, Assembly> assemblies = new Dictionary<XfsDLLType, Assembly>();
 		private readonly XfsUnOrderMultiMap<Type, Type> types = new XfsUnOrderMultiMap<Type, Type>();
 
 		private readonly Dictionary<string, List<IXfsEvent>> allEvents = new Dictionary<string, List<IXfsEvent>>();
@@ -56,7 +43,7 @@ namespace Xfs
 		private Queue<long> lateUpdates = new Queue<long>();
 		private Queue<long> lateUpdates2 = new Queue<long>();
 
-		public void Add(DLLType dllType, Assembly assembly)
+		public void Add(XfsDLLType dllType, Assembly assembly)
 		{
 			this.assemblies[dllType] = assembly;
 			this.types.Clear();
@@ -64,7 +51,10 @@ namespace Xfs
 			{
 				foreach (Type type in value.GetTypes())
 				{
-					object[] objects = type.GetCustomAttributes(typeof(XfsBaseAttribute), false);
+					//object[] objects = type.GetCustomAttributes(typeof(XfsBaseAttribute), false);
+
+					object[] objects = type.GetCustomAttributes(typeof(XfsBaseAttribute), true);
+
 					if (objects.Length == 0)
 					{
 						continue;
@@ -84,8 +74,12 @@ namespace Xfs
 			this.destroySystems.Clear();
 			this.deserializeSystems.Clear();
 
+			//Console.WriteLine(XfsTimerTool.CurrentTime() + " Keys[0]: " + this.types.Keys()[0]);
+			//Console.WriteLine(XfsTimerTool.CurrentTime() + " this[t]: " + typeof(XfsObjectSystemAttribute));
+
+			if (types.Count < 0) return;
 			foreach (Type type in types[typeof(XfsObjectSystemAttribute)])
-			{
+            {
 				object[] attrs = type.GetCustomAttributes(typeof(XfsObjectSystemAttribute), false);
 
 				if (attrs.Length == 0)
@@ -136,7 +130,6 @@ namespace Xfs
 					IXfsEvent iEvent = obj as IXfsEvent;
 					if (iEvent == null)
 					{
-						//Log.Error($"{obj.GetType().Name} 没有继承IEvent");
 						Console.WriteLine($"{obj.GetType().Name} 没有继承IEvent");
 					}
 					this.RegisterEvent(aEventAttribute.Type, iEvent);
@@ -152,7 +145,7 @@ namespace Xfs
 			}
 			this.allEvents[eventId].Add(e);
 		}
-		public Assembly Get(DLLType dllType)
+		public Assembly Get(XfsDLLType dllType)
 		{
 			return this.assemblies[dllType];
 		}

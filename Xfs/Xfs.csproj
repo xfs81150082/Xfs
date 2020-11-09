@@ -71,7 +71,6 @@
     <Compile Include="XfsAsyncs\XfsTask.cs" />
     <Compile Include="XfsAsyncs\IXfsAwaiter.cs" />
     <Compile Include="XfsAsyncs\XfsTaskFactory.cs" />
-    <Compile Include="XfsAttributes\XfsObjectSystemAttribute.cs" />
     <Compile Include="XfsAttributes\XfsBaseAttribute.cs" />
     <Compile Include="XfsBehaviorTree\XfsMonsterBtComponent.cs" />
     <Compile Include="XfsBehaviorTree\XfsPlayerBtComponent.cs" />
@@ -94,7 +93,12 @@
     <Compile Include="XfsBehaviorTree\XfsSelector.cs" />
     <Compile Include="XfsBehaviorTree\XfsSequence.cs" />
     <Compile Include="XfsBehaviorTree\XfsTrigger.cs" />
+    <Compile Include="XfsEntities\20201108\IXfsSerializeToEntity.cs" />
+    <Compile Include="XfsEntities\20201108\XfsComponentFactory.cs" />
     <Compile Include="XfsEntities\20201108\XfsUnOrderMultiMap.cs" />
+    <Compile Include="XfsEntities\XfsSystemes\XfsEventsSystem.cs" />
+    <Compile Include="XfsEvnts\XfsEventIdType.cs" />
+    <Compile Include="XfsEvnts\XfsEnv.cs" />
     <Compile Include="XfsHelpers\RandomHelper.cs" />
     <Compile Include="XfsHelpers\XfsObjectHelper.cs" />
     <Compile Include="XfsEntities\XfsSystemes\XfsEventAttribute.cs" />
@@ -124,8 +128,14 @@
     <Compile Include="XfsHelpers\XfsByteHelper.cs" />
     <Compile Include="XfsMainboxes\XfsMailboxComponentSystem.cs" />
     <Compile Include="XfsMainboxes\XfsMailboxComponent.cs" />
+    <Compile Include="XfsMessages\XfsOneThreadSynchronizationContext.cs" />
     <Compile Include="XfsModels\XfsConsoleLog.cs" />
     <Compile Include="XfsMessages\IXfsMessage.cs" />
+    <Compile Include="XfsSocketes\ETSocket\XfsPacketParser.cs" />
+    <Compile Include="XfsSocketes\ETSocket\XfsCircularBuffer.cs" />
+    <Compile Include="XfsSocketes\ETSocket\XfsTChannel.cs" />
+    <Compile Include="XfsSocketes\ETSocket\XfsAService.cs" />
+    <Compile Include="XfsSocketes\ETSocket\XfsAChannel.cs" />
     <Compile Include="XfsSocketes\XfsBase\XfsErrorCode.cs" />
     <Compile Include="XfsSocketes\XfsBase\XfsSockets.cs" />
     <Compile Include="XfsSocketes\XfsHeart\XfsClientSession.cs" />
@@ -154,7 +164,6 @@
     <Compile Include="XfsEntities\XfsSystem.cs" />
     <Compile Include="XfsEntities\XfsTimerTool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XfsEntities\XfsObjects.cs" />
     <Compile Include="XfsMysqls\XfsMysqlSystem.cs" />
     <Compile Include="XfsMysqls\XfsMysql.cs" />
     <Compile Include="XfsNumeric\IXfsNumericWatcher.cs" />

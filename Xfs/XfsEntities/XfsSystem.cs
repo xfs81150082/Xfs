@@ -38,35 +38,35 @@ namespace Xfs
         }
         #endregion
         #region GetTmEntities
-        private Dictionary<string, XfsComponent> Comopnents { get; set; } = new Dictionary<string, XfsComponent>();
+        private Dictionary<Type, XfsComponent> comopnentDict { get; set; } = new Dictionary<Type, XfsComponent>();
         public void AddComponent<T>(T tm) where T : XfsComponent
         {
             XfsComponent com;
-            bool have = Comopnents.TryGetValue(typeof(T).Name, out com);
+            bool have = comopnentDict.TryGetValue(typeof(T), out com);
             if (have)
             {
                 Console.WriteLine(XfsTimerTool.CurrentTime() + typeof(T).Name + "此类组件已添加");
             }
             else
             {
-                Comopnents.Add(typeof(T).Name, tm);
+                comopnentDict.Add(typeof(T), tm);
             }
         }
         public ArrayList GetTmEntities()
         {
             ArrayList tms = new ArrayList();
-            List<string> coms = new List<string>(Comopnents.Keys);
-            if (Comopnents.Count > 0)
+            List<Type> coms = new List<Type>(comopnentDict.Keys);
+            if (comopnentDict.Count > 0)
             {
-                for (int i = 0; i < XfsObjects.Entities.Count; i++)
-                {
-                    XfsEntity entity = (XfsEntity)XfsObjects.Entities[i];
-                    List<string> entC = new List<string>(entity.Components.Keys);
-                    if (coms.Except(entC).ToList().Count == 0)
-                    {
-                        tms.Add(entity);
-                    }
-                }
+                //for (int i = 0; i < XfsObjects.Entities.Count; i++)
+                //{
+                //    XfsEntity entity = (XfsEntity)XfsObjects.Entities[i];
+                //    List<Type> entC = new List<Type>(entity.GetComponentKeys());
+                //    if (coms.Except(entC).ToList().Count == 0)
+                //    {
+                //        tms.Add(entity);
+                //    }
+                //}
             }
             return tms;
         }
@@ -76,7 +76,7 @@ namespace Xfs
         {
             base.Dispose();
             Close();       ///关闭Timer时钟
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " EcsId:" + EcsId + " TmSystem释放资源");
+            Console.WriteLine(XfsTimerTool.CurrentTime() + " InstanceId:" + InstanceId + " TmSystem释放资源");
         }
         #endregion
     }

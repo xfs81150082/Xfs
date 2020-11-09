@@ -1,12 +1,12 @@
 ﻿namespace Xfs
 {
- //   public class NumericWatcherAttribute : BaseAttribute
- //   {
-	//	public NumericType NumericType { get; }
+    public class XfsNumericWatcherAttribute : XfsBaseAttribute
+    {
+        public XfsNumericType NumericType { get; }
 
-	//	public NumericWatcherAttribute(NumericType type)
-	//	{
-	//		this.NumericType = type;
-	//	}
-	//}
+        public XfsNumericWatcherAttribute(XfsNumericType type)
+        {
+            this.NumericType = type;
+        }
+    }
 }

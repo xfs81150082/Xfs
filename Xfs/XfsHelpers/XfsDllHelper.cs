@@ -12,9 +12,7 @@ namespace Xfs
 	{
 		public static Assembly GetAssembly(string name)
 		{
-			byte[] dllBytes = File.ReadAllBytes("./" + name + ".dll");
-			byte[] pdbBytes = File.ReadAllBytes("./" + name + ".pdb");
-			Assembly assembly = Assembly.Load(dllBytes, pdbBytes);
+			Assembly assembly = Assembly.Load(name);
 			return assembly;
 		}
 		public static Assembly GetXfsAssembly()

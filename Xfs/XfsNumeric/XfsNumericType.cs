@@ -3,18 +3,18 @@
     public enum XfsNumericType
     {
         #region Manage 1001 管理，每升1级加1，影响防御,要钱难度
-        //Manage = 1001,                                
-        //ManageBase = Manage * 10 + 1,
-        //ManageAdd = Manage * 10 + 2,
-        //ManagePct = Manage * 10 + 3,
-        //ManageFinalAdd = Manage * 10 + 4,
-        //ManageFinalPct = Manage * 10 + 5,
+        Manage = 1001,
+        ManageBase = Manage * 10 + 1,
+        ManageAdd = Manage * 10 + 2,
+        ManagePct = Manage * 10 + 3,
+        ManageFinalAdd = Manage * 10 + 4,
+        ManageFinalPct = Manage * 10 + 5,
 
-        //MaxManage = 1002,
-        //MaxManageBase = MaxManage * 10 + 1,
-        //MaxManagePct = MaxManage * 10 + 3,
-        //MaxManageFinalAdd = MaxManage * 10 + 4,
-        //MaxManageFinalPct = MaxManage * 10 + 5,
+        MaxManage = 1002,
+        MaxManageBase = MaxManage * 10 + 1,
+        MaxManagePct = MaxManage * 10 + 3,
+        MaxManageFinalAdd = MaxManage * 10 + 4,
+        MaxManageFinalPct = MaxManage * 10 + 5,
         #endregion
 
         #region Valuation 2001 计价，每升1级加1.2，影响气血，自带钱数
@@ -35,19 +35,19 @@
         #endregion
 
         #region Measure 3001 计量，每升1级加1，影响速度，要钱速度
-        //Measure = 3001,                             
-        //MeasureBase = Measure * 10 + 1,
-        //MeasureAdd = Measure * 10 + 2,
-        //MeasurePct = Measure * 10 + 3,
-        //MeasureFinalAdd = Measure * 10 + 4,
-        //MeasureFinalPct = Measure * 10 + 5,
+        Measure = 3001,
+        MeasureBase = Measure * 10 + 1,
+        MeasureAdd = Measure * 10 + 2,
+        MeasurePct = Measure * 10 + 3,
+        MeasureFinalAdd = Measure * 10 + 4,
+        MeasureFinalPct = Measure * 10 + 5,
 
-        //MaxMeasure = 3002,
-        //MaxMeasureBase = MaxMeasure * 10 + 1,
-        //MaxMeasureAdd = MaxMeasure * 10 + 2,
-        //MaxMeasurePct = MaxMeasure * 10 + 3,
-        //MaxMeasureFinalAdd = MaxMeasure * 10 + 4,
-        //MaxMeasureFinalPct = MaxMeasure * 10 + 5,
+        MaxMeasure = 3002,
+        MaxMeasureBase = MaxMeasure * 10 + 1,
+        MaxMeasureAdd = MaxMeasure * 10 + 2,
+        MaxMeasurePct = MaxMeasure * 10 + 3,
+        MaxMeasureFinalAdd = MaxMeasure * 10 + 4,
+        MaxMeasureFinalPct = MaxMeasure * 10 + 5,
 
         #endregion
 

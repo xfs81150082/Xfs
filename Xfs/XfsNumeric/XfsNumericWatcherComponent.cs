@@ -3,28 +3,28 @@ using System.Collections.Generic;
 
 namespace Xfs
 {
-	//[ObjectSystem]
-	//public class NumericWatcherComponentAwakeSystem : AwakeSystem<NumericWatcherComponent>
-	//{
-	//	public override void Awake(NumericWatcherComponent self)
-	//	{
-	//		self.Awake();
-	//	}
-	//}
+    [XfsObjectSystem]
+    public class NumericWatcherComponentAwakeSystem : XfsAwakeSystem<XfsNumericWatcherComponent>
+    {
+        public override void Awake(XfsNumericWatcherComponent self)
+        {
+            self.Awake();
+        }
+    }
 
-	//[ObjectSystem]
-	//public class NumericWatcherComponentLoadSystem : LoadSystem<NumericWatcherComponent>
-	//{
-	//	public override void Load(NumericWatcherComponent self)
-	//	{
-	//		self.Load();
-	//	}
-	//}
+    [XfsObjectSystem]
+    public class NumericWatcherComponentLoadSystem : XfsLoadSystem<XfsNumericWatcherComponent>
+    {
+        public override void Load(XfsNumericWatcherComponent self)
+        {
+            self.Load();
+        }
+    }
 
-	/// <summary>
-	/// 监视数值变化组件,分发监听
-	/// </summary>
-	public class XfsNumericWatcherComponent : XfsComponent
+    /// <summary>
+    /// 监视数值变化组件,分发监听
+    /// </summary>
+    public class XfsNumericWatcherComponent : XfsComponent
 	{
 		private Dictionary<XfsNumericType, List<IXfsNumericWatcher>> allWatchers;
 
@@ -35,25 +35,25 @@ namespace Xfs
 
 		public void Load()
 		{
-			//this.allWatchers = new Dictionary<NumericType, List<INumericWatcher>>();
+            this.allWatchers = new Dictionary<XfsNumericType, List<IXfsNumericWatcher>>();
 
-			//List<Type> types = Game.EventSystem.GetTypes(typeof(NumericWatcherAttribute));
-			//foreach (Type type in types)
-			//{
-			//	object[] attrs = type.GetCustomAttributes(typeof(NumericWatcherAttribute), false);
+            List<Type> types = XfsGame.EventsSystem.GetTypes(typeof(XfsNumericWatcherAttribute));
+            foreach (Type type in types)
+            {
+                object[] attrs = type.GetCustomAttributes(typeof(XfsNumericWatcherAttribute), false);
 
-			//	foreach (object attr in attrs)
-			//	{
-			//		NumericWatcherAttribute numericWatcherAttribute = (NumericWatcherAttribute)attr;
-			//		INumericWatcher obj = (INumericWatcher)Activator.CreateInstance(type);
-			//		if (!this.allWatchers.ContainsKey(numericWatcherAttribute.NumericType))
-			//		{
-			//			this.allWatchers.Add(numericWatcherAttribute.NumericType, new List<INumericWatcher>());
-			//		}
-			//		this.allWatchers[numericWatcherAttribute.NumericType].Add(obj);
-			//	}
-			//}
-		}
+                foreach (object attr in attrs)
+                {
+                    XfsNumericWatcherAttribute numericWatcherAttribute = (XfsNumericWatcherAttribute)attr;
+                    IXfsNumericWatcher obj = (IXfsNumericWatcher)Activator.CreateInstance(type);
+                    if (!this.allWatchers.ContainsKey(numericWatcherAttribute.NumericType))
+                    {
+                        this.allWatchers.Add(numericWatcherAttribute.NumericType, new List<IXfsNumericWatcher>());
+                    }
+                    this.allWatchers[numericWatcherAttribute.NumericType].Add(obj);
+                }
+            }
+        }
 
 		public void Run(XfsNumericType numericType, long id, int value)
 		{
