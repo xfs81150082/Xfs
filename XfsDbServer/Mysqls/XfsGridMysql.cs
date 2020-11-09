@@ -20,7 +20,7 @@ namespace XfsDbServer
             switch (elevenCode)
             {
                 case (ElevenCode.Code0001):
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " TmEngineerMysql: " + elevenCode);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " TmEngineerMysql: " + elevenCode);
                     GetGridMap(this, parameter);
                     break;
                 case (ElevenCode.Code0002):

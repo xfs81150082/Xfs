@@ -13,7 +13,7 @@ namespace Xfs
             {
                 idCount = 1400;
             }
-            tmId = XfsTimerTool.IdCurrentTime() + idCount.ToString();
+            tmId = XfsTimeHelper.IdCurrentTime() + idCount.ToString();
             return tmId;
         }
 		

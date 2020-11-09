@@ -24,9 +24,9 @@ namespace XfsGateSever
                 case (TenCode.Code0001):
                     string va = XfsParameterTool.GetValue<string>(request, request.ElevenCode.ToString());
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsDbHandler，已收到客户端信息: " + va);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsDbHandler，已收到客户端信息: " + va);
 
-                    string sv = XfsTimerTool.CurrentTime() + " 服务器" + this.SenceType + "回复，收到并返回原信息：";
+                    string sv = XfsTimeHelper.CurrentTime() + " 服务器" + this.SenceType + "回复，收到并返回原信息：";
                     string tt = sv + "(" + va + ")";
                     XfsParameter repsonse = XfsParameterTool.ToParameter(TenCode.Code0001, ElevenCode.Code0001, ElevenCode.Code0001.ToString(), tt);
                     repsonse.Back = request.Back;
@@ -39,7 +39,7 @@ namespace XfsGateSever
                         //(server as XfsTcpServerNodeNet).Send(repsonse);
                     }
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 服务器" + this.SenceType + "已完成发送回的信息");
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 服务器" + this.SenceType + "已完成发送回的信息");
 
                     ///继续向Db服务请求数据
                     
@@ -59,8 +59,8 @@ namespace XfsGateSever
                     string va2 = XfsParameterTool.GetValue<string>(request, request.ElevenCode.ToString());
 
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " Node，已收到客户端信息: " + tenCode + " : " + va2);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsNodeHandler: parameter.PeerIds" + request.PeerIds.Count);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " Node，已收到客户端信息: " + tenCode + " : " + va2);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsNodeHandler: parameter.PeerIds" + request.PeerIds.Count);
 
                     XfsParameter request2 = XfsParameterTool.ToParameter(TenCode.Code0002, ElevenCode.Code0002, ElevenCode.Code0002.ToString(), va2);
                     request2.Back = request.Back;
@@ -78,7 +78,7 @@ namespace XfsGateSever
                 case (TenCode.Code0003):
                     string va3 = XfsParameterTool.GetValue<string>(request, request.ElevenCode.ToString());
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsHandlers: " + tenCode + "" + va3);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsHandlers: " + tenCode + "" + va3);
 
                     XfsTcpServer server3 = null;
                     XfsSockets.XfsTcpServers.TryGetValue(XfsSenceType.Gate, out server3);
@@ -91,13 +91,13 @@ namespace XfsGateSever
                 case (TenCode.Code0004):
                     string va4 = XfsParameterTool.GetValue<string>(request, request.ElevenCode.ToString());
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " NodeHandler已收到客户端信息: " + va4);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " NodeHandler已收到客户端信息: " + va4);
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 等待5秒后回复信息。。。" );
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 等待5秒后回复信息。。。" );
 
                     Thread.Sleep(5000);
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 5秒时间到，发送回复信息。");
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 5秒时间到，发送回复信息。");
 
                     string res4 = "服务器已收到请求-20201106";
                     XfsParameter response4 = XfsParameterTool.ToParameter(TenCode.Code0004, ElevenCode.Code0004, ElevenCode.Code0004.ToString(), res4);

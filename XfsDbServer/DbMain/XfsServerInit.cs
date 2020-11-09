@@ -13,17 +13,17 @@ namespace XfsDbServer
        ///程序启动入口
         public void ConsoleInit()
         {
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " ... ");
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " ... ");
             Thread.Sleep(1);
 
             Init();
 
             Thread.CurrentThread.Name = "TumoWorld";
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " ThreadName: " + Thread.CurrentThread.Name);
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadName: " + Thread.CurrentThread.Name);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);
 
             Console.ReadKey();
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " 退出监听，并关闭程序。");
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " 退出监听，并关闭程序。");
         }
 
         public void Init()

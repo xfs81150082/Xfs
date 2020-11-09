@@ -21,9 +21,9 @@ namespace XfsDbServer
                 case (TenCode.Code0001):
                     string va = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsDbHandler，已收到客户端信息: " + tenCode + " : " + va);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsDbHandler，已收到客户端信息: " + tenCode + " : " + va);
                     
-                    string sv = XfsTimerTool.CurrentTime() + " 服务器" + this.SenceType + "回复，收到并返回原信息：";
+                    string sv = XfsTimeHelper.CurrentTime() + " 服务器" + this.SenceType + "回复，收到并返回原信息：";
                     string tt = sv + "(" + va + ")";
                     XfsParameter repsonse = XfsParameterTool.ToParameter(TenCode.Code0001, ElevenCode.Code0001, ElevenCode.Code0001.ToString(), tt);
                     repsonse.Back = parameter.Back;
@@ -33,7 +33,7 @@ namespace XfsDbServer
                     XfsSockets.XfsTcpServers.TryGetValue(XfsSenceType.Db, out server);
                     //server.Send(repsonse);
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 服务器" + this.SenceType + "已完成发送回的信息");
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 服务器" + this.SenceType + "已完成发送回的信息");
 
                     //XfsGame.XfsSence.GetComponent<XfsTcpServerDbNet>().Send(repsonse, NodeType.Db);
 
@@ -41,8 +41,8 @@ namespace XfsDbServer
                 case (TenCode.Code0002):
                     string va2 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsDbHandler: " + tenCode + " : " + va2);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsDbHandler: parameter.PeerIds: " + parameter.PeerIds.Count);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsDbHandler: " + tenCode + " : " + va2);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsDbHandler: parameter.PeerIds: " + parameter.PeerIds.Count);
 
                     string tt2 = "服务器" + this.SenceType + "回复，收到信息：" + "(" + va2 + ")";
 

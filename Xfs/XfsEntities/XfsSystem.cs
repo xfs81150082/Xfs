@@ -45,7 +45,7 @@ namespace Xfs
             bool have = comopnentDict.TryGetValue(typeof(T), out com);
             if (have)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + typeof(T).Name + "此类组件已添加");
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + typeof(T).Name + "此类组件已添加");
             }
             else
             {
@@ -76,7 +76,7 @@ namespace Xfs
         {
             base.Dispose();
             Close();       ///关闭Timer时钟
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " InstanceId:" + InstanceId + " TmSystem释放资源");
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " InstanceId:" + InstanceId + " TmSystem释放资源");
         }
         #endregion
     }

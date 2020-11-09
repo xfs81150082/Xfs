@@ -70,7 +70,7 @@ namespace Xfs
 					XfsBaseAttribute baseAttribute = (XfsBaseAttribute)objects[0];
 					this.types.Add(baseAttribute.AttributeType, type);
 
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " types: " + this.types.Count);
+					Console.WriteLine(XfsTimeHelper.CurrentTime() + " types: " + this.types.Count);
 				}
 			}
 
@@ -84,7 +84,7 @@ namespace Xfs
 			this.deserializeSystems.Clear();
 
 			if (types.Count == 0) return;
-			Console.WriteLine(XfsTimerTool.CurrentTime() + " this[t]: " + typeof(XfsObjectSystemAttribute));
+			Console.WriteLine(XfsTimeHelper.CurrentTime() + " this[t]: " + typeof(XfsObjectSystemAttribute));
 
 			foreach (Type type in types[typeof(XfsObjectSystemAttribute)])
 			{
@@ -98,15 +98,15 @@ namespace Xfs
 				{
 					case IXfsAwakeSystem awakeSystem:
 						this.awakeSystems.Add(awakeSystem.Type(), awakeSystem);
-						Console.WriteLine(XfsTimerTool.CurrentTime() + " IXfsAwakeSystems: " + this.awakeSystems.Count);
+						Console.WriteLine(XfsTimeHelper.CurrentTime() + " IXfsAwakeSystems: " + this.awakeSystems.Count);
 						break;
 					case IXfsStartSystem startSystem:
 						this.startSystems.Add(startSystem.Type(), startSystem);
-						Console.WriteLine(XfsTimerTool.CurrentTime() + " IXfsStartSystems: " + this.startSystems.Count);
+						Console.WriteLine(XfsTimeHelper.CurrentTime() + " IXfsStartSystems: " + this.startSystems.Count);
 						break;
 					case IXfsUpdateSystem updateSystem:
 						this.updateSystems.Add(updateSystem.Type(), updateSystem);
-						Console.WriteLine(XfsTimerTool.CurrentTime() + " IXfsUpdateSystems: " + this.updateSystems.Count);
+						Console.WriteLine(XfsTimeHelper.CurrentTime() + " IXfsUpdateSystems: " + this.updateSystems.Count);
 						break;
 					case IXfsLateUpdateSystem lateUpdateSystem:
 						this.lateUpdateSystems.Add(lateUpdateSystem.Type(), lateUpdateSystem);
@@ -141,7 +141,7 @@ namespace Xfs
 						Console.WriteLine($"{obj.GetType().Name} 没有继承IEvent");
 					}
 					this.RegisterEvent(aEventAttribute.Type, iEvent);
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " allEvents: " + this.allEvents.Count);
+					Console.WriteLine(XfsTimeHelper.CurrentTime() + " allEvents: " + this.allEvents.Count);
 				}
 			}
 			this.Load();
@@ -179,13 +179,13 @@ namespace Xfs
 			if (this.startSystems.ContainsKey(type))
 			{
 				this.starts.Enqueue(component.InstanceId);
-				Console.WriteLine(XfsTimerTool.CurrentTime() + " starts: " + this.starts.Count);
+				Console.WriteLine(XfsTimeHelper.CurrentTime() + " starts: " + this.starts.Count);
 			}
 
 			if (this.updateSystems.ContainsKey(type))
 			{
 				this.updates.Enqueue(component.InstanceId);
-				Console.WriteLine(XfsTimerTool.CurrentTime() + " updates: " + this.updates.Count);
+				Console.WriteLine(XfsTimeHelper.CurrentTime() + " updates: " + this.updates.Count);
 			}
 
 			if (this.lateUpdateSystems.ContainsKey(type))
@@ -237,7 +237,7 @@ namespace Xfs
 					}
 					catch (Exception e)
 					{
-						Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+						Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
 					}
 				}
 			}
@@ -279,7 +279,7 @@ namespace Xfs
 					}
 					catch (Exception e)
 					{
-						Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+						Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
 					}
 				}
 			}
@@ -340,7 +340,7 @@ namespace Xfs
 				}
 				catch (Exception e)
 				{
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+					Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
 				}
 			}
 		}
@@ -373,7 +373,7 @@ namespace Xfs
 				catch (Exception e)
 				{
 					//Log.Error(e);
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+					Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
 				}
 			}
 		}
@@ -406,7 +406,7 @@ namespace Xfs
 				catch (Exception e)
 				{
 					//Log.Error(e);
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+					Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
 				}
 			}
 		}
@@ -438,7 +438,7 @@ namespace Xfs
 				}
 				catch (Exception e)
 				{
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+					Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
 				}
 			}
 		}
@@ -465,7 +465,7 @@ namespace Xfs
 				catch (Exception e)
 				{
 					//Log.Error(e);
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+					Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
 				}
 			}
 		}
@@ -501,7 +501,7 @@ namespace Xfs
 					}
 					catch (Exception e)
 					{
-						Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+						Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
 					}
 				}
 			}
@@ -530,7 +530,7 @@ namespace Xfs
 				}
 				catch (Exception e)
 				{
-					Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+					Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
 				}
 			}
 		}

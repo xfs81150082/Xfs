@@ -14,9 +14,9 @@ namespace XfsGateSever
         //程序启动入口
         public void Start()
         {      
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " ... ");              
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " ... ");              
             Thread.Sleep(1);
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);
          
             // 异步方法全部会回掉到主线程
             //SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
@@ -43,8 +43,8 @@ namespace XfsGateSever
 
                 XfsGame.XfsSence.AddComponent<TestEntity1>();                                     ///服务器加载组件 : 通信组件Server
 
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " : 服务器配置完成： " /*+ AppType.AllServer + "  " */);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " : 服务器配置完成： " /*+ AppType.AllServer + "  " */);
 
                 while (true)
                 {
@@ -56,13 +56,13 @@ namespace XfsGateSever
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
             }
         }
 

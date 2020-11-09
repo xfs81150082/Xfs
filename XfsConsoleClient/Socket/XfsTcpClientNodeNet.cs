@@ -17,7 +17,7 @@ namespace XfsConsoleClient
             this.Port = port;
             this.MaxListenCount = maxListenCount;
 
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " SenceType: " + this.SenceType);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " SenceType: " + this.SenceType);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace XfsGateSever
             switch (elevenCode)
             {
                 case (ElevenCode.Code0001):
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " TmUser: " + elevenCode);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " TmUser: " + elevenCode);
                     CheckUserLoginPassword(parameter);
                     break;
                 case (ElevenCode.End):
@@ -26,12 +26,12 @@ namespace XfsGateSever
         internal XfsUser User { get; set; }
         private void CheckUserLoginPassword(XfsParameter parameter)
         {
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " to TmUserHandler 30 " + parameter.ElevenCode.ToString());
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " to TmUserHandler 30 " + parameter.ElevenCode.ToString());
             string name = XfsParameterTool.GetValue<string>(parameter, "Username");
             string word = XfsParameterTool.GetValue<string>(parameter, "Password");
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " Username:" + name + " Password:" + word);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " Username:" + name + " Password:" + word);
             //XfsMysqlHandler.Instance.GetComponent<XfsUserMysql>().OnTransferParameter(this, parameter);
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " this.User:" + this.User.Username + " this.User:" + this.User.Password + " this.User.Phone:" + this.User.Phone);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " this.User:" + this.User.Username + " this.User:" + this.User.Password + " this.User.Phone:" + this.User.Phone);
             if (this.User != null)
             {
                 if (User.Password == word)

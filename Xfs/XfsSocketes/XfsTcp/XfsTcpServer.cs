@@ -28,7 +28,7 @@ namespace Xfs
                 this.NetSocket.Listen(this.MaxListenCount);               
                 this.IsRunning = true;
 
-                Console.WriteLine(" {0} 服务启动，监听{1}成功", XfsTimerTool.CurrentTime(), this.NetSocket.LocalEndPoint);
+                Console.WriteLine(" {0} 服务启动，监听{1}成功", XfsTimeHelper.CurrentTime(), this.NetSocket.LocalEndPoint);
                
                 ///开始一个异步操作以接受传入的一个连接尝试
                 this.NetSocket.BeginAccept(new AsyncCallback(this.AcceptCallback), this.NetSocket);

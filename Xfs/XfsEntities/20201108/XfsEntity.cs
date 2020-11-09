@@ -77,14 +77,14 @@ namespace Xfs
             Type type = typeof(T);
             if (this.componentDict.ContainsKey(type))
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " 此类型组件 {} 已存在！", typeof(T).Name);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 此类型组件 {} 已存在！", typeof(T).Name);
                 throw new Exception($"AddComponent, component already exist, id: {this.Id}, component: {typeof(T).Name}");
             }
 
             T component = XfsComponentFactory.CreateWithParent<T>(this, this.IsFromPool);
 
             this.componentDict.Add(type, component);
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " 实例{0},成功添加组件{1}.", this.GetType().Name, typeof(T).Name);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " 实例{0},成功添加组件{1}.", this.GetType().Name, typeof(T).Name);
 
             if (component is IXfsSerializeToEntity)
             {
@@ -173,14 +173,14 @@ namespace Xfs
                     {
                         tem.Dispose();
                     }
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " EcsId:" + InstanceId + " TmEntity释放资源");
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " EcsId:" + InstanceId + " TmEntity释放资源");
 
                 }
                 componentDict.Clear();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " ex: " + ex.Message + " TmEntity释放资源异常...");
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " ex: " + ex.Message + " TmEntity释放资源异常...");
             }
         }
     }

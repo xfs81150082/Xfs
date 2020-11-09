@@ -36,7 +36,7 @@ namespace Xfs
                 mvc.Keys.Add(entity.InstanceId);
                 (entity as XfsClient).Send(mvc);
 
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " Client-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " Client-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
 
                 //XfsTcpClient client = null;
                 //XfsSockets.XfsTcpClients.TryGetValue((entity as XfsTcpSession).NodeType, out client);

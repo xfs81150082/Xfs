@@ -12,7 +12,7 @@ namespace XfsGateSever
         public override XfsSenceType SenceType => XfsSenceType.Gate;
         public XfsTcpServerGateNet()
         {
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " NodeType: " + this.SenceType);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " NodeType: " + this.SenceType);
         }
         public void Init(string ipString, int port, int maxListenCount)
         {

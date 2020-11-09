@@ -54,7 +54,7 @@ namespace Xfs
                 if (RecvLength == 0)
                 {
                     ///发送端关闭
-                    Console.WriteLine("{0} 发送端{1}连接关闭", XfsTimerTool.CurrentTime(), Socket.RemoteEndPoint);
+                    Console.WriteLine("{0} 发送端{1}连接关闭", XfsTimeHelper.CurrentTime(), Socket.RemoteEndPoint);
                     IsRunning = false;
                     Dispose();
                     return;
@@ -70,7 +70,7 @@ namespace Xfs
             }
             catch (Exception ex)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " " + ex.ToString());
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " " + ex.ToString());
                 IsRunning = false;
                 Dispose();
             }
@@ -121,7 +121,7 @@ namespace Xfs
                         CutTo(RecvBuffList, BodyBytes, 0, iBytesBody);
                         ///一个消息包接收完毕，解析消息包
                         string mvcString = Encoding.UTF8.GetString(BodyBytes, 0, BodyBytes.Length);
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " Recv {0} Bytes. ThreadId:{1}", BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv {0} Bytes. ThreadId:{1}", BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
                         XfsParameter parameter = XfsJson.ToObject<XfsParameter>(mvcString);
                         ///这个方法用来处理参数Mvc，并让结果给客户端响应（当客户端发起请求时调用）
                         this.OnTransferParameter(this, parameter);
@@ -130,7 +130,7 @@ namespace Xfs
             }
             catch (Exception ex)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + ex.ToString());
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + ex.ToString());
                 Dispose();
             }
         }
@@ -153,7 +153,7 @@ namespace Xfs
         {
             if (null == Socket.Handle || !Socket.Connected)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " 连接已中断！！！");
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 连接已中断！！！");
                 IsRunning = false;
                 return;
             }
@@ -189,7 +189,7 @@ namespace Xfs
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + ex.ToString());
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + ex.ToString());
                     Dispose();
                 }
             }
@@ -200,12 +200,12 @@ namespace Xfs
             {
                 Socket client = (Socket)ar.AsyncState;
                 int bytesSent = client.EndSend(ar);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " Sent {0} Bytes. ThreadId:{1}", bytesSent, Thread.CurrentThread.ManagedThreadId);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " Sent {0} Bytes. ThreadId:{1}", bytesSent, Thread.CurrentThread.ManagedThreadId);
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + ex.ToString());
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + ex.ToString());
             }
         }
         #endregion
@@ -219,11 +219,11 @@ namespace Xfs
                 IsRunning = false;
                 Socket.Close();
                 Socket = null;
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " EcsId:" + InstanceId + " TmTcpSession释放资源");
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " EcsId:" + InstanceId + " TmTcpSession释放资源");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " " + ex.Message);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " " + ex.Message);
             }
         }
         public virtual void OnConnect() { }

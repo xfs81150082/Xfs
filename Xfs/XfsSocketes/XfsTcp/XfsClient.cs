@@ -10,7 +10,7 @@ namespace Xfs
             this.IsPeer = false;
             AddComponent(new XfsClientSession());
             AddComponent(new XfsCoolDown(this.InstanceId));
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
         public XfsClient(XfsSenceType senceType)
         {
@@ -19,12 +19,12 @@ namespace Xfs
             AddComponent(new XfsClientSession());
             AddComponent(new XfsCoolDown(this.InstanceId));
 
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsClient:" + this.SenceType + ":" + this.IsPeer);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsClient:" + this.SenceType + ":" + this.IsPeer);
         }
         public override void OnConnect()
         {
             ///显示与客户端连接
-            Console.WriteLine("{0} 服务端{1}连接成功", XfsTimerTool.CurrentTime(), Socket.RemoteEndPoint);
+            Console.WriteLine("{0} 服务端{1}连接成功", XfsTimeHelper.CurrentTime(), Socket.RemoteEndPoint);
         }///与服务器连接时调用  
         public override void OnTransferParameter(object obj, XfsParameter parameter)
         {
@@ -65,18 +65,18 @@ namespace Xfs
                     if (controller != null)
                     {
                         controller.Recv(this, response);
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
                     }
                     else
                     {
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsController is null.");
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsController is null.");
                         break;
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " " + ex.Message);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " " + ex.Message);
             }
         }
         #endregion
@@ -141,7 +141,7 @@ namespace Xfs
             }
             catch (Exception ex)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " SendMvcParameters: " + ex.Message);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " SendMvcParameters: " + ex.Message);
             }
         }
         #endregion
@@ -158,7 +158,7 @@ namespace Xfs
                 }
                 ///设置连接中断，40秒后会自动重连
                 client.IsRunning = false;
-                Console.WriteLine("{0} 服务端{1}断开连接", XfsTimerTool.CurrentTime(), InstanceId);
+                Console.WriteLine("{0} 服务端{1}断开连接", XfsTimeHelper.CurrentTime(), InstanceId);
 
             }
 

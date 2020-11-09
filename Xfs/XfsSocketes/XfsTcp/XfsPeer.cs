@@ -9,7 +9,7 @@ namespace Xfs
             this.IsPeer = true;
             AddComponent(new XfsPeerSession());
             AddComponent(new XfsCoolDown(this.InstanceId));
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
         public XfsPeer(XfsSenceType senceType)
         {
@@ -18,7 +18,7 @@ namespace Xfs
             AddComponent(new XfsPeerSession());
             AddComponent(new XfsCoolDown(this.InstanceId));
 
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
         public override void OnConnect()
         {
@@ -27,13 +27,13 @@ namespace Xfs
             if (server != null)
             {
                 ///显示与客户端连接
-                Console.WriteLine("{0} 客户端{1}连接成功", XfsTimerTool.CurrentTime(), Socket.RemoteEndPoint);
+                Console.WriteLine("{0} 客户端{1}连接成功", XfsTimeHelper.CurrentTime(), Socket.RemoteEndPoint);
 
                 ///tpeer已经加入字典
                 server.TPeers.Add(this.InstanceId, this);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " ComponentId: " + this.InstanceId + " 已经加入字典");
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " ComponentId: " + this.InstanceId + " 已经加入字典");
                 ///显示客户端群中的客户端数量
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " TPeers Count: " + server.TPeers.Count);              
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " TPeers Count: " + server.TPeers.Count);              
             }
         }
         public override void OnTransferParameter(object obj, XfsParameter request)
@@ -69,18 +69,18 @@ namespace Xfs
                     if (handler != null)
                     {
                         handler.Recv(this, parameter);
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
                     }
                     else
                     {
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsHandler is null.");
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsHandler is null.");
                         break;
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + ex.Message);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + ex.Message);
             }
         }
         #endregion
@@ -128,7 +128,7 @@ namespace Xfs
             }
             catch (Exception ex)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " OnSendMvcParameters143: " + ex.Message);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " OnSendMvcParameters143: " + ex.Message);
             }
         }
         #endregion
@@ -141,8 +141,8 @@ namespace Xfs
                 base.Dispose();
                 ///删除掉心跳包群中对应的peer
                 server.TPeers.Remove(InstanceId);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + "{0} 服务端{1}断开连接", XfsTimerTool.CurrentTime(), InstanceId);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " 一个客户端:已经中断连接" + " TPeers: " + server.TPeers.Count);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + "{0} 服务端{1}断开连接", XfsTimeHelper.CurrentTime(), InstanceId);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 一个客户端:已经中断连接" + " TPeers: " + server.TPeers.Count);
 
             }
         }

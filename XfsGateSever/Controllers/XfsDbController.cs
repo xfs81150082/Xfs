@@ -21,18 +21,18 @@ namespace XfsGateSever
                     XfsModelObjects.Tests.Add(va);
 
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "23 XfsHandlers: " + "" + va);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + "23 XfsHandlers: " + "" + va);
 
                     break;
                 case (TenCode.Code0002):
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsControllers: " + tenCode);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsControllers: " + tenCode);
 
                     break;
                 case (TenCode.Code0003):                  
                     string va3 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsDbController，Node已收到回复信息: " + va3);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " parameter.PeerIds: " + parameter.PeerIds.Count);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsDbController，Node已收到回复信息: " + va3);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " parameter.PeerIds: " + parameter.PeerIds.Count);
 
                     //XfsGame.XfsSence.GetComponent<XfsTcpServerNodeNet>().Send(parameter);
 

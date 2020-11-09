@@ -17,18 +17,18 @@ namespace XfsConsoleClient
             switch (tenCode)
             {
                 case (TenCode.Code0001):
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "18 XfsControllers: " + tenCode);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "19 XfsControllers: " + parameter.ElevenCode);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + "18 XfsControllers: " + tenCode);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + "19 XfsControllers: " + parameter.ElevenCode);
 
                     string va = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
                     XfsModelObjects.Tests.Add(va);
 
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "23 XfsHandlers: " + "" + va);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + "23 XfsHandlers: " + "" + va);
 
                     break;
                 case (TenCode.Code0002):
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsControllers: " + tenCode);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsControllers: " + tenCode);
 
                     break;
                 case (TenCode.End):

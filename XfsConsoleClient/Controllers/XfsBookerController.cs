@@ -12,7 +12,7 @@ namespace XfsConsoleClient
             switch (elevenCode)
             {
                 case (ElevenCode.Code0001):
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " TmBookerController: " + elevenCode);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " TmBookerController: " + elevenCode);
 
                     SetSoulerDBs(parameter);
 

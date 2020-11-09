@@ -12,7 +12,7 @@ namespace XfsConsoleClient
         public override XfsSenceType SenceType => XfsSenceType.Gate;
         public XfsNodeController()
         {
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsNodeController: " + "已启用");
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsNodeController: " + "已启用");
         }
         public override void Recv(object obj, XfsParameter parameter)
         {
@@ -23,13 +23,13 @@ namespace XfsConsoleClient
                     string va = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
                     XfsModelObjects.Tests.Add(va);
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 23 XfsNodeController: " + "" + va);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 23 XfsNodeController: " + "" + va);
 
                     //XfsGame.XfsSence.GetComponent<XfsBookerHandler>().OnTransferParameter(this, parameter);
 
                     break;
                 case (TenCode.Code0002):
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsNodeController: " + tenCode);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsNodeController: " + tenCode);
 
                     //XfsGame.XfsSence.GetComponent<XfsStatusSyncHandler>().OnTransferParameter(this, parameter);
 
@@ -37,16 +37,16 @@ namespace XfsConsoleClient
                 case (TenCode.Code0003):
                     string va3 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 40 XfsNodeController: " + TenCode.Code0003);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "41 XfsNodeController: " + tenCode + " : " + va3);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 42 XfsNodeController: " + TenCode.Code0003);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 40 XfsNodeController: " + TenCode.Code0003);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + "41 XfsNodeController: " + tenCode + " : " + va3);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 42 XfsNodeController: " + TenCode.Code0003);
 
                     break;
                 case (TenCode.Code0004):
                     string va4 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
 
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + "41 XfsNodeController: " + tenCode + " : " + va4);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + "41 XfsNodeController: " + tenCode + " : " + va4);
 
 
                     break;

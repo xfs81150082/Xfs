@@ -11,7 +11,7 @@ namespace Xfs
     { 
         public override void Run(XfsEventTestComponent a)
         {
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " EventTest: " + a.EventTest);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " EventTest: " + a.EventTest);
         }
     }
 }

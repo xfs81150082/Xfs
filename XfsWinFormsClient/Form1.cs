@@ -32,16 +32,16 @@ namespace XfsWinFormsClient
 
         private void button1_Click(object sender, EventArgs e)
         {
-            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ... " + "\r\n");
+            richTextBox1.AppendText(XfsTimeHelper.CurrentTime() + " ... " + "\r\n");
             Thread.Sleep(1);
 
             //new XfsServerInit().Init();
 
             Thread.CurrentThread.Name = "TumoWorld";
-            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ThreadName: " + Thread.CurrentThread.Name + "\r\n");
-            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId + "\r\n");
+            richTextBox1.AppendText(XfsTimeHelper.CurrentTime() + " ThreadName: " + Thread.CurrentThread.Name + "\r\n");
+            richTextBox1.AppendText(XfsTimeHelper.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId + "\r\n");
 
-            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " 退出监听，并关闭程序。" + "\r\n");
+            richTextBox1.AppendText(XfsTimeHelper.CurrentTime() + " 退出监听，并关闭程序。" + "\r\n");
 
 
         }
@@ -63,16 +63,16 @@ namespace XfsWinFormsClient
 
         private void button5_Click(object sender, EventArgs e)
         {
-            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ... " + "\r\n");
+            richTextBox1.AppendText(XfsTimeHelper.CurrentTime() + " ... " + "\r\n");
             Thread.Sleep(2000);
 
             new XfsClientInit().Init();
            
             Thread.CurrentThread.Name = "TumoWorld";
-            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ThreadName:" + Thread.CurrentThread.Name + "\r\n");
-            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " ThreadId:" + Thread.CurrentThread.ManagedThreadId + "\r\n");
+            richTextBox1.AppendText(XfsTimeHelper.CurrentTime() + " ThreadName:" + Thread.CurrentThread.Name + "\r\n");
+            richTextBox1.AppendText(XfsTimeHelper.CurrentTime() + " ThreadId:" + Thread.CurrentThread.ManagedThreadId + "\r\n");
 
-            richTextBox1.AppendText(XfsTimerTool.CurrentTime() + " 退出联接，并关闭程序。" + "\r\n");
+            richTextBox1.AppendText(XfsTimeHelper.CurrentTime() + " 退出联接，并关闭程序。" + "\r\n");
 
 
 

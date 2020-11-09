@@ -12,7 +12,7 @@ namespace XfsGateSever
     {
         public override void Start(Class1 self)
         {
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " Class1 Start 运行成功: " + self.test1);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " Class1 Start 运行成功: " + self.test1);
         }
     }
 }

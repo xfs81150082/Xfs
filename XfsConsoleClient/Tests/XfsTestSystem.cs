@@ -51,7 +51,7 @@ namespace XfsConsoleClient
                 if (client != null && client.TClient != null)
                 {
                     //(client as XfsTcpClientNodeNet).Send(parameter);
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTestSystem-54,开始打电话给服务器。 ");
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-54,开始打电话给服务器。 ");
 
                     //XfsParameter response = await (client as XfsTcpClientNodeNet).Call(parameter);
 
@@ -59,7 +59,7 @@ namespace XfsConsoleClient
 
                     string res = XfsParameterTool.GetValue<string>(response, response.ElevenCode.ToString());
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " XfsTestSystem-59: " + res);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-59: " + res);
 
                 }
 
@@ -87,8 +87,8 @@ namespace XfsConsoleClient
                     //(client as XfsTcpClientNodeNet).Send(parameter);
                 }
 
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " 55 XfsTestSystem: " + text.time);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " 56 XfsTestSystem: " + text.time);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 55 XfsTestSystem: " + text.time);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 56 XfsTestSystem: " + text.time);
             }
         }
         void NodtTest(XfsEntity entity)
@@ -107,7 +107,7 @@ namespace XfsConsoleClient
 
                 XfsParameter parameter = XfsParameterTool.ToParameter(TenCode.Code0001, ElevenCode.Code0001, ElevenCode.Code0001.ToString(), tt);
 
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " 44 XfsTestSystem: " + text.time);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 44 XfsTestSystem: " + text.time);
 
                 XfsTcpClient client = null;
                 XfsSockets.XfsTcpClients.TryGetValue(XfsSenceType.Db, out client);
@@ -124,7 +124,7 @@ namespace XfsConsoleClient
                 //XfsGame.XfsSence.GetComponent<XfsTcpClientDbNet>().Send(parameter, NodeType.Db);
                 //XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().Send(parameter);
 
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " 53 XfsTestSystem: " + text.time);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 53 XfsTestSystem: " + text.time);
             }
         }
         #region
@@ -150,7 +150,7 @@ namespace XfsConsoleClient
             if (text.IsUserLogin == false)
             {
                 text.IsUserLogin = true;
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " IsUserLogin:{0}---43", text.IsUserLogin.ToString());
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsUserLogin:{0}---43", text.IsUserLogin.ToString());
                 TmUserLogin(text);
             }
         }

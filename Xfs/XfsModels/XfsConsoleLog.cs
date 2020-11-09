@@ -22,7 +22,7 @@ namespace Xfs
             FileInfo fileinfo = new FileInfo(path);
             if (fileinfo.Length > 1024 * 1024 * 2)
             {
-                File.Move(path, AppDomain.CurrentDomain.BaseDirectory + XfsTimerTool.CurrentTime() + "log.txt");
+                File.Move(path, AppDomain.CurrentDomain.BaseDirectory + XfsTimeHelper.CurrentTime() + "log.txt");
                 if (!File.Exists(path))
                 {
                     using (File.Create(path)) { }
@@ -30,7 +30,7 @@ namespace Xfs
             }
             //在文件上写入文本文字
             StreamWriter sw2 = File.AppendText(path);
-            sw2.WriteLine(XfsTimerTool.CurrentTime() + " " + message);
+            sw2.WriteLine(XfsTimeHelper.CurrentTime() + " " + message);
             sw2.Close();
         }    
     }

@@ -17,17 +17,17 @@ namespace XfsConsoleClient
 
         public void ConsoelInit()
         {
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " ... ");
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " ... ");
             Thread.Sleep(2000);
 
             Init();
 
             Thread.CurrentThread.Name = "TumoWorld";
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " ThreadName:" + Thread.CurrentThread.Name);
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " ThreadId:" + Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadName:" + Thread.CurrentThread.Name);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadId:" + Thread.CurrentThread.ManagedThreadId);
 
             Console.ReadKey();
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " 退出联接，并关闭程序。");
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " 退出联接，并关闭程序。");
 
         }
 

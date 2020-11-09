@@ -36,7 +36,7 @@ namespace Xfs
                     }
                     this.IsRunning = false;
 
-                    Console.WriteLine(XfsTimerTool.CurrentTime() + " 38 " + ex.ToString());
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 38 " + ex.ToString());
                 }
             }
         }
@@ -50,7 +50,7 @@ namespace Xfs
                 tcpSocket.EndConnect(ar);
                 ///创建一个方法接收peerSocket (在方法里创建一个peer来处理读取数据//开始接受来自该客户端的数据)
                 this.XfsReceiveSocket(tcpSocket);
-                Console.WriteLine("{0} 连接服务器成功 {1}", XfsTimerTool.CurrentTime(), tcpSocket.RemoteEndPoint.ToString());
+                Console.WriteLine("{0} 连接服务器成功 {1}", XfsTimeHelper.CurrentTime(), tcpSocket.RemoteEndPoint.ToString());
             }
             catch (Exception ex)
             {

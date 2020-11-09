@@ -51,7 +51,7 @@ namespace XfsGateSever
 
         void TestAttribute3()
         {
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " TestSimyy1 ... ");
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " TestSimyy1 ... ");
 
             XfsDLLType dllType1 = XfsDLLType.Xfs;
             XfsDLLType dllType2 = XfsDLLType.XfsGateSever;
@@ -59,23 +59,23 @@ namespace XfsGateSever
             Assembly assembly1 = XfsDllHelper.GetAssembly(dllType1.ToString());
             Assembly assembly2 = XfsDllHelper.GetAssembly(dllType2.ToString());
 
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + assembly1);
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + assembly2);
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + assembly1.GetTypes().Length);
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + assembly2.GetTypes().Length);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + assembly1);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + assembly2);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + assembly1.GetTypes().Length);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + assembly2.GetTypes().Length);
 
 
             XfsGame.EventSystem.Add(XfsDLLType.Xfs, XfsDllHelper.GetAssembly(XfsDLLType.Xfs.ToString()));
             XfsGame.EventSystem.Add(XfsDLLType.XfsGateSever, XfsDllHelper.GetXfsGateSeverAssembly());
 
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " types.count: " + this.types.Count);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " types.count: " + this.types.Count);
 
         }
 
         ///测试 用反射 找程序集 找类 找接口 找特性 并运行类或接口的方法
         void TestSimyy1()
         {
-            Console.WriteLine(XfsTimerTool.CurrentTime() + " TestSimyy1 ... ");
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " TestSimyy1 ... ");
             try
             {
 
@@ -86,15 +86,15 @@ namespace XfsGateSever
                 Assembly assembly1 = XfsDllHelper.GetAssembly(dllType1.ToString());
                 Assembly assembly2 = XfsDllHelper.GetAssembly(dllType2.ToString());
 
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + assembly1);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + assembly2);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + assembly1.GetTypes().Length);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + assembly2.GetTypes().Length);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + assembly1);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + assembly2);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + assembly1.GetTypes().Length);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + assembly2.GetTypes().Length);
 
                 this.assemblies[dllType1] = assembly1;
                 this.assemblies[dllType2] = assembly2;
 
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " assemblies.count: " + this.assemblies.Count);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " assemblies.count: " + this.assemblies.Count);
 
 
                 this.types.Clear();
@@ -102,12 +102,12 @@ namespace XfsGateSever
                 {
                     foreach (Type type in value.GetTypes())
                     {
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " Type: " + type.Name);
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " Type: " + type.Name);
 
                         object[] objects = type.GetCustomAttributes(typeof(XfsBaseAttribute), true);
                         //object[] object1s = type.GetCustomAttributes(typeof(XfsObjectSystemAttribute), false);
 
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " Type: " + type.Name + " GetCustomAttributes: " + objects.Length);
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " Type: " + type.Name + " GetCustomAttributes: " + objects.Length);
 
                         if (objects.Length == 0)
                         {
@@ -118,10 +118,10 @@ namespace XfsGateSever
                         this.types.Add(baseAttribute.AttributeType, type);
                     }
                 }
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " types.count: " + this.types.Count);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " Keys[0]: " + this.types.Keys()[0]);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " Keys[0]: " + this.types[typeof(XfsObjectSystemAttribute)][1]);
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " this[t]: " + typeof(XfsObjectSystemAttribute));
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " types.count: " + this.types.Count);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " Keys[0]: " + this.types.Keys()[0]);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " Keys[0]: " + this.types[typeof(XfsObjectSystemAttribute)][1]);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " this[t]: " + typeof(XfsObjectSystemAttribute));
 
                 this.awakeSystems.Clear();
                 this.lateUpdateSystems.Clear();
@@ -147,18 +147,18 @@ namespace XfsGateSever
                     {
                         case IXfsAwakeSystem objectSystem:
                             this.awakeSystems.Add(objectSystem.Type(), objectSystem);
-                            Console.WriteLine(XfsTimerTool.CurrentTime() + " IXfsAwakeSystems: " + this.awakeSystems.Count);
+                            Console.WriteLine(XfsTimeHelper.CurrentTime() + " IXfsAwakeSystems: " + this.awakeSystems.Count);
                             break;
                         case IXfsUpdateSystem updateSystem:
                             this.updateSystems.Add(updateSystem.Type(), updateSystem);
-                            Console.WriteLine(XfsTimerTool.CurrentTime() + " IXfsUpdateSystem: " + this.updateSystems.Count);
+                            Console.WriteLine(XfsTimeHelper.CurrentTime() + " IXfsUpdateSystem: " + this.updateSystems.Count);
                             break;
                         case IXfsLateUpdateSystem lateUpdateSystem:
                             this.lateUpdateSystems.Add(lateUpdateSystem.Type(), lateUpdateSystem);
                             break;
                         case IXfsStartSystem startSystem:
                             this.startSystems.Add(startSystem.Type(), startSystem);
-                            Console.WriteLine(XfsTimerTool.CurrentTime() + " IXfsStartSystem: " + this.startSystems.Count);
+                            Console.WriteLine(XfsTimeHelper.CurrentTime() + " IXfsStartSystem: " + this.startSystems.Count);
                             break;
                         case IXfsDestroySystem destroySystem:
                             this.destroySystems.Add(destroySystem.Type(), destroySystem);
@@ -185,13 +185,13 @@ namespace XfsGateSever
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " Update发生异常: " + e);
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " Update发生异常: " + e);
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(XfsTimerTool.CurrentTime() + " 异常: " + e);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 异常: " + e);
             }
         }
         private void Start()
@@ -220,7 +220,7 @@ namespace XfsGateSever
                     catch (Exception e)
                     {
                         //Log.Error(e);
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
                     }
                 }
             }
@@ -259,7 +259,7 @@ namespace XfsGateSever
                     catch (Exception e)
                     {
                         //Log.Error(e);
-                        Console.WriteLine(XfsTimerTool.CurrentTime() + " : " + e);
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + e);
                     }
                 }
             }
