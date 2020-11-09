@@ -9,6 +9,7 @@ namespace Xfs
     public static class XfsEventIdType
     {
         public const string NumbericChange = "NumbericChange";
+        public const string EventTest = "EventTest";
 
     }
 }

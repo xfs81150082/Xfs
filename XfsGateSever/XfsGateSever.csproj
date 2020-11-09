@@ -56,8 +56,6 @@
     <Compile Include="Sockets\XfsTcpClientDbNet.cs" />
     <Compile Include="Sockets\XfsTcpClientDbNetSystem.cs" />
     <Compile Include="Tests\Class3.cs" />
-    <Compile Include="Tests\Class4.cs" />
-    <Compile Include="Tests\XfsClass4EventSystem.cs" />
     <Compile Include="Tests\TestEntity1.cs" />
     <Compile Include="Tests\XfsClass3UpdateSystem.cs" />
     <Compile Include="Tests\TestAttribute.cs" />

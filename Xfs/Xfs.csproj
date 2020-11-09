@@ -97,6 +97,8 @@
     <Compile Include="XfsEntities\20201108\XfsComponentFactory.cs" />
     <Compile Include="XfsEntities\20201108\XfsUnOrderMultiMap.cs" />
     <Compile Include="XfsEntities\XfsSystemes\XfsEventsSystem.cs" />
+    <Compile Include="XfsEvnts\XfsEventTestComponent.cs" />
+    <Compile Include="XfsEvnts\XfsEventTestComponentEvent.cs" />
     <Compile Include="XfsEvnts\XfsEventIdType.cs" />
     <Compile Include="XfsEvnts\XfsEnv.cs" />
     <Compile Include="XfsHelpers\RandomHelper.cs" />

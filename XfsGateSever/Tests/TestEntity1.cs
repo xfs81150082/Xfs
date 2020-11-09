@@ -14,7 +14,6 @@ namespace XfsGateSever
             this.AddComponent<Class1>();
             this.AddComponent<Class2>();
             this.AddComponent<Class3>();
-            this.AddComponent<Class4>();
         }
 
 
