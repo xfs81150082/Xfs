@@ -1,29 +1,13 @@
-﻿//using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsDbServer
 {
-    public class XfsMysqlConnection : XfsSystem
-    {
-        //public static MySqlConnection Connection { get; private set; } //创建一个数据库连接                                                     
-        private string localhost = "127.0.0.1";           //IP地址
-        private string database = "tumoworld";                 //数据库名    
-        private string root = "root";                          //用户名  
-        private string password = "";                //密码  
-        public bool IsConnecting { get; private set; } = false;
-        public override void XfsAwake()
-        {
-            base.XfsAwake();
-            ValTime = 4000;
-        }
-        public XfsMysqlConnection()
-        {
-            StartConnectToMysql();
-        }
-        public override void XfsUpdate()
+    public class XfsMysqlComponentUpdateSystem : XfsUpdateSystem<XfsMysqlComponent>
+    {     
+        public override void Update(XfsMysqlComponent self)
         {
             StartConnectToMysql();
         }

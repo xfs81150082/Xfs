@@ -6,22 +6,25 @@ using System.Threading.Tasks;
 
 namespace Xfs.XfsMainboxes
 {
-    public class XfsMailboxComponentSystem : XfsSystem
+    public class XfsMailboxComponentSystem : XfsAwakeSystem<XfsMailboxComponent>
     {
-        public override void BeginInit()
+        //public override void BeginInit()
+        //{
+        //    //self.MailboxType = mailboxType;
+        //    //self.Queue.Clear();
+        //}
+       
+        public override void Awake(XfsMailboxComponent self)
         {
-            //self.MailboxType = mailboxType;
-            //self.Queue.Clear();
-        }
-        public override void XfsAwake()
-        {
-            //self.HandleAsync().Coroutine();
-        }
-    }
-	// <summary>
-	/// 挂上这个组件表示该Entity是一个Actor, 接收的消息将会队列处理
-	/// </summary>
-	public static class MailBoxComponentHelper
+			//    //self.MailboxType = mailboxType;
+			//    //self.Queue.Clear();
+			//self.HandleAsync().Coroutine();
+		}
+	}
+    // <summary>
+    /// 挂上这个组件表示该Entity是一个Actor, 接收的消息将会队列处理
+    /// </summary>
+    public static class MailBoxComponentHelper
 	{
 		//public static async XfsTask AddLocation(this XfsMailboxComponent self)
 		//{		

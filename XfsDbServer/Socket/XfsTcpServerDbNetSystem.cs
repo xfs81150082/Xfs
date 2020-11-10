@@ -6,16 +6,34 @@ using System.Threading.Tasks;
 using Xfs;
 
 namespace XfsDbServer
-{
-    public class XfsTcpServerDbNetSystem : XfsSystem
+{ 
+    [XfsObjectSystem]
+    public class XfsTcpServerDbNetAwakeSystem : XfsAwakeSystem<XfsTcpServerDbNet>
     {
-        public override void XfsAwake()
+        public override void Awake(XfsTcpServerDbNet self)
         {
-            ValTime = 4000;
-        }
-        public override void XfsUpdate()
-        {
-            XfsGame.XfsSence.GetComponent<XfsTcpServerDbNet>().Listening();
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " Awake: " + this.GetType());
+            self.Init("127.0.0.1", 2001, 10);
+
         }
     }
+
+    [XfsObjectSystem]
+    public class XfsTcpServerDbNetUpdateSystem : XfsUpdateSystem<XfsTcpServerDbNet>
+    {
+        int timer = 0;
+        public override void Update(XfsTcpServerDbNet self)
+        {
+            timer += 1;
+            if (timer > self.ValTime)
+            {
+                timer = 0;
+                self.Listening();
+                //XfsGame.XfsSence.GetComponent<XfsTcpServerGateNet>().Listening();
+            }
+        }
+
+
+    }
+
 }

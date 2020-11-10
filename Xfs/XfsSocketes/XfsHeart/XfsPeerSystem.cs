@@ -6,35 +6,26 @@ using System.Threading.Tasks;
 
 namespace Xfs
 {
-    public class XfsPeerSystem : XfsSystem
+    public class XfsPeerSystem : XfsUpdateSystem<XfsPeer>
     {
-        public override void XfsAwake()
+        public override void Update(XfsPeer self)
         {
-            ValTime = 4000;
-            AddComponent(new XfsCoolDown());
-            AddComponent(new XfsPeerSession());
+            CheckSession(self);
         }
-        public override void XfsUpdate()
+        void CheckSession(XfsPeer self)
         {
-            foreach (XfsEntity entity in GetTmEntities())
-            {
-                CheckSession(entity);
-            }
-        }
-        void CheckSession(XfsEntity entity)
-        {
-            XfsCoolDown cd = entity.GetComponent<XfsCoolDown>();
-            bool isServer = (entity as XfsTcpSession).IsPeer;
+            XfsCoolDown cd = self.GetComponent<XfsCoolDown>();
+            bool isServer = self.IsPeer;
             if (!cd.Counting)
             {
-                entity.Dispose();
+                self.Dispose();
             }
             else
             {
                 //发送心跳检测（并等待签到，签到入口在TmTcpSession里，双向发向即：客户端向服务端发送，服务端向客户端发送）
                 XfsParameter mvc = XfsParameterTool.ToParameter(TenCode.Zero, ElevenCode.Zero);
-                mvc.Keys.Add(entity.InstanceId);
-                (entity as XfsPeer).Send(mvc);
+                mvc.Keys.Add(self.InstanceId);
+                self.Send(mvc);
 
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
 

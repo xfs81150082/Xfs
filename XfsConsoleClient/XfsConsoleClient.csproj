@@ -48,8 +48,6 @@
     <Compile Include="Controllers\XfsNodeController.cs" />
     <Compile Include="ConsoleMain\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Socket\XfsTcpClientDbNet.cs" />
-    <Compile Include="Socket\XfsTcpClientDbNetSystem.cs" />
     <Compile Include="Socket\XfsTcpClientNodeNet.cs" />
     <Compile Include="Socket\XfsTcpClientNodeNetSystem.cs" />
     <Compile Include="Tests\XfsTest.cs" />

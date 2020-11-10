@@ -1,31 +1,22 @@
 ﻿using System;
 namespace Xfs
 {
-    public class XfsCoolDownSystem : XfsSystem
-    {
-        public override void XfsAwake()
+    public class XfsCoolDownUpdateSystem : XfsUpdateSystem<XfsCoolDown>
+    {       
+        public override void Update(XfsCoolDown self)
         {
-            ValTime = 4000;
-            AddComponent(new XfsCoolDown());
+                UpdateCoolDown(self);
         }
-        public override void XfsUpdate()
+        void UpdateCoolDown(XfsCoolDown self)
         {
-            foreach (XfsEntity entity in GetTmEntities())
+            if (self == null) return;
+            if (self.Counting)
             {
-                UpdateCoolDown(entity);
-            }
-        }
-        void UpdateCoolDown(XfsEntity entity)
-        {
-            XfsCoolDown cd = entity.GetComponent<XfsCoolDown>();
-            if (cd == null) return;
-            if (cd.Counting)
-            {
-                cd.CdCount += 1;
-                if (cd.CdCount >= cd.MaxCdCount)
+                self.CdCount += 1;
+                if (self.CdCount >= self.MaxCdCount)
                 {
-                    cd.CdCount = 0;
-                    cd.Counting = false;
+                    self.CdCount = 0;
+                    self.Counting = false;
                 }
             }
             //if (cd.Timing)

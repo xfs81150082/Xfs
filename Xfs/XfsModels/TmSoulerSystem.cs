@@ -1,36 +1,29 @@
 ﻿using System;
 namespace Xfs
 {
-    class TmSoulerSystem : XfsSystem
-    {
-        public override void XfsAwake()
+    class TmSoulerUpdateSystem : XfsUpdateSystem<TmSouler>
+    {       
+        public override void Update(TmSouler self)
         {
-            AddComponent(new TmSouler());
-            AddComponent(new TmProperty());
-            AddComponent(new TmChangeType());
-        }
-        public override void XfsUpdate()
-        {
-            foreach (XfsEntity tem in GetTmEntities())
-            {
-                PropertyInit(tem);
-            }
+            
+                PropertyInit(self);
+           
         }
         TmSouler souler { get; set; }
         TmProperty property { get; set; }
         TmChangeType changeType { get; set; }
-        void PropertyInit(XfsEntity entity)
+        void PropertyInit(TmSouler self)
         {
-            if (entity.GetComponent<TmSouler>() != null && entity.GetComponent<TmProperty>() != null && entity.GetComponent<TmChangeType>() != null)
-            {
-                TmChangeType changeType = entity.GetComponent<TmChangeType>();
-                TmProperty property = entity.GetComponent<TmProperty>();
-                if (property.Hp != changeType.changeCount)
-                {
-                    InitProperty(entity);
-                    changeType.changeCount = property.Hp;
-                }              
-            }
+            //if (entity.GetComponent<TmSouler>() != null && entity.GetComponent<TmProperty>() != null && entity.GetComponent<TmChangeType>() != null)
+            //{
+            //    TmChangeType changeType = entity.GetComponent<TmChangeType>();
+            //    TmProperty property = entity.GetComponent<TmProperty>();
+            //    if (property.Hp != changeType.changeCount)
+            //    {
+            //        InitProperty(entity);
+            //        changeType.changeCount = property.Hp;
+            //    }              
+            //}
         }
         void InitProperty(XfsEntity soulerItem)
         {

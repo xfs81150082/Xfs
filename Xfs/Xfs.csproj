@@ -162,7 +162,6 @@
     <Compile Include="XfsSocketes\XfsBase\XfsParameter.cs" />
     <Compile Include="XfsSocketes\XfsBase\XfsParameterTool.cs" />
     <Compile Include="XfsEntities\20201108\XfsSence.cs" />
-    <Compile Include="XfsEntities\XfsSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XfsMysqls\XfsMysqlSystem.cs" />
     <Compile Include="XfsMysqls\XfsMysql.cs" />

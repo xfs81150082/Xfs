@@ -28,17 +28,12 @@ namespace XfsDbServer
 
         public void Init()
         {
-            //XfsGame.XfsSence/服务器加载组件(D)
+            /// 服务器加载组件(D)
             XfsGame.XfsSence.Type = XfsSenceType.Db;
-            XfsGame.XfsSence.AddComponent(new XfsDbHandler());                                        ///服务器加载组件 : 通信组件Server
-            //XfsGame.XfsSence.AddComponent(new XfsMysql("127.0.0.1", "tumoworld", "root", ""));     ///服务器加载组件 : 数据库链接组件
-            XfsGame.XfsSence.AddComponent(new XfsTcpServerDbNet("127.0.0.1", 1001, 10));                                    ///服务器加载组件 : 通信组件Server
+            //XfsGame.XfsSence.AddComponent<XfsMysql>();                ///("127.0.0.1", "tumoworld", "root", ""));   服务器加载组件 : 数据库链接组件
+            XfsGame.XfsSence.AddComponent<XfsDbHandler>();              ///服务器加载组件 : Handler处理器
+            XfsGame.XfsSence.AddComponent<XfsTcpServerDbNet>();         ///Init("127.0.0.1", 1001, 10)服务器加载组件 : 通信组件Server
 
-
-            ///服务器加载组件驱动程序
-            //XfsGame.XfsSence.AddComponent(new XfsMysqlSystem());               ///服务器加载组件 : 数据库链接组件TmSystem类型
-            XfsGame.XfsSence.AddComponent(new XfsTcpServerDbNetSystem());      ///服务器加载组件 : 套接字 外网 传输数据组件
-            //XfsGame.XfsSence.AddComponent(new XfsTcpSessionSystem());            ///服务器加载组件 : 心跳包 组件
 
         }
 

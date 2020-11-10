@@ -7,42 +7,32 @@ using System.Threading.Tasks;
 
 namespace Xfs
 {
-    public class XfsMysqlSystem : XfsSystem
+    public class XfsMysqlUpdateSystem : XfsUpdateSystem<XfsMysql>
     {
-        public override void XfsAwake()
+        public override void Update(XfsMysql self)
         {
-            base.XfsAwake();
-            this.ValTime = 4000;
-            this.AddComponent(new XfsMysql());
-        }      
-        public override void XfsUpdate()
-        {
-            foreach (XfsEntity entity in GetTmEntities())
-            {
-                ConnectToMysql(entity);
-            }
+            ConnectToMysql(self);
         }
         ///连接到数据库
-        public void ConnectToMysql(XfsEntity entity)
+        public void ConnectToMysql(XfsMysql self)
         {
-            XfsMysql mysql = entity.GetComponent<XfsMysql>();
-            if (!mysql.IsConnecting || mysql.Connection == null || mysql.Connection.State.ToString() != "Open")
+            if (!self.IsConnecting || self.Connection == null || self.Connection.State.ToString() != "Open")
             {
                 try
                 {
-                    string connectionString = string.Format("Server = {0}; Database = {1}; User ID = {2}; Password = {3};", mysql.Localhost, mysql.Database, mysql.Root, mysql.Password);
-                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 连接MySql数据库成功,版本号:{0},地址:{1} ", connectionString, mysql.Localhost);
-                    mysql.Connection = new MySqlConnection(connectionString);
-                    mysql.Connection.Open();
-                    mysql.IsConnecting = true;
-                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 连接MySql数据库成功,版本号:{0},地址:{1} ", mysql.Connection.ServerVersion, mysql.Localhost);
+                    string connectionString = string.Format("Server = {0}; Database = {1}; User ID = {2}; Password = {3};", self.Localhost, self.Database, self.Root, self.Password);
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 连接MySql数据库成功,版本号:{0},地址:{1} ", connectionString, self.Localhost);
+                    self.Connection = new MySqlConnection(connectionString);
+                    self.Connection.Open();
+                    self.IsConnecting = true;
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 连接MySql数据库成功,版本号:{0},地址:{1} ", self.Connection.ServerVersion, self.Localhost);
                 }
                 catch (Exception ex)
                 {
-                    mysql.IsConnecting = false;
+                    self.IsConnecting = false;
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + " 连接MySql数据库,异常:{0} ", ex.Message);
                 }
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsConnecting:" + mysql.IsConnecting + " State:" + mysql.Connection.State);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsConnecting:" + self.IsConnecting + " State:" + self.Connection.State);
             }
         }
         
