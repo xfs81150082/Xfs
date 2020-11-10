@@ -1,6 +1,7 @@
 ﻿using System;
 namespace Xfs
 {
+    [XfsObjectSystem]
     public class XfsCoolDownUpdateSystem : XfsUpdateSystem<XfsCoolDown>
     {       
         public override void Update(XfsCoolDown self)
@@ -9,7 +10,6 @@ namespace Xfs
         }
         void UpdateCoolDown(XfsCoolDown self)
         {
-            if (self == null) return;
             if (self.Counting)
             {
                 self.CdCount += 1;

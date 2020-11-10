@@ -13,14 +13,14 @@ namespace Xfs
         }
         public XfsPeer(XfsSenceType senceType)
         {
+
             this.SenceType = senceType;
             this.IsPeer = true;
             AddComponent(new XfsPeerSession());
             AddComponent(new XfsCoolDown(this.InstanceId));
-
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
-        public override void OnConnect()
+        public void OnConnect()
         {
             XfsTcpServer server = null;
             XfsSockets.XfsTcpServers.TryGetValue(this.SenceType, out server);
@@ -106,7 +106,7 @@ namespace Xfs
                     while (response.Keys.Count > 0)
                     {
                         ///用Json将参数（MvcParameter）,序列化转换成字符串（string）
-                        string mvcJsons = XfsJson.ToString<XfsParameter>(response);
+                        string mvcJsons = XfsJsonHelper.ToString<XfsParameter>(response);
                         this.SendString(mvcJsons);
 
                         response.Keys.Remove(response.Keys[0]);

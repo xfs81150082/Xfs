@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 namespace Xfs
 {
-    public static class XfsJson
+    public static class XfsJsonHelper
     {
         public static T ToObject<T>(string str)
         {

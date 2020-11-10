@@ -67,8 +67,11 @@ namespace Xfs
         {
             if (this.TClient == null)
             {
-                ///创建一个TClient接收socket       
-                this.TClient = new XfsClient(this.SenceType);
+                ///创建一个TClient接收socket 
+                //this.TClient = new XfsClient();
+
+                this.TClient = XfsComponentFactory.Create<XfsClient>();
+                this.TClient.SenceType = this.SenceType;
             }
             this.TClient.BeginReceiveMessage(socket);
             this.IsRunning = true;

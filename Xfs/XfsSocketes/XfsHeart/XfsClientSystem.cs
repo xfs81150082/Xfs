@@ -6,6 +6,15 @@ using System.Threading.Tasks;
 
 namespace Xfs
 {
+    [XfsObjectSystem]
+    public class XfsClientAwakeSystem : XfsStartSystem<XfsClient>
+    {
+        public override void Start(XfsClient self)
+        {
+            self.OnConnect();
+        }
+    }
+    [XfsObjectSystem]
     public class XfsClientSystem : XfsUpdateSystem<XfsClient>
     {
 
@@ -13,8 +22,15 @@ namespace Xfs
         {
             CheckSession(self);
         }
+
+        int ti = 0;
+        int timer = 4000;
         void CheckSession(XfsClient self)
         {
+            ti += 1;
+            if (ti < timer) return;
+            ti = 0;
+
             XfsCoolDown cd = self.GetComponent<XfsCoolDown>();
             bool isServer = self.IsPeer;
             if (!cd.Counting)

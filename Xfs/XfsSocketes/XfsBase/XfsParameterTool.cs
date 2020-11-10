@@ -7,7 +7,7 @@ namespace Xfs
         public static XfsParameter ToJsonParameter<T>(TenCode ten, ElevenCode eleven, string key, T value)
         {
             XfsParameter parameter = new XfsParameter();
-            string json = XfsJson.ToString<T>(value);
+            string json = XfsJsonHelper.ToString<T>(value);
             parameter.TenCode = ten;
             parameter.ElevenCode = eleven;
             parameter.Parameters.Add(key, json);
@@ -18,7 +18,7 @@ namespace Xfs
             object obj;
             bool yes = parameter.Parameters.TryGetValue(key, out obj);
             if (yes) { parameter.Parameters.Remove(key); }
-            string json = XfsJson.ToString<T>(value);
+            string json = XfsJsonHelper.ToString<T>(value);
             parameter.Parameters.Add(key, json);
         }
         public static T GetJsonValue<T>(XfsParameter parameter, string key)

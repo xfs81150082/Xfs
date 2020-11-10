@@ -63,7 +63,11 @@ namespace Xfs
             else
             {
                 ///创建一个TPeer接收socket
-                new XfsPeer(this.SenceType).BeginReceiveMessage(socket);
+                //XfsPeer xfsPeer = XfsComponentFactory.Create<XfsPeer>();
+                //xfsPeer.SenceType = this.SenceType;
+                //xfsPeer.BeginReceiveMessage(socket);
+
+                XfsComponentFactory.Create<XfsPeer>().BeginReceiveMessage(socket);
             }
         }
         #endregion        

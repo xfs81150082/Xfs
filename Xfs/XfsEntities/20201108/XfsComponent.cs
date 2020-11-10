@@ -141,7 +141,7 @@ namespace Xfs
 
         public override string ToString()
         {
-            return XfsJson.ToString(this);
+            return XfsJsonHelper.ToString(this);
         }
 
 

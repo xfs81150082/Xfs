@@ -43,7 +43,7 @@ namespace Xfs
             surHL = 4;
             surBL = 0;
             IsRunning = true;
-            OnConnect();
+            //OnConnect();
             Socket.BeginReceive(Buffer, 0, BufferSize, SocketFlags.None, new AsyncCallback(this.ReceiveCallback), this);
         }
         private void ReceiveCallback(IAsyncResult ar)
@@ -122,7 +122,7 @@ namespace Xfs
                         ///一个消息包接收完毕，解析消息包
                         string mvcString = Encoding.UTF8.GetString(BodyBytes, 0, BodyBytes.Length);
                         Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv {0} Bytes. ThreadId:{1}", BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
-                        XfsParameter parameter = XfsJson.ToObject<XfsParameter>(mvcString);
+                        XfsParameter parameter = XfsJsonHelper.ToObject<XfsParameter>(mvcString);
                         ///这个方法用来处理参数Mvc，并让结果给客户端响应（当客户端发起请求时调用）
                         this.OnTransferParameter(this, parameter);
                     }
@@ -226,7 +226,7 @@ namespace Xfs
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " " + ex.Message);
             }
         }
-        public virtual void OnConnect() { }
+        //public virtual void OnConnect() { }
         #endregion
     }
 }

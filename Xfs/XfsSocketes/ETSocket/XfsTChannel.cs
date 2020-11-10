@@ -1,369 +1,371 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.IO;
-//using System.Linq;
-//using System.Net;
-//using System.Net.Sockets;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
 
-//namespace Xfs
-//{
-//    public sealed class XfsTChannel : XfsAChannel
-//    {
-//        private Socket socket;a
-//        private SocketAsyncEventArgs innArgs = new SocketAsyncEventArgs();
-//        private SocketAsyncEventArgs outArgs = new SocketAsyncEventArgs();
+namespace Xfs
+{
+    public sealed class XfsTChannel : XfsAChannel
+    {
+        private Socket socket; 
+        private SocketAsyncEventArgs innArgs = new SocketAsyncEventArgs();
+        private SocketAsyncEventArgs outArgs = new SocketAsyncEventArgs();
 
-//        private readonly XfsCircularBuffer recvBuffer = new XfsCircularBuffer();
-//        private readonly XfsCircularBuffer sendBuffer = new XfsCircularBuffer();
+        private readonly XfsCircularBuffer recvBuffer = new XfsCircularBuffer();
+        private readonly XfsCircularBuffer sendBuffer = new XfsCircularBuffer();
 
-//        private readonly MemoryStream memoryStream;
+        private readonly MemoryStream memoryStream;
 
-//        private bool isSending;
+        private bool isSending;
 
-//        private bool isRecving;
+        private bool isRecving;
 
-//        private bool isConnected;
+        private bool isConnected;
 
-//        private readonly XfsPacketParser parser;
+        private readonly XfsPacketParser parser;
 
-//        private readonly byte[] packetSizeCache;
+        private readonly byte[] packetSizeCache;
 
-//        //public XfsTChannel(IPEndPoint ipEndPoint, TService service) : base(service, XfsChannelType.Connect)
-//        //{
-//        //    int packetSize = service.PacketSizeLength;
-//        //    this.packetSizeCache = new byte[packetSize];
-//        //    this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+    
 
-//        //    this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-//        //    this.socket.NoDelay = true;
-//        //    this.parser = new XfsPacketParser(packetSize, this.recvBuffer, this.memoryStream);
-//        //    this.innArgs.Completed += this.OnComplete;
-//        //    this.outArgs.Completed += this.OnComplete;
+        public XfsTChannel(IPEndPoint ipEndPoint, XfsTService service) : base(service, XfsChannelType.Connect)
+        {
+            int packetSize = service.PacketSizeLength;
+            this.packetSizeCache = new byte[packetSize];
+            //this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
 
-//        //    this.RemoteAddress = ipEndPoint;
+            this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            this.socket.NoDelay = true;
+            this.parser = new XfsPacketParser(packetSize, this.recvBuffer, this.memoryStream);
+            this.innArgs.Completed += this.OnComplete;
+            this.outArgs.Completed += this.OnComplete;
 
-//        //    this.isConnected = false;
-//        //    this.isSending = false;
-//        //}
+            this.RemoteAddress = ipEndPoint;
 
-//        //public XfsTChannel(Socket socket, TService service) : base(service, ChannelType.Accept)
-//        //{
-//        //    int packetSize = service.PacketSizeLength;
-//        //    this.packetSizeCache = new byte[packetSize];
-//        //    this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            this.isConnected = false;
+            this.isSending = false;
+        }
 
-//        //    this.socket = socket;
-//        //    this.socket.NoDelay = true;
-//        //    this.parser = new PacketParser(packetSize, this.recvBuffer, this.memoryStream);
-//        //    this.innArgs.Completed += this.OnComplete;
-//        //    this.outArgs.Completed += this.OnComplete;
+        public XfsTChannel(Socket socket, XfsTService service) : base(service, XfsChannelType.Accept)
+        {
+            int packetSize = service.PacketSizeLength;
+            this.packetSizeCache = new byte[packetSize];
+            //this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
 
-//        //    this.RemoteAddress = (IPEndPoint)socket.RemoteEndPoint;
+            this.socket = socket;
+            this.socket.NoDelay = true;
+            //this.parser = new PacketParser(packetSize, this.recvBuffer, this.memoryStream);
+            this.innArgs.Completed += this.OnComplete;
+            this.outArgs.Completed += this.OnComplete;
 
-//        //    this.isConnected = true;
-//        //    this.isSending = false;
-//        //}
+            this.RemoteAddress = (IPEndPoint)socket.RemoteEndPoint;
 
-//        public override void Dispose()
-//        {
-//            if (this.IsDisposed)
-//            {
-//                return;
-//            }
+            this.isConnected = true;
+            this.isSending = false;
+        }
 
-//            base.Dispose();
+        public override void Dispose()
+        {
+            if (this.IsDisposed)
+            {
+                return;
+            }
 
-//            this.socket.Close();
-//            this.innArgs.Dispose();
-//            this.outArgs.Dispose();
-//            this.innArgs = null;
-//            this.outArgs = null;
-//            this.socket = null;
-//            this.memoryStream.Dispose();
-//        }
+            base.Dispose();
 
-//        //private TService GetService()
-//        //{
-//        //    return (TService)this.Service;
-//        //}
+            this.socket.Close();
+            this.innArgs.Dispose();
+            this.outArgs.Dispose();
+            this.innArgs = null;
+            this.outArgs = null;
+            this.socket = null;
+            this.memoryStream.Dispose();
+        }
 
-//        public override MemoryStream Stream
-//        {
-//            get
-//            {
-//                return this.memoryStream;
-//            }
-//        }
+        //private TService GetService()
+        //{
+        //    return (TService)this.Service;
+        //}
 
-//        public override void Start()
-//        {
-//            if (!this.isConnected)
-//            {
-//                this.ConnectAsync(this.RemoteAddress);
-//                return;
-//            }
+        public override MemoryStream Stream
+        {
+            get
+            {
+                return this.memoryStream;
+            }
+        }
 
-//            if (!this.isRecving)
-//            {
-//                this.isRecving = true;
-//                this.StartRecv();
-//            }
+        public override void Start()
+        {
+            if (!this.isConnected)
+            {
+                this.ConnectAsync(this.RemoteAddress);
+                return;
+            }
 
-//            //this.GetService().MarkNeedStartSend(this.Id);
-//        }
+            if (!this.isRecving)
+            {
+                this.isRecving = true;
+                this.StartRecv();
+            }
 
-//        public override void Send(MemoryStream stream)
-//        {
-//            if (this.IsDisposed)
-//            {
-//                throw new Exception("TChannel已经被Dispose, 不能发送消息");
-//            }
+            //this.GetService().MarkNeedStartSend(this.Id);
+        }
 
-//            //switch (this.GetService().PacketSizeLength)
-//            //{
-//            //    case XfsPacket.PacketSizeLength4:
-//            //        if (stream.Length > ushort.MaxValue * 16)
-//            //        {
-//            //            throw new Exception($"send packet too large: {stream.Length}");
-//            //        }
-//            //        this.packetSizeCache.WriteTo(0, (int)stream.Length);
-//            //        break;
-//            //    case XfsPacket.PacketSizeLength2:
-//            //        if (stream.Length > ushort.MaxValue)
-//            //        {
-//            //            throw new Exception($"send packet too large: {stream.Length}");
-//            //        }
-//            //        this.packetSizeCache.WriteTo(0, (ushort)stream.Length);
-//            //        break;
-//            //    default:
-//            //        throw new Exception("packet size must be 2 or 4!");
-//            //}
+        public override void Send(MemoryStream stream)
+        {
+            if (this.IsDisposed)
+            {
+                throw new Exception("TChannel已经被Dispose, 不能发送消息");
+            }
 
-//            //this.sendBuffer.Write(this.packetSizeCache, 0, this.packetSizeCache.Length);
-//            //this.sendBuffer.Write(stream);
+            //switch (this.GetService().PacketSizeLength)
+            //{
+            //    case XfsPacket.PacketSizeLength4:
+            //        if (stream.Length > ushort.MaxValue * 16)
+            //        {
+            //            throw new Exception($"send packet too large: {stream.Length}");
+            //        }
+            //        this.packetSizeCache.WriteTo(0, (int)stream.Length);
+            //        break;
+            //    case XfsPacket.PacketSizeLength2:
+            //        if (stream.Length > ushort.MaxValue)
+            //        {
+            //            throw new Exception($"send packet too large: {stream.Length}");
+            //        }
+            //        this.packetSizeCache.WriteTo(0, (ushort)stream.Length);
+            //        break;
+            //    default:
+            //        throw new Exception("packet size must be 2 or 4!");
+            //}
 
-//            //this.GetService().MarkNeedStartSend(this.Id);
-//        }
+            //this.sendBuffer.Write(this.packetSizeCache, 0, this.packetSizeCache.Length);
+            //this.sendBuffer.Write(stream);
 
-//        private void OnComplete(object sender, SocketAsyncEventArgs e)
-//        {
-//            switch (e.LastOperation)
-//            {
-//                //case SocketAsyncOperation.Connect:
-//                //    OneThreadSynchronizationContext.Instance.Post(this.OnConnectComplete, e);
-//                //    break;
-//                //case SocketAsyncOperation.Receive:
-//                //    OneThreadSynchronizationContext.Instance.Post(this.OnRecvComplete, e);
-//                //    break;
-//                //case SocketAsyncOperation.Send:
-//                //    OneThreadSynchronizationContext.Instance.Post(this.OnSendComplete, e);
-//                //    break;
-//                //case SocketAsyncOperation.Disconnect:
-//                //    OneThreadSynchronizationContext.Instance.Post(this.OnDisconnectComplete, e);
-//                //    break;
-//                //default:
-//                //    throw new Exception($"socket error: {e.LastOperation}");
-//            }
-//        }
+            //this.GetService().MarkNeedStartSend(this.Id);
+        }
 
-//        public void ConnectAsync(IPEndPoint ipEndPoint)
-//        {
-//            this.outArgs.RemoteEndPoint = ipEndPoint;
-//            if (this.socket.ConnectAsync(this.outArgs))
-//            {
-//                return;
-//            }
-//            OnConnectComplete(this.outArgs);
-//        }
+        private void OnComplete(object sender, SocketAsyncEventArgs e)
+        {
+            switch (e.LastOperation)
+            {
+                //case SocketAsyncOperation.Connect:
+                //    OneThreadSynchronizationContext.Instance.Post(this.OnConnectComplete, e);
+                //    break;
+                //case SocketAsyncOperation.Receive:
+                //    OneThreadSynchronizationContext.Instance.Post(this.OnRecvComplete, e);
+                //    break;
+                //case SocketAsyncOperation.Send:
+                //    OneThreadSynchronizationContext.Instance.Post(this.OnSendComplete, e);
+                //    break;
+                //case SocketAsyncOperation.Disconnect:
+                //    OneThreadSynchronizationContext.Instance.Post(this.OnDisconnectComplete, e);
+                //    break;
+                //default:
+                //    throw new Exception($"socket error: {e.LastOperation}");
+            }
+        }
 
-//        private void OnConnectComplete(object o)
-//        {
-//            if (this.socket == null)
-//            {
-//                return;
-//            }
-//            SocketAsyncEventArgs e = (SocketAsyncEventArgs)o;
+        public void ConnectAsync(IPEndPoint ipEndPoint)
+        {
+            this.outArgs.RemoteEndPoint = ipEndPoint;
+            if (this.socket.ConnectAsync(this.outArgs))
+            {
+                return;
+            }
+            OnConnectComplete(this.outArgs);
+        }
 
-//            if (e.SocketError != SocketError.Success)
-//            {
-//                this.OnError((int)e.SocketError);
-//                return;
-//            }
+        private void OnConnectComplete(object o)
+        {
+            if (this.socket == null)
+            {
+                return;
+            }
+            SocketAsyncEventArgs e = (SocketAsyncEventArgs)o;
 
-//            e.RemoteEndPoint = null;
-//            this.isConnected = true;
+            if (e.SocketError != SocketError.Success)
+            {
+                this.OnError((int)e.SocketError);
+                return;
+            }
 
-//            this.Start();
-//        }
+            e.RemoteEndPoint = null;
+            this.isConnected = true;
 
-//        private void OnDisconnectComplete(object o)
-//        {
-//            SocketAsyncEventArgs e = (SocketAsyncEventArgs)o;
-//            this.OnError((int)e.SocketError);
-//        }
+            this.Start();
+        }
 
-//        private void StartRecv()
-//        {
-//            int size = this.recvBuffer.ChunkSize - this.recvBuffer.LastIndex;
-//            this.RecvAsync(this.recvBuffer.Last, this.recvBuffer.LastIndex, size);
-//        }
+        private void OnDisconnectComplete(object o)
+        {
+            SocketAsyncEventArgs e = (SocketAsyncEventArgs)o;
+            this.OnError((int)e.SocketError);
+        }
 
-//        public void RecvAsync(byte[] buffer, int offset, int count)
-//        {
-//            try
-//            {
-//                this.innArgs.SetBuffer(buffer, offset, count);
-//            }
-//            catch (Exception e)
-//            {
-//                throw new Exception($"socket set buffer error: {buffer.Length}, {offset}, {count}", e);
-//            }
+        private void StartRecv()
+        {
+            int size = this.recvBuffer.ChunkSize - this.recvBuffer.LastIndex;
+            this.RecvAsync(this.recvBuffer.Last, this.recvBuffer.LastIndex, size);
+        }
 
-//            if (this.socket.ReceiveAsync(this.innArgs))
-//            {
-//                return;
-//            }
-//            OnRecvComplete(this.innArgs);
-//        }
+        public void RecvAsync(byte[] buffer, int offset, int count)
+        {
+            try
+            {
+                this.innArgs.SetBuffer(buffer, offset, count);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"socket set buffer error: {buffer.Length}, {offset}, {count}", e);
+            }
 
-//        private void OnRecvComplete(object o)
-//        {
-//            if (this.socket == null)
-//            {
-//                return;
-//            }
-//            SocketAsyncEventArgs e = (SocketAsyncEventArgs)o;
+            if (this.socket.ReceiveAsync(this.innArgs))
+            {
+                return;
+            }
+            OnRecvComplete(this.innArgs);
+        }
 
-//            if (e.SocketError != SocketError.Success)
-//            {
-//                this.OnError((int)e.SocketError);
-//                return;
-//            }
+        private void OnRecvComplete(object o)
+        {
+            if (this.socket == null)
+            {
+                return;
+            }
+            SocketAsyncEventArgs e = (SocketAsyncEventArgs)o;
 
-//            if (e.BytesTransferred == 0)
-//            {
-//                //this.OnError(ErrorCode.ERR_PeerDisconnect);
-//                return;
-//            }
+            if (e.SocketError != SocketError.Success)
+            {
+                this.OnError((int)e.SocketError);
+                return;
+            }
 
-//            this.recvBuffer.LastIndex += e.BytesTransferred;
-//            if (this.recvBuffer.LastIndex == this.recvBuffer.ChunkSize)
-//            {
-//                this.recvBuffer.AddLast();
-//                this.recvBuffer.LastIndex = 0;
-//            }
+            if (e.BytesTransferred == 0)
+            {
+                //this.OnError(ErrorCode.ERR_PeerDisconnect);
+                return;
+            }
 
-//            // 收到消息回调
-//            while (true)
-//            {
-//                try
-//                {
-//                    if (!this.parser.Parse())
-//                    {
-//                        break;
-//                    }
-//                }
-//                catch (Exception ee)
-//                {
-//                    //Log.Error(ee);
-//                    //this.OnError(ErrorCode.ERR_SocketError);
-//                    return;
-//                }
+            this.recvBuffer.LastIndex += e.BytesTransferred;
+            if (this.recvBuffer.LastIndex == this.recvBuffer.ChunkSize)
+            {
+                this.recvBuffer.AddLast();
+                this.recvBuffer.LastIndex = 0;
+            }
 
-//                try
-//                {
-//                    this.OnRead(this.parser.GetPacket());
-//                }
-//                catch (Exception ee)
-//                {
-//                    //Log.Error(ee);
-//                }
-//            }
+            // 收到消息回调
+            while (true)
+            {
+                try
+                {
+                    if (!this.parser.Parse())
+                    {
+                        break;
+                    }
+                }
+                catch (Exception ee)
+                {
+                    //Log.Error(ee);
+                    //this.OnError(ErrorCode.ERR_SocketError);
+                    return;
+                }
 
-//            if (this.socket == null)
-//            {
-//                return;
-//            }
+                try
+                {
+                    this.OnRead(this.parser.GetPacket());
+                }
+                catch (Exception ee)
+                {
+                    //Log.Error(ee);
+                }
+            }
 
-//            this.StartRecv();
-//        }
+            if (this.socket == null)
+            {
+                return;
+            }
 
-//        public bool IsSending => this.isSending;
+            this.StartRecv();
+        }
 
-//        public void StartSend()
-//        {
-//            if (!this.isConnected)
-//            {
-//                return;
-//            }
+        public bool IsSending => this.isSending;
 
-//            // 没有数据需要发送
-//            if (this.sendBuffer.Length == 0)
-//            {
-//                this.isSending = false;
-//                return;
-//            }
+        public void StartSend()
+        {
+            if (!this.isConnected)
+            {
+                return;
+            }
 
-//            this.isSending = true;
+            // 没有数据需要发送
+            if (this.sendBuffer.Length == 0)
+            {
+                this.isSending = false;
+                return;
+            }
 
-//            int sendSize = this.sendBuffer.ChunkSize - this.sendBuffer.FirstIndex;
-//            if (sendSize > this.sendBuffer.Length)
-//            {
-//                sendSize = (int)this.sendBuffer.Length;
-//            }
+            this.isSending = true;
 
-//            this.SendAsync(this.sendBuffer.First, this.sendBuffer.FirstIndex, sendSize);
-//        }
+            int sendSize = this.sendBuffer.ChunkSize - this.sendBuffer.FirstIndex;
+            if (sendSize > this.sendBuffer.Length)
+            {
+                sendSize = (int)this.sendBuffer.Length;
+            }
 
-//        public void SendAsync(byte[] buffer, int offset, int count)
-//        {
-//            try
-//            {
-//                this.outArgs.SetBuffer(buffer, offset, count);
-//            }
-//            catch (Exception e)
-//            {
-//                throw new Exception($"socket set buffer error: {buffer.Length}, {offset}, {count}", e);
-//            }
-//            if (this.socket.SendAsync(this.outArgs))
-//            {
-//                return;
-//            }
-//            OnSendComplete(this.outArgs);
-//        }
+            this.SendAsync(this.sendBuffer.First, this.sendBuffer.FirstIndex, sendSize);
+        }
 
-//        private void OnSendComplete(object o)
-//        {
-//            if (this.socket == null)
-//            {
-//                return;
-//            }
-//            SocketAsyncEventArgs e = (SocketAsyncEventArgs)o;
+        public void SendAsync(byte[] buffer, int offset, int count)
+        {
+            try
+            {
+                this.outArgs.SetBuffer(buffer, offset, count);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"socket set buffer error: {buffer.Length}, {offset}, {count}", e);
+            }
+            if (this.socket.SendAsync(this.outArgs))
+            {
+                return;
+            }
+            OnSendComplete(this.outArgs);
+        }
 
-//            if (e.SocketError != SocketError.Success)
-//            {
-//                this.OnError((int)e.SocketError);
-//                return;
-//            }
+        private void OnSendComplete(object o)
+        {
+            if (this.socket == null)
+            {
+                return;
+            }
+            SocketAsyncEventArgs e = (SocketAsyncEventArgs)o;
 
-//            if (e.BytesTransferred == 0)
-//            {
-//                //this.OnError(ErrorCode.ERR_PeerDisconnect);
-//                return;
-//            }
+            if (e.SocketError != SocketError.Success)
+            {
+                this.OnError((int)e.SocketError);
+                return;
+            }
 
-//            this.sendBuffer.FirstIndex += e.BytesTransferred;
-//            if (this.sendBuffer.FirstIndex == this.sendBuffer.ChunkSize)
-//            {
-//                this.sendBuffer.FirstIndex = 0;
-//                this.sendBuffer.RemoveFirst();
-//            }
+            if (e.BytesTransferred == 0)
+            {
+                //this.OnError(ErrorCode.ERR_PeerDisconnect);
+                return;
+            }
 
-//            this.StartSend();
-//        }
+            this.sendBuffer.FirstIndex += e.BytesTransferred;
+            if (this.sendBuffer.FirstIndex == this.sendBuffer.ChunkSize)
+            {
+                this.sendBuffer.FirstIndex = 0;
+                this.sendBuffer.RemoveFirst();
+            }
+
+            this.StartSend();
+        }
 
 
-//    }
-//}
+    }
+}

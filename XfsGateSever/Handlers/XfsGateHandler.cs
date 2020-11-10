@@ -22,37 +22,7 @@ namespace XfsGateSever
             switch (tenCode)
             {
                 case (TenCode.Code0001):
-                    string va = XfsParameterTool.GetValue<string>(request, request.ElevenCode.ToString());
-
-                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsDbHandler，已收到客户端信息: " + va);
-
-                    string sv = XfsTimeHelper.CurrentTime() + " 服务器" + this.SenceType + "回复，收到并返回原信息：";
-                    string tt = sv + "(" + va + ")";
-                    XfsParameter repsonse = XfsParameterTool.ToParameter(TenCode.Code0001, ElevenCode.Code0001, ElevenCode.Code0001.ToString(), tt);
-                    repsonse.Back = request.Back;
-                    repsonse.Keys = request.Keys;
-
-                    XfsTcpServer server = null;
-                    XfsSockets.XfsTcpServers.TryGetValue(XfsSenceType.Gate, out server);
-                    if (server != null)
-                    {
-                        //(server as XfsTcpServerNodeNet).Send(repsonse);
-                    }
-
-                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 服务器" + this.SenceType + "已完成发送回的信息");
-
-                    ///继续向Db服务请求数据
-                    
-                    XfsParameter requst = XfsParameterTool.ToParameter(TenCode.Code0001, ElevenCode.Code0001, ElevenCode.Code0001.ToString(), tt);
-                    requst.Back = request.Back;
-                    requst.Keys = request.Keys;
-
-                    XfsTcpClient clientDb = null;
-                    XfsSockets.XfsTcpClients.TryGetValue(XfsSenceType.Db, out clientDb);
-                    //(clientDb as XfsTcpClientDbNet).Send(requst);
-
-
-                    //XfsGame.XfsSence.GetComponent<XfsTcpServerNodeNet>().Send(repsonse, NodeType.Node);
+                   
 
                     break;
                 case (TenCode.Code0002):

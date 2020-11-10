@@ -33,22 +33,48 @@ namespace XfsGateSever
 
                 ///服务器加载组件
                 XfsGame.XfsSence.Type = XfsSenceType.Gate;
-                XfsGame.XfsSence.AddComponent<XfsGateHandler>();                                         ///服务器加载组件 : 通信组件Server
-                XfsGame.XfsSence.AddComponent<XfsTcpServerGateNet>();                                    ///服务器加载组件 : 通信组件Server
+                XfsGame.XfsSence.AddComponent<XfsStartConfigComponent>();                         ///服务器加载组件 : 通信组件Server
+                //XfsGame.XfsSence.AddComponent<TimerComponent>();
+                //XfsGame.XfsSence.AddComponent<OpcodeTypeComponent>();
+                //XfsGame.XfsSence.AddComponent<MessageDispatcherComponent>();
+                XfsGame.XfsSence.AddComponent<XfsGateHandler>();                                  ///服务器加载组件 : 通信组件Server
 
 
+                // 根据不同的AppType添加不同的组件
+                //OuterConfig outerConfig = startConfig.GetComponent<OuterConfig>();
+                //InnerConfig innerConfig = startConfig.GetComponent<InnerConfig>();
+                //ClientConfig clientConfig = startConfig.GetComponent<ClientConfig>();
 
-                //XfsGame.XfsSence.GetComponent<XfsTcpServerGateNet>().Init("127.0.0.1", 2001, 10);        ///服务器加载组件 : 通信组件Server
-                ///服务器加载组件驱动程序
-                //XfsGame.XfsSence.AddComponent(new XfsClientSystem());                ///服务器加载组件 : 心跳包 组件
-                //XfsGame.XfsSence.AddComponent(new XfsPeerSystem());                  ///服务器加载组件 : 心跳包 组件
-                //XfsGame.XfsSence.AddComponent(new XfsTcpServerGateNetSystem());      ///服务器加载组件 : 套接字 外网 传输数据组件
+                //// 发送普通actor消息
+                //XfsGame.XfsSence.AddComponent<ActorMessageSenderComponent>();
+                //// 发送location actor消息
+                //XfsGame.XfsSence.AddComponent<ActorLocationSenderComponent>();
+                //// location server需要的组件
+                //XfsGame.XfsSence.AddComponent<LocationComponent>();
+                //// 访问location server的组件
+                //XfsGame.XfsSence.AddComponent<LocationProxyComponent>();
+                //// 这两个组件是处理actor消息使用的
+                //XfsGame.XfsSence.AddComponent<MailboxDispatcherComponent>();
+                //XfsGame.XfsSence.AddComponent<ActorMessageDispatcherComponent>();
+                //// 内网消息组件
+                //XfsGame.XfsSence.AddComponent<NetInnerComponent, string>(innerConfig.Address);
+                //// 外网消息组件
+                //XfsGame.XfsSence.AddComponent<NetOuterComponent, string>(outerConfig.Address);
+      
+                XfsGame.XfsSence.AddComponent<XfsTcpServerGateNet>();                             ///服务器加载组件 : 通信组件Server
+
+                //// manager server组件，用来管理其它进程使用
+                //XfsGame.XfsSence.AddComponent<AppManagerComponent>();
+                //XfsGame.XfsSence.AddComponent<GateSessionKeyComponent>();
+                //// 配置管理
+                //XfsGame.XfsSence.AddComponent<XfsConfigComponent>();
 
 
                 XfsGame.XfsSence.AddComponent<TestEntity1>();                                     ///服务器加载组件 : 通信组件Server
 
+
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " : 服务器配置完成： " /*+ AppType.AllServer + "  " */);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " : 服务器配置完成： " + XfsGame.XfsSence.Type);
 
                 while (true)
                 {

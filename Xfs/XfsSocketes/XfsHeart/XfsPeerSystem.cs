@@ -6,14 +6,31 @@ using System.Threading.Tasks;
 
 namespace Xfs
 {
-    public class XfsPeerSystem : XfsUpdateSystem<XfsPeer>
+    [XfsObjectSystem]
+    public class XfsPeerAwakeSystem : XfsStartSystem<XfsPeer>
+    {
+        public override void Start(XfsPeer self)
+        {
+            self.OnConnect();
+        }
+    }
+    [XfsObjectSystem]
+    public class XfsPeerUpdateSystem : XfsUpdateSystem<XfsPeer>
     {
         public override void Update(XfsPeer self)
         {
             CheckSession(self);
         }
+
+        int ti = 0;
+        int timer = 4000;
         void CheckSession(XfsPeer self)
         {
+            ti += 1;
+            if (ti < timer) return;
+            ti = 0;
+
+
             XfsCoolDown cd = self.GetComponent<XfsCoolDown>();
             bool isServer = self.IsPeer;
             if (!cd.Counting)
@@ -28,14 +45,6 @@ namespace Xfs
                 self.Send(mvc);
 
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
-
-                //XfsTcpServer server = null;
-                //XfsSockets.XfsTcpServers.TryGetValue((entity as XfsTcpSession).NodeType, out server);
-                //if (server != null)
-                //{
-                //    server.Send(mvc);
-                //    Console.WriteLine(XfsTimerTool.CurrentTime() + " Server-CdCount:{0}-{1} ", cd.CdCount, cd.MaxCdCount);
-                //}
             }
         }
 

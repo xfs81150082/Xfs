@@ -10,6 +10,8 @@ namespace Xfs
             this.IsPeer = false;
             AddComponent(new XfsClientSession());
             AddComponent(new XfsCoolDown(this.InstanceId));
+            //OnConnect();
+
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
         public XfsClient(XfsSenceType senceType)
@@ -18,10 +20,11 @@ namespace Xfs
             this.SenceType = senceType;
             AddComponent(new XfsClientSession());
             AddComponent(new XfsCoolDown(this.InstanceId));
+            //OnConnect();
 
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsClient:" + this.SenceType + ":" + this.IsPeer);
         }
-        public override void OnConnect()
+        public void OnConnect()
         {
             ///显示与客户端连接
             Console.WriteLine("{0} 服务端{1}连接成功", XfsTimeHelper.CurrentTime(), Socket.RemoteEndPoint);
@@ -121,7 +124,7 @@ namespace Xfs
                 {
                     XfsParameter mvc = SendParameters.Dequeue();
                     ///用Json将参数（MvcParameter）,序列化转换成字符串（string）
-                    string mvcJsons = XfsJson.ToString<XfsParameter>(mvc);
+                    string mvcJsons = XfsJsonHelper.ToString<XfsParameter>(mvc);
                     this.SendString(mvcJsons);
 
                     //if (this.TClient != null)
