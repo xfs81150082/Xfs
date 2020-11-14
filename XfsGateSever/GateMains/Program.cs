@@ -13,7 +13,10 @@ namespace XfsGateSever
     {
         static void Main(string[] args)
         {
-            new XfsGateInit().Start();           
+            //new XfsGateInit().Start();
+            //new TestIocp().Init();
+
+            XfsComponentFactory.Create<XfsGateInit>().Start();
         }
 
     }

@@ -9,7 +9,7 @@ using Xfs;
 
 namespace XfsGateSever
 {
-    public class XfsGateInit
+    public class XfsGateInit : XfsComponent
     {
         //程序启动入口
         public void Start()
@@ -33,11 +33,14 @@ namespace XfsGateSever
 
                 ///服务器加载组件
                 XfsGame.XfsSence.Type = XfsSenceType.Gate;
-                XfsGame.XfsSence.AddComponent<XfsStartConfigComponent>();                         ///服务器加载组件 : 通信组件Server
+                XfsGame.XfsSence.AddComponent<XfsStartConfigComponent>();                         ///服务器加载组件 : 信息组件
+                XfsGame.XfsSence.AddComponent<XfsOpcodeTypeComponent>();                          ///服务器加载组件 : 操作号码
+           
                 //XfsGame.XfsSence.AddComponent<TimerComponent>();
                 //XfsGame.XfsSence.AddComponent<OpcodeTypeComponent>();
                 //XfsGame.XfsSence.AddComponent<MessageDispatcherComponent>();
-                XfsGame.XfsSence.AddComponent<XfsGateHandler>();                                  ///服务器加载组件 : 通信组件Server
+          
+                XfsGame.XfsSence.AddComponent<XfsGateHandler>();                                  ///服务器加载组件 : Handler组件
 
 
                 // 根据不同的AppType添加不同的组件
