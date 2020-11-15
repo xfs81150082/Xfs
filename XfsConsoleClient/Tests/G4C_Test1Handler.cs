@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsConsoleClient
 {
-    [XfsMessage((ushort)XfsSenceType.Gate)]
+    [XfsMessage((ushort)XfsSenceType.Client)]
     public class G4C_Test1Handler : XfsAMHandler<XfsParameter>
     {
         protected override void Run(XfsSession session, XfsParameter message)

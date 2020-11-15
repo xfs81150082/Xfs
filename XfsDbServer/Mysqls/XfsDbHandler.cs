@@ -19,45 +19,11 @@ namespace XfsDbServer
             switch (tenCode)
             {
                 case (TenCode.Code0001):
-                    string va = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
-
-                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsDbHandler，已收到客户端信息: " + tenCode + " : " + va);
-                    
-                    string sv = XfsTimeHelper.CurrentTime() + " 服务器" + this.SenceType + "回复，收到并返回原信息：";
-                    string tt = sv + "(" + va + ")";
-                    XfsParameter repsonse = XfsParameterTool.ToParameter(TenCode.Code0001, ElevenCode.Code0001, ElevenCode.Code0001.ToString(), tt);
-                    repsonse.Back = parameter.Back;
-                    repsonse.Keys = parameter.Keys;
-
-                    XfsTcpServer server = null;
-                    XfsSockets.XfsTcpServers.TryGetValue(XfsSenceType.Db, out server);
-                    //server.Send(repsonse);
-
-                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " 服务器" + this.SenceType + "已完成发送回的信息");
-
-                    //XfsGame.XfsSence.GetComponent<XfsTcpServerDbNet>().Send(repsonse, NodeType.Db);
+                   
 
                     break;
                 case (TenCode.Code0002):
-                    string va2 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
-
-                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsDbHandler: " + tenCode + " : " + va2);
-                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsDbHandler: parameter.PeerIds: " + parameter.PeerIds.Count);
-
-                    string tt2 = "服务器" + this.SenceType + "回复，收到信息：" + "(" + va2 + ")";
-
-                    XfsParameter repsonse2 = XfsParameterTool.ToParameter(TenCode.Code0003, ElevenCode.Code0003, ElevenCode.Code0003.ToString(), tt2);
-                    repsonse2.Back = parameter.Back;
-                    repsonse2.Keys = parameter.Keys;
-                    repsonse2.PeerIds = parameter.PeerIds;
-
-
-                    XfsTcpServer server2 = null;
-                    XfsSockets.XfsTcpServers.TryGetValue(XfsSenceType.Db, out server2);
-                    if (server2 != null)
-                    {
-                        //(server2 as XfsTcpServerDbNet).Send(repsonse2);
-                    }
+                  
 
                     break;
                 case (TenCode.End):

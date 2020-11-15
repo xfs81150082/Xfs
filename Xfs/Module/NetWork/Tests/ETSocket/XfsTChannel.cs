@@ -40,7 +40,7 @@ namespace Xfs
 
             this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.socket.NoDelay = true;
-            this.parser = new XfsPacketParser(packetSize, this.recvBuffer, this.memoryStream);
+            //this.parser = new XfsPacketParser11(packetSize, this.recvBuffer, this.memoryStream);
             this.innArgs.Completed += this.OnComplete;
             this.outArgs.Completed += this.OnComplete;
 
@@ -262,10 +262,10 @@ namespace Xfs
             {
                 try
                 {
-                    if (!this.parser.Parse())
-                    {
-                        break;
-                    }
+                    //if (!this.parser.Parse())
+                    //{
+                    //    break;
+                    //}
                 }
                 catch (Exception ee)
                 {
@@ -276,7 +276,7 @@ namespace Xfs
 
                 try
                 {
-                    this.OnRead(this.parser.GetPacket());
+                    //this.OnRead(this.parser.GetPacket());
                 }
                 catch (Exception ee)
                 {

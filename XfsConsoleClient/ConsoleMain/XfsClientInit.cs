@@ -43,7 +43,7 @@ namespace XfsConsoleClient
 
 
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " : 客户端配置完成： ");
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 客户端配置完成： " + XfsGame.XfsSence.Type);
 
                 while (true)
                 {

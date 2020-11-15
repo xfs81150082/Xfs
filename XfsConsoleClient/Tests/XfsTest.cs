@@ -14,8 +14,6 @@ namespace XfsConsoleClient
 
         public float restime = 3000;
 
-
-
         public string call = "发送测试回调请求-20201106";
        
     }

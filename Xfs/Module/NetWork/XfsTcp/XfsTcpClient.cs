@@ -15,10 +15,11 @@ namespace Xfs
         public bool IsRunning { get; set; } = false;                       //服务器是否正在运行
         public int ValTime { get; set; } = 4000;
         public Socket NetSocket { get; set; }                              //服务器使用的异步socket
-        public XfsClient TClient { get; set; }
+        //public XfsClient TClient { get; set; }
+        public XfsSession TClient { get; set; }
         public XfsTcpClient() 
         {
-            XfsSockets.XfsTcpClients.Add(this.SenceType, this);
+            //XfsSockets.XfsTcpClients.Add(this.SenceType, this);
         }
         #region ///启动保持连接  
         public void Init(string ipString, int port)
@@ -71,15 +72,25 @@ namespace Xfs
         }
         public void XfsReceiveSocket(Socket socket)
         {
+            //if (this.TClient == null)
+            //{
+            //    ///创建一个TClient接收socket 
+            //    this.TClient = XfsComponentFactory.CreateWithParent<XfsClient>(this);
+            //    this.TClient.IsPeer = false;
+            //    this.TClient.SenceType = this.SenceType;
+            //}
+            //this.TClient.BeginReceiveMessage(socket);
+            //this.IsRunning = true;
+
             if (this.TClient == null)
             {
                 ///创建一个TClient接收socket 
-                this.TClient = XfsComponentFactory.Create<XfsClient>();
+                this.TClient = XfsComponentFactory.CreateWithParent<XfsSession>(this);
+                this.TClient.IsPeer = false;
                 this.TClient.SenceType = this.SenceType;
             }
             this.TClient.BeginReceiveMessage(socket);
             this.IsRunning = true;
-            //this.TClient.OnConnect();
         }
         #endregion
 

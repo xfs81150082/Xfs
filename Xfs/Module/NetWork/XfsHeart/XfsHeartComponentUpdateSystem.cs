@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 namespace Xfs
 {
     [XfsObjectSystem]
-    class XfsHeartComponentAwakeSystem : XfsAwakeSystem<XfsHeartComponent>
+    class XfsHeartComponentAwakeSystem : XfsStartSystem<XfsHeartComponent>
     {
-        public override void Awake(XfsHeartComponent self)
-        {
-            self.IsPeer = (self.Parent as XfsTcpSession).IsPeer;
-            self.SenceType = (self.Parent as XfsTcpSession).SenceType;
+        public override void Start(XfsHeartComponent self)
+        { 
             self.CdCount = 0; ;
-            self.MaxCdCount = 4000; ;
+            self.MaxCdCount = 4; ;
             self.Counting = true; ;
         }
     }
@@ -33,30 +31,50 @@ namespace Xfs
             ti += 1;
             if (ti < timer) return;
             ti = 0;
-
-            bool ispeer = self.IsPeer;
+            self.CdCount += 1;
+            if (self.CdCount > self.MaxCdCount)
+            {
+                self.Counting = false;
+            }
             if (!self.Counting)
             {
+                if ((self.Parent as XfsSession).Parent != null)
+                {
+                    (self.Parent as XfsSession).IsRunning = false;
+                    if ((self.Parent as XfsSession).Socket != null)
+                    {
+                        (self.Parent as XfsSession).Socket.Close();
+                    }
+                }
+
+                if ((self.Parent as XfsSession).Parent != null)
+                {
+                    if ((self.Parent as XfsSession).IsPeer)
+                    {
+                        if (((self.Parent as XfsSession).Parent as XfsTcpServer) != null)
+                        {
+                            ((self.Parent as XfsSession).Parent as XfsTcpServer).IsRunning = false;
+                        }
+                    }
+                    else
+                    {
+                        if (((self.Parent as XfsSession).Parent as XfsTcpClient) != null)
+                        {
+                            ((self.Parent as XfsSession).Parent as XfsTcpClient).IsRunning = false;
+                        }
+                    }
+                }
                 self.Parent.Dispose();
             }
             else
             {
                 //发送心跳检测（并等待签到，签到入口在TmTcpSession里，双向发向即：客户端向服务端发送，服务端向客户端发送）
                 XfsParameter mvc = XfsParameterTool.ToParameter(TenCode.Zero, ElevenCode.Zero);
-                mvc.Keys.Add(self.Parent.InstanceId);
-                if (self.IsPeer)
-                {
-                    (self.Parent as XfsPeer).Send(mvc);
-                }
-                else
-                {
-
-                    (self.Parent as XfsClient).Send(mvc);
-                }
-
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsPeer: " + self.IsPeer + " CdCount:{0}-{1} ", self.CdCount, self.MaxCdCount);
+                mvc.PeerIds.Add(self.Parent.InstanceId);
+                (self.Parent as XfsSession).Send(mvc);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsPeer: " + (self.Parent as XfsSession).IsPeer + " CdCount:{0}-{1} ", self.CdCount, self.MaxCdCount);
             }
         }
-    }
 
+    }
 }

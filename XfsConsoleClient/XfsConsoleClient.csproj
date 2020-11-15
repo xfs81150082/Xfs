@@ -51,6 +51,7 @@
     <Compile Include="Controllers\XfsDbController.cs" />
     <Compile Include="Controllers\XfsNodeController.cs" />
     <Compile Include="ConsoleMain\Program.cs" />
+    <Compile Include="Tests\G4C_Test1Handler.cs" />
     <Compile Include="Handler\C4G_Test1Handler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Socket\XfsTcpClientNodeNet.cs" />

@@ -19,8 +19,8 @@ C:\Users\Administrator\Desktop\Xfs\Xfs\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Administrator\Desktop\Xfs\Xfs\bin\Debug\Google.Protobuf.xml
 C:\Users\Administrator\Desktop\Xfs\Xfs\bin\Debug\MySql.Data.xml
 C:\Users\Administrator\Desktop\Xfs\Xfs\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\Xfs.csprojAssemblyReference.cache
 C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\Xfs.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\Xfs.csproj.CopyComplete
 C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\Xfs.dll
 C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\Xfs.pdb
+C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\Xfs.csprojAssemblyReference.cache

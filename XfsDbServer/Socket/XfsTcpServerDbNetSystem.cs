@@ -22,10 +22,11 @@ namespace XfsDbServer
     public class XfsTcpServerDbNetUpdateSystem : XfsUpdateSystem<XfsTcpServerDbNet>
     {
         int timer = 0;
+        int valTime = 1000;
         public override void Update(XfsTcpServerDbNet self)
         {
             timer += 1;
-            if (timer > self.ValTime)
+            if (timer > valTime)
             {
                 timer = 0;
                 self.Listening();

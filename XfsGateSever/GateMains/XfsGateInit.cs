@@ -77,7 +77,7 @@ namespace XfsGateSever
 
 
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " : 服务器配置完成： " + XfsGame.XfsSence.Type);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 服务器配置完成： " + XfsGame.XfsSence.Type);
 
                 while (true)
                 {

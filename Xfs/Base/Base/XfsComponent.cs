@@ -27,8 +27,7 @@ namespace Xfs
                     this.InstanceId = XfsIdGeneraterHelper.GenerateInstanceId();
                 }
             }
-        }
-  
+        }  
         public bool IsDisposed
         {
             get
@@ -67,15 +66,18 @@ namespace Xfs
             this.InstanceId = XfsIdGeneraterHelper.GenerateInstanceId();       
         }
 
-        #region Dispose
+        public override string ToString()
+        {
+            return XfsJsonHelper.ToString(this);
+        }
+
         ///是否已释放了资源，true时方法都不可用了。
         public virtual void Dispose()
         {
             if (this.IsDisposed)
             {
                 return;
-            }
-
+            }         
             // 触发Destroy事件
             XfsGame.EventSystem.Destroy(this);
 
@@ -87,26 +89,7 @@ namespace Xfs
             {
                 XfsGame.ObjectPool.Recycle(this);
             }
-            else
-            {
-
-            }
-        }
-        /// 为继承类释放时使用(Note:这儿为什么要写成虚方法呢？)
-        /// 1. 为了让派生类清理自已的资源。将销毁和析构的共同工作提取出来，并让派生类也可以释放其自已分配的资源。
-        /// 2. 为派生类提供了根据Dispose()或终结器的需要进行资源清理的必要入口。
-        #endregion
-
-        public override void EndInit()
-        {
-            //XfsGame.EventsSystem.Deserialize(this);
-        }
-
-        public override string ToString()
-        {
-            return XfsJsonHelper.ToString(this);
-        }
-
+        }       
 
     }
 }

@@ -13,8 +13,7 @@ namespace Xfs
         public short tpye { get; set; }
         public TenCode TenCode { get; set; }
         public ElevenCode ElevenCode { get; set; }
-        public List<long> Keys { get; set; } = new List<long>();
-        public Dictionary<XfsSenceType, string> PeerIds { get; set; } = new Dictionary<XfsSenceType, string>();
+        public List<long> PeerIds { get; set; } = new List<long>();
         public Dictionary<string, object> Parameters { get; set; } = new Dictionary<string, object>();
     }
 

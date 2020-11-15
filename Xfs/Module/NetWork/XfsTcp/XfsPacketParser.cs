@@ -8,21 +8,13 @@ using System.Threading;
 
 namespace Xfs
 {
-    public class XfsTcpSession : XfsEntity
+    public class XfsPacketParser : XfsComponent
     {
         #region Properties        
-        public Socket Socket { get; set; }                ///创建一个套接字，用于储藏代理服务端套接字，与客户端通信///客户端Socket 
+        public Socket Socket { get; private set; }                ///创建一个套接字，用于储藏代理服务端套接字，与客户端通信///客户端Socket 
         public bool IsRunning { get; set; }
-        public bool IsPeer { get; set; }
-        public XfsSenceType SenceType { get; set; }
-        public Queue<XfsMessageInfo> RecvResponses { get; set; } = new Queue<XfsMessageInfo>();
-        protected Queue<XfsMessageInfo> SendRequests { get; set; } = new Queue<XfsMessageInfo>();
-
-        public Queue<XfsParameter> RecvParameters { get; set; } = new Queue<XfsParameter>();
-        protected Queue<XfsParameter> SendParameters { get; set; } = new Queue<XfsParameter>();
-        protected Queue<XfsParameter> WaitingParameters { get; set; } = new Queue<XfsParameter>();
-        public XfsTcpSession() { }
         #endregion
+
         #region byte[] Bytes        
         private byte[] RecvBuffer { get; set; }                 ///接收缓冲区   
         private byte[] SendBuffer { get; set; }                 ///发送缓冲区   
@@ -38,12 +30,7 @@ namespace Xfs
         #endregion
         #region ReceiveMsg
         public void BeginReceiveMessage(object obj)
-        {
-            //BufferSize = 1024;
-            //isHead = true;
-            //isBody = false;
-            //surBL = 0;
-
+        {          
             surHL = iBytesHead;
             Socket = obj as Socket;
             RecvBuffer = new byte[BufferSize];
@@ -60,7 +47,7 @@ namespace Xfs
                     ///发送端关闭
                     Console.WriteLine("{0} 发送端{1}连接关闭", XfsTimeHelper.CurrentTime(), Socket.RemoteEndPoint);
                     IsRunning = false;
-                    Dispose();
+                    //Dispose();
                     return;
                 }
                 else
@@ -76,7 +63,7 @@ namespace Xfs
             {
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " " + ex.ToString());
                 IsRunning = false;
-                Dispose();
+                //Dispose();
             }
         }
         private void ParsingBytes()
@@ -116,11 +103,7 @@ namespace Xfs
                      
                         surBL = msgLength;
 
-                        ///一个消息包包头HeadBytes消息包 接收完毕，下面解析消息包包身
-
-                        //string mvcString = Encoding.UTF8.GetString(HeadBytes, 0, HeadBytes.Length);
-                        //Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv HeadBytes {0} Bytes. ThreadId:{1}", HeadBytes.Length, Thread.CurrentThread.ManagedThreadId);
-
+                        ///一个消息包包头HeadBytes消息包 接收完毕，下面解析消息包包身 
                         Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv , Opcode : {0} . BodyBytes.Length:{1}", opcode, msgLength);
                     }
                 }
@@ -142,31 +125,42 @@ namespace Xfs
                         CutTo(RecvBuffList, BodyBytes, 0, iBytesBody);
 
                         ///接受处理完整的字节数据包，包括包头和包身
-                        this.RecvBufferBytes(this, HeadBytes, BodyBytes);
+                        //this.RecvBufferBytes(this, HeadBytes, BodyBytes);
+                        //this.SessionRecvBufferByte(this, HeadBytes, BodyBytes);
 
-                        /////一个包身BodyBytes消息包接收完毕，解析消息包
-                        //string mvcString = Encoding.UTF8.GetString(BodyBytes, 0, BodyBytes.Length);
+                        this.OnReadRecv(this, HeadBytes, BodyBytes);
 
-                        ////Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv BodyBytes {0} Bytes. ThreadId:{1}", BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
-                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv HeadBytes {0} Bytes, BodyBytes {1} Bytes. ThreadId:{2}", HeadBytes.Length, BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
-
-                        //HeadBytes = null;
-
-                        //XfsParameter parameter = XfsJsonHelper.ToObject<XfsParameter>(mvcString);
-                        /////这个方法用来处理参数Mvc，并让结果给客户端响应（当客户端发起请求时调用）
-                        //this.OnTransferParameter(this, parameter);
+                        HeadBytes = null;
+                        
                     }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + ex.ToString());
-                Dispose();
+                //Dispose();
             }
         }
-      
-        public virtual void RecvBufferBytes(object obj, byte[] HeadBytes, byte[] BodyBytes) { }
-        public virtual void OnTransferParameter(object obj, XfsParameter parameter) { }
+
+        private Action<object, byte[], byte[]> readCallback;
+
+        public event Action<object, byte[] , byte[]> ReadCallback
+        {
+            add
+            {
+                this.readCallback += value;
+            }
+            remove
+            {
+                this.readCallback -= value;
+            }
+        }
+        void OnReadRecv(object obj, byte[] HeadBytes, byte[] BodyBytes)
+        {
+            this.readCallback.Invoke(obj, HeadBytes, BodyBytes);
+        }
+
+
         #endregion
         #region AddRange        
         void CutTo(List<byte> BuffList, byte[] bytes, int bytesoffset, int size)
@@ -229,7 +223,7 @@ namespace Xfs
                 catch (Exception ex)
                 {
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + ex.ToString());
-                    Dispose();
+                    //Dispose();
                 }
             }
         } ///发送信息给客户端
@@ -249,22 +243,23 @@ namespace Xfs
         }
         #endregion
         #region   dispose OnConnect
-        public override void Dispose()
-        {
-            base.Dispose();
-            try
-            {
-                Socket.Shutdown(SocketShutdown.Both);
-                IsRunning = false;
-                Socket.Close();
-                Socket = null;
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " EcsId:" + InstanceId + " TmTcpSession释放资源");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " " + ex.Message);
-            }
-        }
+        //public override void Dispose()
+        //{
+        //    base.Dispose();
+        //    try
+        //    {
+        //        Socket.Shutdown(SocketShutdown.Both);
+        //        IsRunning = false;
+        //        Socket.Close();
+        //        Socket = null;
+        //        Console.WriteLine(XfsTimeHelper.CurrentTime() + " EcsId:" + InstanceId + " TmTcpSession释放资源");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(XfsTimeHelper.CurrentTime() + " " + ex.Message);
+        //    }
+        //}
         #endregion
+        
     }
 }

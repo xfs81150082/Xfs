@@ -13,16 +13,15 @@ namespace Xfs
         public int Port { get; set; } = 2001;                              //监听的端口  
         public IPAddress Address { get; set; }                             //监听的IP地址  
         public bool IsRunning { get; set; } = false;                       //服务器是否正在运行
-        public int ValTime { get; set; } = 4000;
         public Socket NetSocket { get; set; }                              //服务器使用的异步socket
         public int MaxListenCount { get; set; } = 10;                      //服务器程序允许的最大客户端连接数  
       
         public Queue<Socket> WaitingSockets = new Queue<Socket>();
         public abstract XfsSenceType SenceType { get; }                          //服务器类型
-        public Dictionary<long, XfsPeer> TPeers { get; set; } = new Dictionary<long, XfsPeer>();
+        public Dictionary<long, XfsSession> TPeers { get; set; } = new Dictionary<long, XfsSession>();
         public XfsTcpServer()
         {
-            XfsSockets.XfsTcpServers.Add(this.SenceType, this);
+            //XfsSockets.XfsTcpServers.Add(this.SenceType, this);
         }
         public void Init(string ipString, int port, int maxListenCount)
         {
@@ -44,7 +43,7 @@ namespace Xfs
                 this.NetSocket.Listen(this.MaxListenCount);               
                 this.IsRunning = true;
 
-                Console.WriteLine(" {0} 服务启动，监听{1}成功", XfsTimeHelper.CurrentTime(), this.NetSocket.LocalEndPoint);
+                Console.WriteLine("{0} 服务启动，监听{1}成功", XfsTimeHelper.CurrentTime(), this.NetSocket.LocalEndPoint);
                
                 ///开始一个异步操作以接受传入的一个连接尝试
                 this.NetSocket.BeginAccept(new AsyncCallback(this.AcceptCallback), this.NetSocket);
@@ -69,13 +68,36 @@ namespace Xfs
             }
             else
             {
-                ///创建一个TPeer接收socket
-                XfsPeer xfsPeer = XfsComponentFactory.Create<XfsPeer>();
-                xfsPeer.SenceType = this.SenceType;
-                xfsPeer.BeginReceiveMessage(socket);
-                xfsPeer.OnConnect();
+                /////创建一个TPeer接收socket
+                //XfsPeer xfsPeer = XfsComponentFactory.CreateWithParent<XfsPeer>(this);
+                //xfsPeer.IsPeer = true;
+                //xfsPeer.SenceType = this.SenceType;
 
-                //XfsComponentFactory.Create<XfsPeer>().BeginReceiveMessage(socket);
+                //if (this.TPeers.TryGetValue(this.InstanceId, out XfsPeer peer))
+                //{
+                //    this.TPeers.Remove(this.InstanceId);
+                //}
+                //this.TPeers.Add(this.InstanceId, xfsPeer);
+
+                //Console.WriteLine(XfsTimeHelper.CurrentTime() + " TPeers Count: " + this.TPeers.Count + " , " + xfsPeer.InstanceId + " 已经加入TPeers字典");
+
+                //xfsPeer.BeginReceiveMessage(socket);
+
+                ///创建一个TPeer接收socket
+                XfsSession session = XfsComponentFactory.CreateWithParent<XfsSession>(this);
+                session.IsPeer = true;
+                session.SenceType = this.SenceType;
+
+                if (this.TPeers.TryGetValue(this.InstanceId, out XfsSession peer))
+                {
+                    this.TPeers.Remove(this.InstanceId);
+                }
+                this.TPeers.Add(this.InstanceId, session);
+
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " TPeers Count: " + this.TPeers.Count + " , " + session.InstanceId + " 已经加入TPeers字典");
+
+                session.BeginReceiveMessage(socket);
+
             }
         }
         #endregion        

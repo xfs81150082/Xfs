@@ -1,67 +1,78 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
 namespace Xfs
 {
-    public class XfsPeer : XfsTcpSession
+    public class XfsPeer : XfsEntity
     {
+        public XfsPacketParser tcpSession { get; set; }
+        public Socket Socket { get; set; }                ///创建一个套接字，用于储藏代理服务端套接字，与客户端通信///客户端Socket 
+        public bool IsRunning { get; set; }
+        public bool IsPeer { get; set; }
+        public XfsSenceType SenceType { get; set; }
+        public Queue<XfsParameter> RecvParameters { get; set; } = new Queue<XfsParameter>();
+        protected Queue<XfsParameter> SendParameters { get; set; } = new Queue<XfsParameter>();
+        protected Queue<XfsParameter> WaitingParameters { get; set; } = new Queue<XfsParameter>();
         public XfsPeer()
         {
             this.IsPeer = true;
             this.AddComponent<XfsHeartComponent>();
+            this.tcpSession = new XfsPacketParser();
+            //this.tcpSession.SessionRecvBufferByte += this.RecvBufferBytes;
+            this.tcpSession.ReadCallback += this.RecvBufferBytes;
 
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
         public void OnConnect()
         {
-            XfsTcpServer server = null;
-            XfsSockets.XfsTcpServers.TryGetValue(this.SenceType, out server);
-            if (server != null)
-            {
-                ///显示与客户端连接
-                Console.WriteLine("{0} 客户端{1}连接成功", XfsTimeHelper.CurrentTime(), Socket.RemoteEndPoint);
-
-                ///tpeer已经加入字典
-                server.TPeers.Add(this.InstanceId, this);
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " ComponentId: " + this.InstanceId + " 已经加入字典");
-                ///显示客户端群中的客户端数量
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " TPeers Count: " + server.TPeers.Count);              
-            }
+            ///显示与客户端连接
+            Console.WriteLine("{0} 客户端 {1} 连接成功", XfsTimeHelper.CurrentTime(), Socket.RemoteEndPoint);
         }
 
+        public void BeginReceiveMessage(Socket socket)
+        {
+            this.Socket = socket;
+            this.OnConnect();
+            tcpSession.BeginReceiveMessage(socket);
+        }
 
-        public override void RecvBufferBytes(object obj, byte[] HeadBytes, byte[] BodyBytes)
+        public void RecvBufferBytes(object obj, byte[] HeadBytes, byte[] BodyBytes)
         {
             //base.RecvBufferBytes(obj, HeadBytes, BodyBytes);
 
             ///一个包身BodyBytes消息包接收完毕，解析消息包
             string mvcString = Encoding.UTF8.GetString(BodyBytes, 0, BodyBytes.Length);
 
-            Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv HeadBytes {0} Bytes, BodyBytes {1} Bytes. ThreadId:{2}", HeadBytes.Length, BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv HeadBytes {0} Bytes, BodyBytes {1} Bytes. ThreadId:{2} .", HeadBytes.Length, BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
 
             HeadBytes = null;
+            BodyBytes = null;
 
             XfsParameter parameter = XfsJsonHelper.ToObject<XfsParameter>(mvcString);
             ///这个方法用来处理参数Mvc，并让结果给客户端响应（当客户端发起请求时调用）
             this.OnTransferParameter(this, parameter);
         }
-
-
-        public override void OnTransferParameter(object obj, XfsParameter request)
+        public void OnTransferParameter(object obj, XfsParameter request)
         {
             ///将字符串string,用json反序列化转换成MvcParameter参数
             if (request.TenCode == TenCode.Zero)
             {
                 this.GetComponent<XfsHeartComponent>().CdCount = 0;
+
+                Console.WriteLine("{0} 服务端心跳包 {1} 接收成功", XfsTimeHelper.CurrentTime(), Socket.RemoteEndPoint);
+
                 return;
             }
             ///将MvcParameter参数分别列队并处理
             if (request.Back)
             {
-            }               
-            request.Keys.Add(this.InstanceId);
+
+            }
+
+            request.PeerIds.Add(this.InstanceId);
             this.Recv(request);
         }
         #region ///接收参数信息
@@ -87,7 +98,7 @@ namespace Xfs
                     else
                     {
                         Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsHandler is null.");
-                        break;
+                        continue;
                     }
                 }
             }
@@ -112,31 +123,11 @@ namespace Xfs
                 {
                     XfsParameter response = SendParameters.Dequeue();
 
-                    //Console.WriteLine(XfsTimerTool.CurrentTime() + " OnSendMvcParameters，Keys: " + response.Keys[0]);
-                    //Console.WriteLine(XfsTimerTool.CurrentTime() + " OnSendMvcParameters，TPeers: " + this.TPeers.ToList()[0]);
+                    ///用Json将参数（MvcParameter）,序列化转换成字符串（string）
+                    string mvcJsons = XfsJsonHelper.ToString<XfsParameter>(response);                  
 
+                    this.tcpSession.SendString(mvcJsons);
 
-                    while (response.Keys.Count > 0)
-                    {
-                        ///用Json将参数（MvcParameter）,序列化转换成字符串（string）
-                        string mvcJsons = XfsJsonHelper.ToString<XfsParameter>(response);
-                        this.SendString(mvcJsons);
-
-                        response.Keys.Remove(response.Keys[0]);
-
-                        //XfsPeer tpeer;
-                        //this.TPeers.TryGetValue(response.Keys[0], out tpeer);
-                        //if (tpeer != null)
-                        //{
-                        //    tpeer.SendString(mvcJsons);
-                        //}
-                        //else
-                        //{
-                        //    Console.WriteLine(XfsTimerTool.CurrentTime() + " 没找TPeer，用Key: " + response.Keys[0]);
-                        //    break;
-                        //}
-                        //response.Keys.Remove(response.Keys[0]);
-                    }
                 }
             }
             catch (Exception ex)
@@ -147,18 +138,23 @@ namespace Xfs
         #endregion
         public override void Dispose()
         {
-            XfsTcpServer server = null;
-            XfsSockets.XfsTcpServers.TryGetValue(this.SenceType, out server);
-            if (server != null)
+            base.Dispose();
+            if ((this.Parent as XfsTcpServer) != null)
             {
-                base.Dispose();
-                ///删除掉心跳包群中对应的peer
-                server.TPeers.Remove(InstanceId);
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + "{0} 服务端{1}断开连接", XfsTimeHelper.CurrentTime(), InstanceId);
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 一个客户端:已经中断连接" + " TPeers: " + server.TPeers.Count);
-
+                if ((this.Parent as XfsTcpServer).TPeers.Count > 0)
+                {
+                    //if ((this.Parent as XfsTcpServer).TPeers.TryGetValue(this.InstanceId, out XfsPeer peer))
+                    {
+                        (this.Parent as XfsTcpServer).TPeers.Remove(this.InstanceId);
+                    }
+                }
             }
-        }
 
+            this.Socket.Close();
+            this.IsRunning = false;
+            //this.tcpSession.Dispose();
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " 一个客户端:已经中断连接, TPeers: " + (this.Parent as XfsTcpServer).TPeers.Count);
+
+        }
     }
 }

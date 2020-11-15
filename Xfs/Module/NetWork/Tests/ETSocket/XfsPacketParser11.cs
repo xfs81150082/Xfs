@@ -20,7 +20,7 @@ namespace Xfs
 		public const int OpcodeIndex = 0;
 		public const int MessageIndex = 2;
 	}
-	public class XfsPacketParser
+	public class XfsPacketParser11
 	{
 		private readonly XfsCircularBuffer buffer;
 		private int packetSize;
@@ -29,7 +29,7 @@ namespace Xfs
 		private bool isOK;
 		private readonly int packetSizeLength;
 
-		public XfsPacketParser(int packetSizeLength, XfsCircularBuffer buffer, MemoryStream memoryStream)
+		public XfsPacketParser11(int packetSizeLength, XfsCircularBuffer buffer, MemoryStream memoryStream)
 		{
 			this.packetSizeLength = packetSizeLength;
 			this.buffer = buffer;

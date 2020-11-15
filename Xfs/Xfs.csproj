@@ -178,7 +178,7 @@
     <Compile Include="Module\Message\XfsOuterOpcode.cs" />
     <Compile Include="Module\Message\XfsStartConfig.cs" />
     <Compile Include="Module\Message\Tests\XfsStartConfigComponent.cs" />
-    <Compile Include="Module\Message\Tests\ET\XfsSession.cs" />
+    <Compile Include="Module\NetWork\XfsTcp\XfsSession.cs" />
     <Compile Include="Base\Async\Tests\XfsOneThreadSynchronizationContext.cs" />
     <Compile Include="Module\Model1\XfsConsoleLog.cs" />
     <Compile Include="Module\Message\IXfsMessage.cs" />
@@ -186,7 +186,7 @@
     <Compile Include="Module\NetWork\Tests\XfsIocp\AsyncUserToken.cs" />
     <Compile Include="Module\NetWork\Tests\XfsIocp\AsyncUserTokenPool.cs" />
     <Compile Include="Module\NetWork\Tests\ETSocket\XfsTService.cs" />
-    <Compile Include="Module\NetWork\Tests\ETSocket\XfsPacketParser.cs" />
+    <Compile Include="Module\NetWork\Tests\ETSocket\XfsPacketParser11.cs" />
     <Compile Include="Module\NetWork\Tests\ETSocket\XfsCircularBuffer.cs" />
     <Compile Include="Module\NetWork\Tests\ETSocket\XfsTChannel.cs" />
     <Compile Include="Module\NetWork\Tests\ETSocket\XfsAService.cs" />
@@ -234,7 +234,7 @@
     <Compile Include="Module\Numeric\XfsCoolDownComponentUpdateSystem.cs" />
     <Compile Include="Module\NetWork\XfsTcp\XfsPeer.cs" />
     <Compile Include="Module\NetWork\XfsTcp\XfsTcpServer.cs" />
-    <Compile Include="Module\NetWork\XfsTcp\XfsTcpSession.cs" />
+    <Compile Include="Module\NetWork\XfsTcp\XfsPacketParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
