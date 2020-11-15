@@ -6,7 +6,7 @@ namespace XfsDbServer
 {
      class XfsUserMysql : XfsComponent
     {
-        public override void OnTransferParameter(object sender, XfsParameter parameter)
+        public void OnTransferParameter(object sender, XfsParameter parameter)
         {
             ElevenCode elevenCode = parameter.ElevenCode;
             switch (elevenCode)

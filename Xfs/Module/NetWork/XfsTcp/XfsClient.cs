@@ -8,8 +8,7 @@ namespace Xfs
         public XfsClient()
         {
             this.IsPeer = false;
-            //AddComponent(new XfsClientSession());
-            AddComponent(new XfsCoolDown(this.InstanceId));
+            this.AddComponent<XfsHeartComponent>();
 
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsClient:" + this.SenceType + ":" + this.IsPeer);
         }
@@ -23,7 +22,7 @@ namespace Xfs
             ///将字符串string,用json反序列化转换成MvcParameter参数
             if (parameter.TenCode == TenCode.Zero)
             {
-                this.GetComponent<XfsCoolDown>().CdCount = 0;
+                this.GetComponent<XfsHeartComponent>().CdCount = 0;
                 return;
             }
             this.Recv(parameter);

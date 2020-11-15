@@ -6,7 +6,7 @@ namespace XfsConsoleClient
 {
     class XfsBookerController : XfsComponent
     {
-        public override void OnTransferParameter(object obj, XfsParameter parameter)
+        public void OnTransferParameter(object obj, XfsParameter parameter)
         {
             ElevenCode elevenCode = parameter.ElevenCode;
             switch (elevenCode)

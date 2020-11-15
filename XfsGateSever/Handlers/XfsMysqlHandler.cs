@@ -11,13 +11,7 @@ namespace XfsGateSever
     {
         private static XfsMysqlHandler _instance;
         public static XfsMysqlHandler Instance { get => _instance;  }
-        public override void XfsAwake()
-        {
-            base.XfsAwake();
-            _instance = this;
-            //this.AddComponent(new XfsUserMysql());
-            //this.AddComponent(new XfsBookerMysql());
+       
 
-        }
     }
 }

@@ -7,14 +7,14 @@ namespace Xfs
 {
     public abstract class XfsTcpClient : XfsComponent
     {
-        ///Properties
-        public string IpString { get; set; } = "127.0.0.1";                //监听的IP地址  
+        ///Properties    
+        public abstract XfsSenceType SenceType { get; }                   //服务器类型
+       public string IpString { get; set; } = "127.0.0.1";                //监听的IP地址  
         public int Port { get; set; } = 2001;                              //监听的端口  
         public IPAddress Address { get; set; }                             //监听的IP地址  
         public bool IsRunning { get; set; } = false;                       //服务器是否正在运行
         public int ValTime { get; set; } = 4000;
         public Socket NetSocket { get; set; }                              //服务器使用的异步socket
-        public abstract XfsSenceType SenceType { get; }                         //服务器类型
         public XfsClient TClient { get; set; }
         public XfsTcpClient() 
         {
@@ -74,8 +74,6 @@ namespace Xfs
             if (this.TClient == null)
             {
                 ///创建一个TClient接收socket 
-                //this.TClient = new XfsClient();
-
                 this.TClient = XfsComponentFactory.Create<XfsClient>();
                 this.TClient.SenceType = this.SenceType;
             }

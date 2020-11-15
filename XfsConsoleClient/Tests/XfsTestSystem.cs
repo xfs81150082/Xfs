@@ -17,7 +17,7 @@ namespace XfsConsoleClient
         }
 
         int time = 0;
-        int restime = 3000;
+        int restime = 8000;
         async void TestCall2(XfsTest self)
         {
             time += 1;

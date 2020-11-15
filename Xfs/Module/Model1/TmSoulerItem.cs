@@ -4,18 +4,17 @@ namespace Xfs
 {
     [Serializable]
     public class TmSoulerItem : XfsEntity
-    {
-        public override void XfsAwake()
+    {      
+        public TmSoulerItem()
         {
             AddComponent(new TmSouler());
             AddComponent(new TmName());
             AddComponent(new TmProperty());
             //AddComponent(new TmTransform());
             AddComponent(new TmChangeType());
-            AddComponent(new XfsCoolDown());
+            AddComponent(new XfsCoolDownComponent());
             AddComponent(new XfsAstarComponent());
-        }
-        public TmSoulerItem() { }                        ///构造函数 
+        }                        ///构造函数 
         public TmSoulerItem(TmSoulerDB itemDB)
         {          
             //TmSouler souler = null;

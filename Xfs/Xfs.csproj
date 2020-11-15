@@ -193,7 +193,11 @@
     <Compile Include="Module\NetWork\Tests\ETSocket\XfsAChannel.cs" />
     <Compile Include="Module\NetWork\XfsBase\XfsErrorCode.cs" />
     <Compile Include="Module\NetWork\XfsBase\XfsSockets.cs" />
-    <Compile Include="Module\NetWork\XfsHeart\XfsCoolDown.cs" />
+    <Compile Include="Module\NetWork\XfsHeart\XfsHeartComponentUpdateSystem.cs" />
+    <Compile Include="Module\NetWork\XfsHeart\XfsHeartComponent.cs" />
+    <Compile Include="Module\NetWork\XfsTcp\XfsNetWorkComponent.cs" />
+    <Compile Include="Module\NetWork\XfsTcp\XfsTcpClient.cs" />
+    <Compile Include="Module\Numeric\XfsCoolDownComponent.cs" />
     <Compile Include="Base\Base\XfsEntity.cs" />
     <Compile Include="Entity\XfsGame.cs" />
     <Compile Include="Base\Helper\XfsIdGeneraterHelper.cs" />
@@ -226,15 +230,11 @@
     <Compile Include="Module\Numeric\XfsNumericWatcherComponent.cs" />
     <Compile Include="Module\NetWork\XfsBase\XfsController.cs" />
     <Compile Include="Module\NetWork\XfsBase\XfsHandler.cs" />
-    <Compile Include="Module\NetWork\XfsHeart\XfsPeerSystem.cs" />
-    <Compile Include="Module\NetWork\XfsHeart\XfsClientSystem.cs" />
     <Compile Include="Module\NetWork\XfsTcp\XfsClient.cs" />
-    <Compile Include="Module\NetWork\XfsHeart\XfsCoolDownSystem.cs" />
+    <Compile Include="Module\Numeric\XfsCoolDownComponentUpdateSystem.cs" />
     <Compile Include="Module\NetWork\XfsTcp\XfsPeer.cs" />
-    <Compile Include="Module\NetWork\XfsTcp\XfsTcpClient.cs" />
     <Compile Include="Module\NetWork\XfsTcp\XfsTcpServer.cs" />
     <Compile Include="Module\NetWork\XfsTcp\XfsTcpSession.cs" />
-    <Compile Include="Module\NetWork\XfsTcp\XfsTcpSocket.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -5,11 +5,7 @@ using System.Text;
 namespace Xfs
 {
     class TmSoulerInit : XfsComponent
-    {
-        public override void XfsAwake()
-        {
-            TmSoulerInfo();
-        }
+    {       
         void TmSoulerInfo()
         {
             //XfsObjects.Soulers = GetTmSoulers();

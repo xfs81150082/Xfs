@@ -7,9 +7,8 @@ namespace Xfs
         public XfsPeer()
         {
             this.IsPeer = true;
-            //AddComponent(new XfsPeerSession());
-            AddComponent(new XfsCoolDown(this.InstanceId));
-          
+            this.AddComponent<XfsHeartComponent>();
+
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsPeer:" + this.SenceType + ":" + this.IsPeer);
         }
         public void OnConnect()
@@ -33,7 +32,7 @@ namespace Xfs
             ///将字符串string,用json反序列化转换成MvcParameter参数
             if (request.TenCode == TenCode.Zero)
             {
-                this.GetComponent<XfsCoolDown>().CdCount = 0;
+                this.GetComponent<XfsHeartComponent>().CdCount = 0;
                 return;
             }
             ///将MvcParameter参数分别列队并处理

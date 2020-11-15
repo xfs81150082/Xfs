@@ -9,12 +9,8 @@ using Xfs;
 namespace XfsDbServer
 {
     class XfsGridMysql : XfsComponent
-    {
-        public override void XfsAwake()
-        {
-            //DatabaseFormName = "gridmap";
-        }
-        public override void OnTransferParameter(object sender, XfsParameter parameter)
+    {       
+        public void OnTransferParameter(object sender, XfsParameter parameter)
         {
             ElevenCode elevenCode = parameter.ElevenCode;
             switch (elevenCode)

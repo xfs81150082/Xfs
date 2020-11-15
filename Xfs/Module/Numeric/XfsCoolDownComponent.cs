@@ -1,16 +1,13 @@
 ﻿namespace Xfs
 {
-    public class XfsCoolDown : XfsComponent
-    {
-        public long Key { get; set; }
-        public int State { get; set; } = 0;
+    public class XfsCoolDownComponent : XfsComponent
+    { 
         public int CdCount { get; set; } = 0;
         public int MaxCdCount { get; set; } = 4000;
+        public bool Counting { get; set; } = true;
+  
         public double CdTime { get; set; } = 0.0;
         public double MaxCdTime { get; set; } = 4000;
-        public bool Counting { get; set; } = true;
         public bool Timing { get; set; } = true;
-        public XfsCoolDown(long key) { this.Key = key; }
-        public XfsCoolDown() {  }
     }
 }

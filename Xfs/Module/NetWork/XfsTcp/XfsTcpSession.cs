@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using static Xfs.XfsTcpSocket;
 
 namespace Xfs
 {
@@ -16,6 +15,7 @@ namespace Xfs
         public bool IsRunning { get; set; }
         public bool IsPeer { get; set; }
         public XfsSenceType SenceType { get; set; }
+
         public Queue<XfsMessageInfo> RecvResponses { get; set; } = new Queue<XfsMessageInfo>();
         protected Queue<XfsMessageInfo> SendRequests { get; set; } = new Queue<XfsMessageInfo>();
 
@@ -116,9 +116,10 @@ namespace Xfs
                     
                         ///拿出包头中后四个字节，此字节是包体长度
                         int msgLength = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(HeadBytes, 4));
+                     
                         surBL = msgLength;
 
-                        ///一个包头HeadBytes消息包接收完毕，解析消息包
+                        ///一个消息包包头HeadBytes消息包 接收完毕，下面解析消息包包身
 
                         //string mvcString = Encoding.UTF8.GetString(HeadBytes, 0, HeadBytes.Length);
                         //Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv HeadBytes {0} Bytes. ThreadId:{1}", HeadBytes.Length, Thread.CurrentThread.ManagedThreadId);
@@ -143,11 +144,14 @@ namespace Xfs
                         byte[] BodyBytes = new byte[iBytesBody];
                         CutTo(RecvBuffList, BodyBytes, 0, iBytesBody);
 
+                        ///接受处理完整的字节数据包，包括包头和包身
+                        this.RecvBufferBytes(this, HeadBytes, BodyBytes);
+
                         ///一个包身BodyBytes消息包接收完毕，解析消息包
                         string mvcString = Encoding.UTF8.GetString(BodyBytes, 0, BodyBytes.Length);
 
                         //Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv BodyBytes {0} Bytes. ThreadId:{1}", BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
-                        //Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv HeadBytes {0} Bytes, BodyBytes {1} Bytes. ThreadId:{2}", HeadBytes.Length, BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv HeadBytes {0} Bytes, BodyBytes {1} Bytes. ThreadId:{2}", HeadBytes.Length, BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
 
                         HeadBytes = null;
 
@@ -163,6 +167,8 @@ namespace Xfs
                 Dispose();
             }
         }
+        public virtual void RecvBufferBytes(object obj, byte[] HeadBytes, byte[] BodyBytes) { }
+        public virtual void OnTransferParameter(object obj, XfsParameter parameter) { }
         #endregion
         #region AddRange        
         void CutTo(List<byte> BuffList, byte[] bytes, int bytesoffset, int size)

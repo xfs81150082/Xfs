@@ -8,7 +8,7 @@ namespace XfsGateSever
 {
     class XfsUserHandler : XfsComponent
     {
-        public override void OnTransferParameter(object obj, XfsParameter parameter)
+        public void OnTransferParameter(object obj, XfsParameter parameter)
         {
             ElevenCode elevenCode = parameter.ElevenCode;
             switch (elevenCode)

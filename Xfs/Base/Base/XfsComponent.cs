@@ -4,8 +4,7 @@ namespace Xfs
 {
     public abstract class XfsComponent : XfsObject, IDisposable
     {
-        public long InstanceId { get; private set; }     /// 身份证号0
-        //public string EcsId { get; set; }                /// 身份证号
+        public long InstanceId { get; private set; }                                /// 身份证号
 
         private bool isFromPool;
         public bool IsFromPool
@@ -29,6 +28,7 @@ namespace Xfs
                 }
             }
         }
+  
         public bool IsDisposed
         {
             get
@@ -37,7 +37,7 @@ namespace Xfs
             }
         }
 
-        private XfsComponent parent;
+        private XfsComponent parent;  
         public XfsComponent Parent
         {
             get
@@ -53,7 +53,7 @@ namespace Xfs
         public T GetParent<T>() where T : XfsComponent
         {
             return this.Parent as T;
-        }
+        }    
         public XfsEntity Entity
         {
             get
@@ -62,51 +62,13 @@ namespace Xfs
             }
         }
 
-
-
         public XfsComponent()
         {
-            this.InstanceId = XfsIdGeneraterHelper.GenerateInstanceId();
-
-         
-            XfsAwake();
-            EndInit();
+            this.InstanceId = XfsIdGeneraterHelper.GenerateInstanceId();       
         }
-        public virtual void XfsAwake() { }
-        public virtual void OnTransferParameter(object sender, XfsParameter parameter) { }
-        public virtual void OnTransferParameter(object sender, XfsMessageInfo messageInfo) { }
+
         #region Dispose
         ///是否已释放了资源，true时方法都不可用了。
-        //public virtual void Dispose()
-        //{
-        //    if (!IsDisposed)
-        //    {
-        //        XfsObjects.Components.Remove(EcsId);
-        //        XfsDispose();   /// 为继承类释放时使用，用抽象方法
-        //        GC.SuppressFinalize(this); ///GC不用二次释放this资源   
-
-        //        try
-        //        {
-        //            if (Parent != null)
-        //            {
-        //                XfsComponent tm;
-        //                (Parent as XfsEntity)..TryGetValue(this.GetType().Name, out tm);
-        //                if (tm != null)
-        //                {
-        //                    (Parent as XfsEntity).Components.Remove(this.GetType().Name);
-        //                }
-        //                Parent = null;
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine(XfsTimerTool.CurrentTime() + " ex:" + ex.Message + " TmComponent释放资源异常...");
-        //        }
-
-        //        this.IsDisposed = true;
-        //    }
-        //}
-
         public virtual void Dispose()
         {
             if (this.IsDisposed)
