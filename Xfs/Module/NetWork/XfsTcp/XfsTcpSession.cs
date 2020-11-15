@@ -15,7 +15,6 @@ namespace Xfs
         public bool IsRunning { get; set; }
         public bool IsPeer { get; set; }
         public XfsSenceType SenceType { get; set; }
-
         public Queue<XfsMessageInfo> RecvResponses { get; set; } = new Queue<XfsMessageInfo>();
         protected Queue<XfsMessageInfo> SendRequests { get; set; } = new Queue<XfsMessageInfo>();
 
@@ -25,11 +24,12 @@ namespace Xfs
         public XfsTcpSession() { }
         #endregion
         #region byte[] Bytes        
-        private byte[] Buffer { get; set; }  ///接收缓冲区   
+        private byte[] RecvBuffer { get; set; }                 ///接收缓冲区   
+        private byte[] SendBuffer { get; set; }                 ///发送缓冲区   
         private int BufferSize { get; set; } = 1024;
         private int RecvLength { get; set; }
-        private List<byte> RecvBuffList { get; set; } = new List<byte>();
-        private List<byte> SendBuffList { get; set; } = new List<byte>();
+        private List<byte> RecvBuffList { get; set; } = new List<byte>();    ///接收字节列表  
+        private List<byte> SendBuffList { get; set; } = new List<byte>();    ///发送字节列表  
         private int iBytesHead { get; set; } = 8;
         private int surHL { get; set; } 
         private int surBL { get; set; } = 0;
@@ -46,9 +46,9 @@ namespace Xfs
 
             surHL = iBytesHead;
             Socket = obj as Socket;
-            Buffer = new byte[BufferSize];
+            RecvBuffer = new byte[BufferSize];
             IsRunning = true;
-            Socket.BeginReceive(Buffer, 0, BufferSize, SocketFlags.None, new AsyncCallback(this.ReceiveCallback), this);
+            Socket.BeginReceive(RecvBuffer, 0, BufferSize, SocketFlags.None, new AsyncCallback(this.ReceiveCallback), this);
         }
         private void ReceiveCallback(IAsyncResult ar)
         {
@@ -65,12 +65,12 @@ namespace Xfs
                 }
                 else
                 {
-                    AddRange(RecvBuffList, Buffer, RecvLength);
+                    AddRange(RecvBuffList, RecvBuffer, RecvLength);
                 }
                 ///触发事件 解析缓存池RecvBuffList<byte> 读取数据字节
                 ParsingBytes();
                 ///继续接收来自来客户端的数据  
-                Socket.BeginReceive(Buffer, 0, BufferSize, SocketFlags.None, new AsyncCallback(this.ReceiveCallback), this);
+                Socket.BeginReceive(RecvBuffer, 0, BufferSize, SocketFlags.None, new AsyncCallback(this.ReceiveCallback), this);
             }
             catch (Exception ex)
             {
@@ -79,8 +79,6 @@ namespace Xfs
                 Dispose();
             }
         }
-
-
         private void ParsingBytes()
         {
             ///将本次要接收的消息头字节数置0
@@ -89,7 +87,6 @@ namespace Xfs
             byte[] HeadBytes = null;
             ///将本次要剪切的字节数置0
             int iBytesBody = 0;
-
 
             try
             {
@@ -147,17 +144,17 @@ namespace Xfs
                         ///接受处理完整的字节数据包，包括包头和包身
                         this.RecvBufferBytes(this, HeadBytes, BodyBytes);
 
-                        ///一个包身BodyBytes消息包接收完毕，解析消息包
-                        string mvcString = Encoding.UTF8.GetString(BodyBytes, 0, BodyBytes.Length);
+                        /////一个包身BodyBytes消息包接收完毕，解析消息包
+                        //string mvcString = Encoding.UTF8.GetString(BodyBytes, 0, BodyBytes.Length);
 
-                        //Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv BodyBytes {0} Bytes. ThreadId:{1}", BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
+                        ////Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv BodyBytes {0} Bytes. ThreadId:{1}", BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
                         Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv HeadBytes {0} Bytes, BodyBytes {1} Bytes. ThreadId:{2}", HeadBytes.Length, BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
 
-                        HeadBytes = null;
+                        //HeadBytes = null;
 
-                        XfsParameter parameter = XfsJsonHelper.ToObject<XfsParameter>(mvcString);
-                        ///这个方法用来处理参数Mvc，并让结果给客户端响应（当客户端发起请求时调用）
-                        this.OnTransferParameter(this, parameter);
+                        //XfsParameter parameter = XfsJsonHelper.ToObject<XfsParameter>(mvcString);
+                        /////这个方法用来处理参数Mvc，并让结果给客户端响应（当客户端发起请求时调用）
+                        //this.OnTransferParameter(this, parameter);
                     }
                 }
             }
@@ -167,6 +164,7 @@ namespace Xfs
                 Dispose();
             }
         }
+      
         public virtual void RecvBufferBytes(object obj, byte[] HeadBytes, byte[] BodyBytes) { }
         public virtual void OnTransferParameter(object obj, XfsParameter parameter) { }
         #endregion
@@ -267,7 +265,6 @@ namespace Xfs
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " " + ex.Message);
             }
         }
-        //public virtual void OnConnect() { }
         #endregion
     }
 }

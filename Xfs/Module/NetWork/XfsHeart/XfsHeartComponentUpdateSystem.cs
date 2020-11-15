@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xfs.Module.NetWork.XfsHeart
+namespace Xfs
 {
-
     [XfsObjectSystem]
     class XfsHeartComponentAwakeSystem : XfsAwakeSystem<XfsHeartComponent>
     {
@@ -59,4 +58,5 @@ namespace Xfs.Module.NetWork.XfsHeart
             }
         }
     }
+
 }

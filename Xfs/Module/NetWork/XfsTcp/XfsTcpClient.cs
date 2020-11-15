@@ -79,7 +79,7 @@ namespace Xfs
             }
             this.TClient.BeginReceiveMessage(socket);
             this.IsRunning = true;
-            this.TClient.OnConnect();
+            //this.TClient.OnConnect();
         }
         #endregion
 

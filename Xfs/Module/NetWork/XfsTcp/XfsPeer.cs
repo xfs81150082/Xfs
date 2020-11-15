@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+
 namespace Xfs
 {
     public class XfsPeer : XfsTcpSession
@@ -27,6 +30,25 @@ namespace Xfs
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " TPeers Count: " + server.TPeers.Count);              
             }
         }
+
+
+        public override void RecvBufferBytes(object obj, byte[] HeadBytes, byte[] BodyBytes)
+        {
+            //base.RecvBufferBytes(obj, HeadBytes, BodyBytes);
+
+            ///一个包身BodyBytes消息包接收完毕，解析消息包
+            string mvcString = Encoding.UTF8.GetString(BodyBytes, 0, BodyBytes.Length);
+
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv HeadBytes {0} Bytes, BodyBytes {1} Bytes. ThreadId:{2}", HeadBytes.Length, BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
+
+            HeadBytes = null;
+
+            XfsParameter parameter = XfsJsonHelper.ToObject<XfsParameter>(mvcString);
+            ///这个方法用来处理参数Mvc，并让结果给客户端响应（当客户端发起请求时调用）
+            this.OnTransferParameter(this, parameter);
+        }
+
+
         public override void OnTransferParameter(object obj, XfsParameter request)
         {
             ///将字符串string,用json反序列化转换成MvcParameter参数
