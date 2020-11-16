@@ -28,6 +28,7 @@ namespace XfsConsoleClient
 
                 string tt = self.call;
                 XfsParameter request = XfsMessageHelper.ToParameter(TenCode.Code0004, ElevenCode.Code0004, tt);
+                request.Opcode = XfsOuterOpcode.XfsParameter;
 
                 XfsTcpClient client = XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>();
 

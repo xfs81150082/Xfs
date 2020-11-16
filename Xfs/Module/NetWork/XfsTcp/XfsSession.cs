@@ -124,23 +124,31 @@ namespace Xfs
 				{
 					XfsParameter parameter = this.RecvParameters.Dequeue();
 
+                    //ushort opcode1 = parameter.Opcode;
+                    //Type messageType = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetType(opcode1);
+                    //ushort opcode2 = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(messageType);
 
+                    XfsMessageInfo messageInfo = new XfsMessageInfo();
+					messageInfo.Opcode = parameter.Opcode;
+					messageInfo.Message = parameter;
+					XfsGame.XfsSence.GetComponent<XfsMessageHandlerComponent>().Handle(this, messageInfo);
 
+										
+					//continue;
 
+					//XfsHandler handler = null;
+					//XfsSockets.XfsHandlers.TryGetValue(this.SenceType, out handler);
+					//if (handler != null)
+					//{
+					//	handler.Recv(this, parameter);
+					//	Console.WriteLine(XfsTimeHelper.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
+					//}
+					//else
+					//{
+					//	Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsHandler is null.");
+					//	continue;
+					//}
 
-
-					XfsHandler handler = null;
-					XfsSockets.XfsHandlers.TryGetValue(this.SenceType, out handler);
-					if (handler != null)
-					{
-						handler.Recv(this, parameter);
-						Console.WriteLine(XfsTimeHelper.CurrentTime() + " RecvParameters: " + this.RecvParameters.Count);
-					}
-					else
-					{
-						Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsHandler is null.");
-						continue;
-					}
 				}
 			}
 			catch (Exception ex)
