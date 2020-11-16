@@ -20,7 +20,7 @@ namespace XfsConsoleClient
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + "18 XfsControllers: " + tenCode);
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + "19 XfsControllers: " + parameter.ElevenCode);
 
-                    string va = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
+                    string va = XfsMessageHelper.GetValue<string>(parameter);
                     XfsModelObjects.Tests.Add(va);
 
 

@@ -2,20 +2,16 @@
 using System.Collections.Generic;
 namespace Xfs
 {
-    [Serializable]
-    public class XfsParameter
-    {
-        public string EcsId { get; set; }
-        public int RpcId { get; set; }
-        public bool Back { get; set; } = false;
-        public int StartActorId { get; set; }
-        public int GoalActorId { get; set; }
-        public short tpye { get; set; }
-        public TenCode TenCode { get; set; }
-        public ElevenCode ElevenCode { get; set; }
-        public List<long> PeerIds { get; set; } = new List<long>();
-        public Dictionary<string, object> Parameters { get; set; } = new Dictionary<string, object>();
-    }
+    //[Serializable]
+    //public class XfsParameter
+    //{
+    //    public int RpcId { get; set; }
+    //    public ushort Opcode { get; set; }
+    //    public TenCode TenCode { get; set; }
+    //    public ElevenCode ElevenCode { get; set; }
+    //    public List<long> PeerIds { get; set; } = new List<long>();
+    //    public object Message { get; set; }
+    //}
 
     [Serializable]
     public enum TenCode

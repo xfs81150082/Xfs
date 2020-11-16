@@ -20,7 +20,7 @@ namespace XfsConsoleClient
             switch (tenCode)
             {
                 case (TenCode.Code0001):
-                    string va = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
+                    string va = XfsMessageHelper.GetValue<string>(parameter);
                     XfsModelObjects.Tests.Add(va);
 
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + " 23 XfsNodeController: " + "" + va);
@@ -35,7 +35,7 @@ namespace XfsConsoleClient
 
                     break;
                 case (TenCode.Code0003):
-                    string va3 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
+                    string va3 = XfsMessageHelper.GetValue<string>(parameter);
 
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + " 40 XfsNodeController: " + TenCode.Code0003);
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + "41 XfsNodeController: " + tenCode + " : " + va3);
@@ -43,7 +43,7 @@ namespace XfsConsoleClient
 
                     break;
                 case (TenCode.Code0004):
-                    string va4 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
+                    string va4 = XfsMessageHelper.GetValue<string>(parameter);
 
 
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + "41 XfsNodeController: " + tenCode + " : " + va4);

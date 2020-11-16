@@ -66,7 +66,7 @@ namespace Xfs
 		}
         #endregion
 
-        #region
+        #region  ///接收参数信息
         public void RecvBufferBytes(object obj, byte[] HeadBytes, byte[] BodyBytes)
 		{
 			//base.RecvBufferBytes(obj, HeadBytes, BodyBytes);
@@ -81,10 +81,10 @@ namespace Xfs
 
 			XfsParameter parameter = XfsJsonHelper.ToObject<XfsParameter>(mvcString);
 			///这个方法用来处理参数Mvc，并让结果给客户端响应（当客户端发起请求时调用）
-			this.OnTransferParameter(this, parameter);
+			this.RecvBodyBytesParameter(this, parameter);
 		}
 
-		public void OnTransferParameter(object obj, XfsParameter parameter)
+		public void RecvBodyBytesParameter(object obj, XfsParameter parameter)
 		{
 			///将字符串string,用json反序列化转换成MvcParameter参数
 			if (parameter.TenCode == TenCode.Zero)
@@ -109,22 +109,26 @@ namespace Xfs
 
 			this.Recv(parameter);
 		}
-        #endregion
 
-        #region ///接收参数信息
         public void Recv(XfsParameter parameter)
 		{
 			this.RecvParameters.Enqueue(parameter);
-			this.OnrRecvParameters();
+			this.OnRecvParameters();
 		}
 
-		void OnrRecvParameters()
+		void OnRecvParameters()
 		{
 			try
 			{
 				while (this.RecvParameters.Count > 0)
 				{
 					XfsParameter parameter = this.RecvParameters.Dequeue();
+
+
+
+
+
+
 					XfsHandler handler = null;
 					XfsSockets.XfsHandlers.TryGetValue(this.SenceType, out handler);
 					if (handler != null)
@@ -176,7 +180,15 @@ namespace Xfs
 
 			return tcs.Task;
 		}
+		public void Reply(XfsParameter  message)
+		{
+			if (this.IsDisposed)
+			{
+				throw new Exception("session已经被Dispose了");
+			}
 
+			this.Send(message);
+		}
 		public void Send(XfsParameter mvc)
 		{
 			this.SendParameters.Enqueue(mvc);

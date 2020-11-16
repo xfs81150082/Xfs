@@ -17,7 +17,7 @@ namespace XfsGateSever
             switch (tenCode)
             {
                 case (TenCode.Code0001):
-                    string va = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
+                    string va = XfsMessageHelper.GetValue<string>(parameter);
                     XfsModelObjects.Tests.Add(va);
 
 
@@ -29,7 +29,7 @@ namespace XfsGateSever
 
                     break;
                 case (TenCode.Code0003):                  
-                    string va3 = XfsParameterTool.GetValue<string>(parameter, parameter.ElevenCode.ToString());
+                    string va3 = XfsMessageHelper.GetValue<string>(parameter);
 
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsDbController，Node已收到回复信息: " + va3);
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + " parameter.PeerIds: " + parameter.PeerIds.Count);

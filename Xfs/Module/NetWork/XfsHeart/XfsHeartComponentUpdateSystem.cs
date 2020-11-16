@@ -69,7 +69,7 @@ namespace Xfs
             else
             {
                 //发送心跳检测（并等待签到，签到入口在TmTcpSession里，双向发向即：客户端向服务端发送，服务端向客户端发送）
-                XfsParameter mvc = XfsParameterTool.ToParameter(TenCode.Zero, ElevenCode.Zero);
+                XfsParameter mvc = XfsMessageHelper.ToParameter(TenCode.Zero, ElevenCode.Zero);
                 mvc.PeerIds.Add(self.Parent.InstanceId);
                 (self.Parent as XfsSession).Send(mvc);
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsPeer: " + (self.Parent as XfsSession).IsPeer + " CdCount:{0}-{1} ", self.CdCount, self.MaxCdCount);

@@ -35,12 +35,12 @@ namespace XfsGateSever
                 XfsGame.XfsSence.Type = XfsSenceType.Gate;
                 XfsGame.XfsSence.AddComponent<XfsStartConfigComponent>();                         ///服务器加载组件 : 信息组件
                 XfsGame.XfsSence.AddComponent<XfsOpcodeTypeComponent>();                          ///服务器加载组件 : 操作号码
-           
-                //XfsGame.XfsSence.AddComponent<TimerComponent>();
-                //XfsGame.XfsSence.AddComponent<OpcodeTypeComponent>();
-                //XfsGame.XfsSence.AddComponent<MessageDispatcherComponent>();
-          
+
+                XfsGame.XfsSence.AddComponent<XfsTimerComponent>();
+                //XfsGame.XfsSence.AddComponent<XfsMessageDispatcherComponent>();
+
                 XfsGame.XfsSence.AddComponent<XfsGateHandler>();                                  ///服务器加载组件 : Handler组件
+                XfsGame.XfsSence.AddComponent<XfsMessageHandlerComponent>();
 
 
                 // 根据不同的AppType添加不同的组件
@@ -63,7 +63,7 @@ namespace XfsGateSever
                 //XfsGame.XfsSence.AddComponent<NetInnerComponent, string>(innerConfig.Address);
                 //// 外网消息组件
                 //XfsGame.XfsSence.AddComponent<NetOuterComponent, string>(outerConfig.Address);
-      
+
                 XfsGame.XfsSence.AddComponent<XfsTcpServerGateNet>();                             ///服务器加载组件 : 通信组件Server
 
                 //// manager server组件，用来管理其它进程使用
@@ -73,7 +73,8 @@ namespace XfsGateSever
                 //XfsGame.XfsSence.AddComponent<XfsConfigComponent>();
 
 
-                XfsGame.XfsSence.AddComponent<TestEntity1>();                                     ///服务器加载组件 : 通信组件Server
+                //XfsGame.XfsSence.AddComponent<TestEntity1>();                                     ///服务器加载组件 : 通信组件Server
+                XfsGame.XfsSence.AddComponent<XfsGateTest>();                                     ///服务器加载组件 : 通信组件Server
 
 
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);

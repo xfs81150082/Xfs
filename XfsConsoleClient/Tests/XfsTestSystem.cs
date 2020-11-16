@@ -8,8 +8,8 @@ using Xfs;
 
 namespace XfsConsoleClient
 {
-    [XfsObjectSystem]
-     public class XfsTestSystem : XfsUpdateSystem<XfsTest>
+    [XfsObjectSystem]    
+    public class XfsTestSystem : XfsUpdateSystem<XfsTest>
     {
         public override void Update(XfsTest self)
         {
@@ -27,9 +27,7 @@ namespace XfsConsoleClient
                 time = 0;
 
                 string tt = self.call;
-                XfsParameter request = XfsParameterTool.ToParameter(TenCode.Code0004, ElevenCode.Code0004, ElevenCode.Code0004.ToString(), tt);
-                request.Back = true;
-                request.EcsId = XfsIdGeneraterHelper.GetId();
+                XfsParameter request = XfsMessageHelper.ToParameter(TenCode.Code0004, ElevenCode.Code0004, tt);
 
                 XfsTcpClient client = XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>();
 
@@ -39,12 +37,11 @@ namespace XfsConsoleClient
 
                     XfsParameter response = await client.TClient.Call(request);
 
-                    string res = XfsParameterTool.GetValue<string>(response, response.ElevenCode.ToString());
+                    string res = XfsMessageHelper.GetValue<string>(response);
 
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-59: " + res);
                 }
 
-                //Console.WriteLine(XfsTimerTool.CurrentTime() + " 55 XfsTestSystem: " + test.time);
             }
         }
 
@@ -53,4 +50,20 @@ namespace XfsConsoleClient
 
 
     }
+     
+    public class XfsTest : XfsEntity
+    {
+        public string longin = "2020-10-18";
+        public string par { get; set; }
+
+        public bool IsUserLogin = false;
+
+        public float time = 0;
+
+        public float restime = 3000;
+
+        public string call = "发送测试回调请求-20201106";
+
+    }
+
 }

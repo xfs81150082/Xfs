@@ -61,17 +61,36 @@ namespace Xfs
 		{
 			return this.opcodeTypes.GetValueByKey(opcode);
 		}
-		
-		// 客户端为了0GC需要消息池，服务端消息需要跨协程不需要消息池
 		public object GetInstance(ushort opcode)
 		{
-#if SERVER
-			Type type = this.GetType(opcode);
-			return Activator.CreateInstance(type);
-#else
 			return this.typeMessages[opcode];
-#endif
 		}
+
+		public int MessagesCount()
+		{
+			return typeMessages.Count;
+		}
+		public string Messages()
+		{
+			return typeMessages.Values.ToString();
+		}
+		public string Keys()
+		{
+			return typeMessages.Keys.ToString();
+		}
+
+
+
+		// 客户端为了0GC需要消息池，服务端消息需要跨协程不需要消息池
+		//		public object GetInstance(ushort opcode)
+		//		{
+		//#if SERVER
+		//			Type type = this.GetType(opcode);
+		//			return Activator.CreateInstance(type);
+		//#else
+		//			return this.typeMessages[opcode];
+		//#endif
+		//		}
 
 		public override void Dispose()
 		{

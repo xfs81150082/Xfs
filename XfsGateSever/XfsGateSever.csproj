@@ -48,9 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Handlers\G4C_Test1Handler.cs" />
-    <Compile Include="Tests\TestIocp.cs" />
-    <Compile Include="Tests\Class1.cs" />
-    <Compile Include="Tests\Class2.cs" />
+    <Compile Include="Tests\Test1\TestIocp.cs" />
+    <Compile Include="Tests\Test1\Class1.cs" />
+    <Compile Include="Tests\Test1\Class2.cs" />
     <Compile Include="GateMains\XfsGateInit.cs" />
     <Compile Include="GateMains\Program.cs" />
     <Compile Include="Handlers\XfsMysqlHandler.cs" />
@@ -58,19 +58,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sockets\XfsTcpClientDbNet.cs" />
     <Compile Include="Sockets\XfsTcpClientDbNetSystem.cs" />
-    <Compile Include="Tests\Class3.cs" />
-    <Compile Include="Tests\TestAttributeUpdateSystem.cs" />
-    <Compile Include="Tests\ServerTestPathsUpdateSystem.cs" />
-    <Compile Include="Tests\TestEntity1.cs" />
-    <Compile Include="Tests\XfsClass3UpdateSystem.cs" />
-    <Compile Include="Tests\TestAttribute.cs" />
-    <Compile Include="Tests\ServerTestPaths.cs" />
+    <Compile Include="Tests\Test1\Class3.cs" />
+    <Compile Include="Tests\Test1\TestAttributeUpdateSystem.cs" />
+    <Compile Include="Tests\Test1\ServerTestPathsUpdateSystem.cs" />
+    <Compile Include="Tests\Test1\TestEntity1.cs" />
+    <Compile Include="Tests\Test1\XfsClass3UpdateSystem.cs" />
+    <Compile Include="Tests\Test1\TestAttribute.cs" />
+    <Compile Include="Tests\Test1\ServerTestPaths.cs" />
     <Compile Include="Handlers\XfsGateHandler.cs" />
     <Compile Include="Sockets\XfsTcpServerGateNet.cs" />
     <Compile Include="Sockets\XfsTcpServerGateNetSystem.cs" />
     <Compile Include="Controllers\XfsDbController.cs" />
-    <Compile Include="Tests\XfsClass1StartSystem.cs" />
-    <Compile Include="Tests\XfsClass2StartSystem.cs" />
+    <Compile Include="Tests\Test1\XfsClass1StartSystem.cs" />
+    <Compile Include="Tests\Test1\XfsClass2StartSystem.cs" />
+    <Compile Include="Tests\XfsGateTestSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
