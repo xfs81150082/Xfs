@@ -107,7 +107,7 @@ namespace Xfs
      
     }
     [Serializable]
-    public partial class C2G_Ping : IXfsMessage
+    public partial class C4G_Ping : IXfsMessage
     {
         private int rpcId_;
         public int RpcId
@@ -118,10 +118,31 @@ namespace Xfs
                 rpcId_ = value;
             }
         }
-                
+
+        private ushort opcode_;
+        public ushort Opcode
+        {
+            get { return opcode_; }
+            set
+            {
+                opcode_ = value;
+            }
+        }
+
+        private string message_ = "";
+        public string Message
+        {
+            get { return message_; }
+            set
+            {
+                message_ = value;
+            }
+        }
+
+
     }
     [Serializable]
-    public partial class G2C_Ping : IXfsMessage
+    public partial class G4C_Ping : IXfsMessage
     {
         private int rpcId_;
         public int RpcId

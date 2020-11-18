@@ -13,6 +13,9 @@ namespace XfsConsoleClient
         protected override void Run(XfsSession session, T2M_CreateUnit message)
         {
 
+
+
+
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " C4G_Test1Handler: " + message.RpcId);
         }
     }

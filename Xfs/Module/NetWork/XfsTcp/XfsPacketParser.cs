@@ -10,14 +10,13 @@ namespace Xfs
 {
     public class XfsPacketParser : XfsComponent
     {
-        #region Properties        
-        public Socket Socket { get; private set; }                ///创建一个套接字，用于储藏代理服务端套接字，与客户端通信///客户端Socket 
+        #region Socket        
+        public Socket Socket { get; private set; }                ///一个套接字
         public bool IsRunning { get; set; }
         #endregion
 
         #region byte[] Bytes        
         private byte[] RecvBuffer { get; set; }                 ///接收缓冲区   
-        private byte[] SendBuffer { get; set; }                 ///发送缓冲区   
         private int BufferSize { get; set; } = 1024;
         private int RecvLength { get; set; }
         private List<byte> RecvBuffList { get; set; } = new List<byte>();    ///接收字节列表  
@@ -28,6 +27,7 @@ namespace Xfs
         private bool isHead { get; set; } = true;
         private bool isBody { get; set; } = false;
         #endregion
+
         #region ReceiveMsg
         public void BeginReceiveMessage(object obj)
         {          
@@ -52,10 +52,11 @@ namespace Xfs
                 }
                 else
                 {
-                    AddRange(RecvBuffList, RecvBuffer, RecvLength);
+                    ///将从Socket中收到的消息，搬到接收字节列表
+                    this.AddRange(RecvBuffList, RecvBuffer, RecvLength);
                 }
                 ///触发事件 解析缓存池RecvBuffList<byte> 读取数据字节
-                ParsingBytes();
+                this.ParsingBytes();
                 ///继续接收来自来客户端的数据  
                 Socket.BeginReceive(RecvBuffer, 0, BufferSize, SocketFlags.None, new AsyncCallback(this.ReceiveCallback), this);
             }
@@ -68,9 +69,7 @@ namespace Xfs
         }
         private void ParsingBytes()
         {
-            ///将本次要接收的消息头字节数置0
-            //int iBytesHead;
-            ///接收消息体（消息体的长度存储在消息头的0至4索引位置的字节里）
+            ///接收消息头（消息体的长度存储在消息头的0至4索引位置的字节里）
             byte[] HeadBytes = null;
             ///将本次要剪切的字节数置0
             int iBytesBody = 0;
@@ -92,19 +91,19 @@ namespace Xfs
                         /////接收消息体（消息体的长度存储在消息头的0至4索引位置的字节里）
                         //byte[] HeadBytes = new byte[iBytesHead];
                         HeadBytes = new byte[iBytesHead];
+
                         ///将接收到的字节数的消息头保存到HeadBytes，//减去已经接收到的字节数
-                        CutTo(RecvBuffList, HeadBytes, 0, iBytesHead);
+                        this.CutTo(RecvBuffList, HeadBytes, 0, iBytesHead);
 
                         ///拿出包头中前四个字节，此字节是操代码
                         int opcode = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(HeadBytes, 0));
                     
                         ///拿出包头中后四个字节，此字节是包体长度
-                        int msgLength = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(HeadBytes, 4));
-                     
+                        int msgLength = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(HeadBytes, 4));                     
                         surBL = msgLength;
 
-                        ///一个消息包包头HeadBytes消息包 接收完毕，下面解析消息包包身 
-                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv , Opcode : {0} . BodyBytes.Length:{1}", opcode, msgLength);
+                        /////一个消息包包头HeadBytes消息包 接收完毕，下面解析消息包包身 
+                        //Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv , Opcode : {0} . BodyBytes.Length:{1}", opcode, msgLength);
                     }
                 }
                 if (isBody)
@@ -122,23 +121,22 @@ namespace Xfs
                         surHL = 4;
                         ///一个消息包接收完毕，解析消息包
                         byte[] BodyBytes = new byte[iBytesBody];
-                        CutTo(RecvBuffList, BodyBytes, 0, iBytesBody);
+                        this.CutTo(RecvBuffList, BodyBytes, 0, iBytesBody);
 
                         ///接受处理完整的字节数据包，包括包头和包身
-                        //this.RecvBufferBytes(this, HeadBytes, BodyBytes);
-                        //this.SessionRecvBufferByte(this, HeadBytes, BodyBytes);
-
                         this.OnReadRecv(this, HeadBytes, BodyBytes);
 
-                        HeadBytes = null;
+                        //HeadBytes = null;
                         
+                        ///一个消息包包头HeadBytes消息包 接收完毕，下面解析消息包包身 
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " PacketParser-Recv {0} + {1} Bytes.", HeadBytes.Length, BodyBytes.Length);
                     }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + ex.ToString());
-                //Dispose();
+                this.Dispose();
             }
         }
 
@@ -159,9 +157,8 @@ namespace Xfs
         {
             this.readCallback.Invoke(obj, HeadBytes, BodyBytes);
         }
-
-
         #endregion
+
         #region AddRange        
         void CutTo(List<byte> BuffList, byte[] bytes, int bytesoffset, int size)
         {
@@ -175,32 +172,56 @@ namespace Xfs
             BuffList.AddRange(temByte);
         }/// 队列数据
         #endregion
-        #region SendString
-        public void SendString(string mvcString)
+
+        #region SendBytes
+        public void SendString(string paramter)
+        {///将字符串(string)转换成字节(byte)
+			byte[] packetBodyBytes = Encoding.UTF8.GetBytes(paramter);
+
+            int msgLength = 8 + packetBodyBytes.Length;
+            byte[] packetBytes = new byte[msgLength];
+
+            ///包体长度（不含包头的8个字节的长度），存在包头，占用4个字节(0,1,2,3).
+            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(packetBodyBytes.Length)).CopyTo(packetBytes, 4);
+
+            ///信息类型，存在包头，占用4个字节(4,5,6,7).
+            ushort opcode = 101;
+            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(opcode)).CopyTo(packetBytes, 0);
+
+            ///包体存入消息包，占用位置（8...）,从8开始向后存到底
+            packetBodyBytes.CopyTo(packetBytes, 8);
+
+            this.SendBytes(packetBytes);
+        }
+
+        public void SendBytes(byte[] packetHeahBytes, byte[] packetBodyBytes)
+        {
+            int msgLength = packetHeahBytes.Length + packetBodyBytes.Length;
+            byte[] packetBytes = new byte[msgLength];           
+
+            ///包体存入消息包，占用位置（0-7）,共8个字节位置
+            packetHeahBytes.CopyTo(packetBytes, 0);
+
+            ///包体存入消息包，占用位置（8...）,从8开始向后存到底
+            packetBodyBytes.CopyTo(packetBytes, 8);
+
+            this.SendBytes(packetBytes);
+        }
+        public void SendBytes(byte[] packetBytes)
         {
             if (null == Socket.Handle || !Socket.Connected)
             {
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 连接已中断！！！");
-                IsRunning = false;
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " 连接已中断!");
+                (this.Parent as XfsSession).Dispose();
+                this.Dispose();
                 return;
             }
-            ///将字符串(string)转换成字节(byte)
-            byte[] jsonsByte = Encoding.UTF8.GetBytes(mvcString);
-            ///消息包长度
-            int sendLength = iBytesHead + jsonsByte.Length;
-            ///定义数据包（消息头长度 + 消息体长度）
-            byte[] MsgsByte = new byte[sendLength];
+            ///要发送的信息长度
+            int sendLength = packetBytes.Length;
 
-            ///包头先存入消息长度数值4个字节 操作代码
-            ushort opcode = 101;
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(opcode)).CopyTo(MsgsByte, 0);
-        
-            ///包头再存入消息长度数值4个字节 包体长度
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(jsonsByte.Length)).CopyTo(MsgsByte, 4);            
+            ///把要发送的信息，搬到发送字节列表
+            AddRange(SendBuffList, packetBytes, packetBytes.Length);
 
-            ///包身然后存入信息体字节
-            jsonsByte.CopyTo(MsgsByte, 8);
-            AddRange(SendBuffList, MsgsByte, MsgsByte.Length);
             while (sendLength > 0)
             {
                 try
@@ -208,14 +229,14 @@ namespace Xfs
                     if (sendLength <= BufferSize)
                     {
                         byte[] temBytes = new byte[sendLength];
-                        CutTo(SendBuffList, temBytes, 0, sendLength);
+                        this.CutTo(SendBuffList, temBytes, 0, sendLength);
                         Socket.BeginSend(temBytes, 0, temBytes.Length, 0, new AsyncCallback(this.SendCallback), Socket);
                         sendLength = 0;
                     }
                     else
                     {
                         byte[] temBytes = new byte[BufferSize];
-                        CutTo(SendBuffList, temBytes, 0, BufferSize);
+                        this.CutTo(SendBuffList, temBytes, 0, BufferSize);
                         sendLength -= BufferSize;
                         Socket.BeginSend(temBytes, 0, temBytes.Length, 0, new AsyncCallback(this.SendCallback), Socket);
                     }
@@ -233,8 +254,7 @@ namespace Xfs
             {
                 Socket client = (Socket)ar.AsyncState;
                 int bytesSent = client.EndSend(ar);
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " Sent {0} Bytes. ThreadId:{1}", bytesSent, Thread.CurrentThread.ManagedThreadId);
-
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " PacketParser-Sent {0} Bytes. ThreadId:{1}", bytesSent, Thread.CurrentThread.ManagedThreadId);
             }
             catch (Exception ex)
             {
@@ -242,24 +262,25 @@ namespace Xfs
             }
         }
         #endregion
-        #region   dispose OnConnect
-        //public override void Dispose()
-        //{
-        //    base.Dispose();
-        //    try
-        //    {
-        //        Socket.Shutdown(SocketShutdown.Both);
-        //        IsRunning = false;
-        //        Socket.Close();
-        //        Socket = null;
-        //        Console.WriteLine(XfsTimeHelper.CurrentTime() + " EcsId:" + InstanceId + " TmTcpSession释放资源");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(XfsTimeHelper.CurrentTime() + " " + ex.Message);
-        //    }
-        //}
+ 
+        #region Dispose
+        public override void Dispose()
+        {
+            base.Dispose();
+            try
+            {
+                Socket.Shutdown(SocketShutdown.Both);
+                this.IsRunning = false;
+                Socket.Close();
+                Socket = null;
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " InstanceId:" + InstanceId + " XfsPacketParser释放资源...");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " " + ex.Message);
+            }
+        }
         #endregion
-        
+
     }
 }

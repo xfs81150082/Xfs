@@ -21,7 +21,7 @@ namespace Xfs
 
 	public sealed class XfsSession : XfsEntity
 	{
-		public XfsPacketParser tcpSession { get; set; }
+		public XfsPacketParser packetParser { get; private set; }	
 		public XfsNetWorkComponent Network
 		{
 			get
@@ -44,15 +44,15 @@ namespace Xfs
 		{
 			this.requestCallback.Clear();
 			this.AddComponent<XfsHeartComponent>();
-            this.tcpSession = XfsComponentFactory.CreateWithParent<XfsPacketParser>(this);
-			this.tcpSession.ReadCallback += this.RecvBufferBytes;
+            this.packetParser = XfsComponentFactory.CreateWithParent<XfsPacketParser>(this);
+			this.packetParser.ReadCallback += this.OnRead;
 		}	
 		#region
 		/// 接收Socket信息
 		public void BeginReceiveMessage(Socket socket)
 		{
 			this.Socket = socket;
-			tcpSession.BeginReceiveMessage(socket);
+			packetParser.BeginReceiveMessage(socket);
 			this.OnConnect();
 
 
@@ -64,24 +64,79 @@ namespace Xfs
 			///显示与客户端连接			
 			Console.WriteLine(XfsTimeHelper.CurrentTime() + " 客户端连接成功 Is Peer: " + this.IsPeer + " : " + this.Socket.RemoteEndPoint);
 		}
-        #endregion
+		#endregion
 
-        #region  ///接收参数信息
-        public void RecvBufferBytes(object obj, byte[] HeadBytes, byte[] BodyBytes)
+		#region  ///接收参数信息
+		public void OnRead(object obj, byte[] HeadBytes, byte[] BodyBytes)
 		{
-			//base.RecvBufferBytes(obj, HeadBytes, BodyBytes);
-
-			///一个包身BodyBytes消息包接收完毕，解析消息包
+			try
+			{
+				this.XfsRun(obj, HeadBytes, BodyBytes);
+			}
+			catch (Exception e)
+			{
+				//Log.Error(e);
+				Console.WriteLine(XfsTimeHelper.CurrentTime() + e);
+			}
+		}
+		public void XfsRun(object obj, byte[] HeadBytes, byte[] BodyBytes)
+		{
+			///一个消息包，包头HeadBytes和包身BodyBytes 接收完毕，解析消息包
+			///2020.11.18 之前 有效
 			string mvcString = Encoding.UTF8.GetString(BodyBytes, 0, BodyBytes.Length);
 
-			Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv HeadBytes {0} Bytes, BodyBytes {1} Bytes. ThreadId:{2} .", HeadBytes.Length, BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
-
-			HeadBytes = null;
-			BodyBytes = null;
+			Console.WriteLine(XfsTimeHelper.CurrentTime() + " Session-Recv {0} + {1} Bytes. ThreadId:{2} .", HeadBytes.Length, BodyBytes.Length, Thread.CurrentThread.ManagedThreadId);
 
 			XfsParameter parameter = XfsJsonHelper.ToObject<XfsParameter>(mvcString);
 			///这个方法用来处理参数Mvc，并让结果给客户端响应（当客户端发起请求时调用）
 			this.RecvBodyBytesParameter(this, parameter);
+
+			return;
+
+			///20201118  需要调试
+            ///拿出包头中前四个字节，此字节是操代码Opcode
+            ushort opcode = (ushort)BitConverter.ToInt32(HeadBytes, 0);
+			///ushort opcode = BitConverter.ToUInt16(HeadBytes, 0);
+			object message = null;
+			try
+			{
+				XfsOpcodeTypeComponent opcodeTypeComponent = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>();
+				object instance = opcodeTypeComponent.GetInstance(opcode);
+                string jsonStr = Encoding.UTF8.GetString(BodyBytes, 0, BodyBytes.Length);
+                message = XfsJsonHelper.ToObject<object>(jsonStr);               
+            }
+			catch (Exception e)
+			{
+				// 出现任何消息解析异常都要断开Session，防止客户端伪造消息				
+				Console.WriteLine(XfsTimeHelper.CurrentTime() + e);
+				if ((this.Parent as XfsTcpServer) != null)
+				{
+					if ((this.Parent as XfsTcpServer).TPeers.TryGetValue(this.InstanceId, out XfsSession session))
+					{
+						(this.Parent as XfsTcpServer).TPeers.Remove(this.InstanceId);
+					}
+				}
+				return;
+			}
+
+            IXfsResponse response = message as IXfsResponse;
+            if (response == null)
+            {
+                XfsMessageInfo messageInfo = new XfsMessageInfo();
+                messageInfo.Opcode = (ushort)opcode;
+                messageInfo.Message = message;
+                XfsGame.XfsSence.GetComponent<XfsMessageHandlerComponent>().Handle(this, messageInfo);
+                return;
+            }
+
+            Action<IXfsResponse> action;
+            if (!this.requestCallback.TryGetValue(response.RpcId, out action))
+            {
+                throw new Exception($"not found rpc, response message: {/*StringHelper.MessageToStr(response)*/ 0}");
+            }
+            this.requestCallback.Remove(response.RpcId);
+
+            action(response);
 		}
 
 		public void RecvBodyBytesParameter(object obj, XfsParameter parameter)
@@ -123,10 +178,6 @@ namespace Xfs
 				while (this.RecvParameters.Count > 0)
 				{
 					XfsParameter parameter = this.RecvParameters.Dequeue();
-
-                    //ushort opcode1 = parameter.Opcode;
-                    //Type messageType = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetType(opcode1);
-                    //ushort opcode2 = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(messageType);
 
                     XfsMessageInfo messageInfo = new XfsMessageInfo();
 					messageInfo.Opcode = parameter.Opcode;
@@ -213,9 +264,9 @@ namespace Xfs
 					XfsParameter response = SendParameters.Dequeue();
 
 					///用Json将参数（MvcParameter）,序列化转换成字符串（string）
-					string mvcJsons = XfsJsonHelper.ToString<XfsParameter>(response);
+					string mvcJsons = XfsJsonHelper.ToJson<XfsParameter>(response);
 
-					this.tcpSession.SendString(mvcJsons);
+                    this.packetParser.SendString(mvcJsons);
 
 				}
 			}
@@ -226,43 +277,7 @@ namespace Xfs
 		}
 		#endregion
 
-		#region
-		public override void Dispose()
-		{
-			if (this.IsDisposed)
-			{
-				return;
-			}
-
-			base.Dispose();
-
-			foreach (Action<IXfsResponse> action in this.requestCallback.Values.ToArray())
-			{
-				//action.Invoke(new ResponseMessage { Error = this.Error });
-			}
-
-			this.tcpSession.ReadCallback -= this.RecvBufferBytes;
-
-			this.requestCallback.Clear();
-
-			if ((this.Parent as XfsTcpServer) != null)
-			{
-				if ((this.Parent as XfsTcpServer).TPeers.Count > 0)
-				{
-					if ((this.Parent as XfsTcpServer).TPeers.TryGetValue(this.InstanceId, out XfsSession peer))
-					{
-						(this.Parent as XfsTcpServer).TPeers.Remove(this.InstanceId);
-					}
-				}
-			}
-
-			this.Socket.Close();
-			this.IsRunning = false;
-			//this.tcpSession.Dispose();
-
-			Console.WriteLine(XfsTimeHelper.CurrentTime() + " 一个客户端:已经中断连接, TPeers: " + (this.Parent as XfsTcpServer).TPeers.Count);
-		}
-        #endregion
+	
 
         #region
  		private readonly Dictionary<int, Action<IXfsResponse>> requestCallback = new Dictionary<int, Action<IXfsResponse>>();
@@ -272,59 +287,9 @@ namespace Xfs
 			//this.channel.Start();
 		}
 
-		private void Run(MemoryStream memoryStream)
-		{
-			memoryStream.Seek(XfsPacket.MessageIndex, SeekOrigin.Begin);
-			ushort opcode = BitConverter.ToUInt16(memoryStream.GetBuffer(), XfsPacket.OpcodeIndex);
-
-			//#if !SERVER
-			//if (OpcodeHelper.IsClientHotfixMessage(opcode))
-			//{
-			//    this.GetComponent<SessionCallbackComponent>().MessageCallback.Invoke(this, opcode, memoryStream);
-			//    return;
-			//}
-			//#endif
-
-			object message = null;
-			try
-			{
-				XfsOpcodeTypeComponent opcodeTypeComponent = this.Network.Entity.GetComponent<XfsOpcodeTypeComponent>();
-				object instance = opcodeTypeComponent.GetInstance(opcode);
-				//message = this.Network.MessagePacker.DeserializeFrom(instance, memoryStream);
-
-				//if (XfsOpcodeHelper.IsNeedDebugLogMessage(opcode))
-				//{
-				//    Log.Msg(message);
-				//}
-			}
-			catch (Exception e)
-			{
-				// 出现任何消息解析异常都要断开Session，防止客户端伪造消息
-				//Log.Error($"opcode: {opcode} {this.Network.Count} {e} ");
-				//this.Error = XfsErrorCode.ERR_PacketParserError;
-				//this.Network.Remove(this.Id);
-				return;
-			}
-
-            IXfsResponse response = message as IXfsResponse;
-            //if (response == null)
-            //{
-            //    this.Network.MessageDispatcher.Dispatch(this, opcode, message);
-            //    return;
-            //}
-
-            Action<IXfsResponse> action;
-            if (!this.requestCallback.TryGetValue(response.RpcId, out action))
-            {
-                throw new Exception($"not found rpc, response message: {/*StringHelper.MessageToStr(response)*/ 0}");
-            }
-            this.requestCallback.Remove(response.RpcId);
-
-            action(response);
-        }
 
 		public XfsTask<IXfsResponse> Call(IXfsRequest request)
-		{
+		{			
 			int rpcId = ++RpcId;
 			var tcs = new XfsTaskCompletionSource<IXfsResponse>();
 
@@ -334,7 +299,7 @@ namespace Xfs
 				{
 					if (XfsErrorCode.IsRpcNeedThrowException(response.Error))
 					{
-						//throw new RpcException(response.Error, response.Message);
+						Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + response.Message);
 					}
 
 					tcs.SetResult(response);
@@ -390,11 +355,9 @@ namespace Xfs
 		}
 
 		public void Send(IXfsMessage message)
-		{
-			//OpcodeTypeComponent opcodeTypeComponent = this.Network.Entity.GetComponent<OpcodeTypeComponent>();
-			//ushort opcode = opcodeTypeComponent.GetOpcode(message.GetType());
-
-			//Send(opcode, message);
+		{	
+			ushort opcode = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(message.GetType());
+			this.Send(opcode, message);
 		}
 
 		public void Send(ushort opcode, object message)
@@ -404,18 +367,66 @@ namespace Xfs
 				throw new Exception("session已经被Dispose了");
 			}
 
-		
+			///用Json将参数（MvcParameter）,序列化转换成字符串（string）
+			string msgJsons = XfsJsonHelper.ToJson(message);
 
-			//this.Send(stream);
+			///将字符串(string)转换成字节(byte)
+			byte[] packetBody = Encoding.UTF8.GetBytes(msgJsons);
+
+			int msgLength = 8 + packetBody.Length;
+			byte[] packetBytes = new byte[msgLength];
+
+			///包体长度（不含包头的8个字节的长度），存在包头，占用4个字节(0,1,2,3).
+			BitConverter.GetBytes(IPAddress.HostToNetworkOrder(packetBody.Length)).CopyTo(packetBytes, 4);
+
+			///信息类型，存在包头，占用4个字节(4,5,6,7).
+			BitConverter.GetBytes(IPAddress.HostToNetworkOrder(opcode)).CopyTo(packetBytes, 0);
+
+			///包体存入消息包，占用位置（8...）,从8开始向后存到底
+			packetBody.CopyTo(packetBytes, 8);
+
+			this.packetParser.SendBytes(packetBytes);
 		}
 
-		public void Send(MemoryStream stream)
-		{
-			//channel.Send(stream);
-		}
         #endregion
 
+        #region
+        public override void Dispose()
+		{
+			if (this.IsDisposed)
+			{
+				return;
+			}
 
+			base.Dispose();
+
+			foreach (Action<IXfsResponse> action in this.requestCallback.Values.ToArray())
+			{
+                action.Invoke(new XfsResponseMessage());
+            }
+
+			this.packetParser.ReadCallback -= this.OnRead;
+
+			this.requestCallback.Clear();
+
+			if ((this.Parent as XfsTcpServer) != null)
+			{
+				if ((this.Parent as XfsTcpServer).TPeers.Count > 0)
+				{
+					if ((this.Parent as XfsTcpServer).TPeers.TryGetValue(this.InstanceId, out XfsSession peer))
+					{
+						(this.Parent as XfsTcpServer).TPeers.Remove(this.InstanceId);
+					}
+				}
+			}
+
+			this.Socket.Close();
+			this.IsRunning = false;
+            this.packetParser.Dispose();
+
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " 一个客户端:已经中断连接, TPeers: " + (this.Parent as XfsTcpServer).TPeers.Count);
+		}
+        #endregion
 
     }
 }

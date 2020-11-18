@@ -68,7 +68,7 @@ namespace Xfs
 
         public override string ToString()
         {
-            return XfsJsonHelper.ToString(this);
+            return XfsJsonHelper.ToJson(this);
         }
 
         ///是否已释放了资源，true时方法都不可用了。

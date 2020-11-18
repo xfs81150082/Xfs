@@ -20,6 +20,10 @@ namespace XfsGateSever
 
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " 等待5秒后回复信息。。。");
 
+            //XfsTimerComponent timerC = XfsGame.XfsSence.GetComponent<XfsTimerComponent>();
+            //timerC.WaitAsync(5000);
+            //Console.WriteLine(XfsTimeHelper.CurrentTime() + " 等待5秒后回复信息。。。");
+
             Thread.Sleep(5000);
 
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " 5秒时间到，发送回复信息。RpcId： " + message.RpcId);
@@ -28,14 +32,10 @@ namespace XfsGateSever
             XfsParameter response4 = XfsMessageHelper.ToParameter(TenCode.Code0004, ElevenCode.Code0004, res4);
             response4.RpcId = message.RpcId;
 
-            //XfsSession peer44 = obj as XfsSession;
-            //peer44.Send(response4);
 
             session.Send(response4);
 
-            Console.WriteLine(XfsTimeHelper.CurrentTime() + " 向客户端，发送信息。RpcId： " + response4.RpcId);
-
-            Console.WriteLine(XfsTimeHelper.CurrentTime() + " C4G_Test1Handler: " + message.RpcId);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " 向客户端，发送信息。RpcId： " + response4.Message);
         }
     }
 }

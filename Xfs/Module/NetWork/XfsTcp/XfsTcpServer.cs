@@ -19,7 +19,7 @@ namespace Xfs
         public Queue<Socket> WaitingSockets = new Queue<Socket>();
         public abstract XfsSenceType SenceType { get; }                          //服务器类型
         public Dictionary<long, XfsSession> TPeers { get; set; } = new Dictionary<long, XfsSession>();
-        public XfsTcpServer()
+        public XfsTcpServer(/*XfsSenceType senceType*/)
         {
             //XfsSockets.XfsTcpServers.Add(this.SenceType, this);
         }
@@ -33,13 +33,13 @@ namespace Xfs
         public void Listening()
         {
             if (!this.IsRunning)
-            {               
+            {
                 if (this.NetSocket == null)
                 {
                     this.Address = IPAddress.Parse(this.IpString);
                     this.NetSocket = new Socket(this.Address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                    this.NetSocket.Bind(new IPEndPoint(this.Address, this.Port));
                 }
-                this.NetSocket.Bind(new IPEndPoint(this.Address, this.Port));
                 this.NetSocket.Listen(this.MaxListenCount);               
                 this.IsRunning = true;
 

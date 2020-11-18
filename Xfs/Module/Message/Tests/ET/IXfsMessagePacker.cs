@@ -11,5 +11,6 @@ namespace Xfs
 		object DeserializeFrom(object instance, byte[] bytes, int index, int count);
 		object DeserializeFrom(Type type, MemoryStream stream);
 		object DeserializeFrom(object instance, MemoryStream stream);
+		
 	}
 }

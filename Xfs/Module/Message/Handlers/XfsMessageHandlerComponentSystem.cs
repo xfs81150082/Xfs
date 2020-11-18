@@ -23,7 +23,7 @@ namespace Xfs
 	}
 
 	/// <summary>
-	/// 消息分发组件
+	/// Handler消息分发组件
 	/// </summary>
 	public static class XfsMessageHandlerComponentHelper
 	{
@@ -67,11 +67,6 @@ namespace Xfs
 					continue;
 				}
 				self.RegisterHandler(opcode, iMHandler);
-
-				//Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsMessageHandlerComponent-65: " + types.Count);
-				//Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsMessageHandlerComponent-66: " + types[0]);
-				//Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsMessageHandlerComponent-67: " + iMHandler.GetMessageType());
-				//Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsMessageHandlerComponent-68: " + opcode);
 			}
 		}
 
@@ -82,10 +77,6 @@ namespace Xfs
 				self.Handlers.Add(opcode, new List<IXfsMHandler>());
 			}
 			self.Handlers[opcode].Add(handler);
-
-			//Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsMessageHandlerComponent-86: " + opcode);
-			//Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsMessageHandlerComponent-87: " + handler);
-			//Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsMessageHandlerComponent-88: " + self.Handlers.Count);
 		}
 
 		public static void Handle(this XfsMessageHandlerComponent self, XfsSession session, XfsMessageInfo messageInfo)
