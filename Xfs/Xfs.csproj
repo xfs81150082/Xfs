@@ -203,7 +203,6 @@
     <Compile Include="Module\NetWork\XfsHeart\XfsHeartComponentUpdateSystem.cs" />
     <Compile Include="Module\NetWork\XfsHeart\XfsHeartComponent.cs" />
     <Compile Include="Module\NetWork\XfsTcp\XfsNetWorkComponent.cs" />
-    <Compile Include="Module\NetWork\XfsTcp\XfsTcpClient.cs" />
     <Compile Include="Module\Numeric\XfsCoolDownComponent.cs" />
     <Compile Include="Base\Base\XfsEntity.cs" />
     <Compile Include="Entity\XfsGame.cs" />
@@ -237,7 +236,6 @@
     <Compile Include="Module\NetWork\XfsBase\XfsController.cs" />
     <Compile Include="Module\NetWork\XfsBase\XfsHandler.cs" />
     <Compile Include="Module\Numeric\XfsCoolDownComponentUpdateSystem.cs" />
-    <Compile Include="Module\NetWork\XfsTcp\XfsTcpServer.cs" />
     <Compile Include="Module\NetWork\XfsTcp\XfsPacketParser.cs" />
   </ItemGroup>
   <ItemGroup>

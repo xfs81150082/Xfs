@@ -12,7 +12,7 @@ namespace XfsGateSever
     {
         public override void Awake(XfsTcpClientDbNet self)
         {
-            self.ValTime = 4000;
+            //self.ValTime = 4000;
         }
 
         //public override void XfsAwake()
@@ -25,14 +25,16 @@ namespace XfsGateSever
     [XfsObjectSystem]
     public class XfsTcpClientDbNetUpdateSystem : XfsUpdateSystem<XfsTcpClientDbNet>
     {
-     int timer = 0;
+        int timer = 0;
+        int valTime = 4000;
         public override void Update(XfsTcpClientDbNet self)
         {
             timer += 1;
-            if (timer > self.ValTime)
+            if (timer > valTime)
             {
-                XfsGame.XfsSence.GetComponent<XfsTcpClientDbNet>().Connecting();
                 timer = 0;
+
+                XfsGame.XfsSence.GetComponent<XfsTcpClientDbNet>().Connecting();
             }
         }
 

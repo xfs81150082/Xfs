@@ -7,10 +7,11 @@ using Xfs;
 
 namespace XfsGateSever
 {
-    public class XfsTcpClientDbNet : XfsTcpClient
+    public class XfsTcpClientDbNet : XfsNetWorkComponent
     {
         public override XfsSenceType SenceType => XfsSenceType.Db;
-      
+        public override bool IsServer => false;
+
 
     }
 }

@@ -28,17 +28,28 @@ namespace XfsConsoleClient
                 resqustC.Opcode = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(resqustC.GetType());
                 resqustC.Message = self.call;
 
-                XfsTcpClient client = XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>();
-                if (client != null && client.TClient != null && client.IsRunning)
+                XfsTcpClientNodeNet client = XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>();
+
+                //if (client != null && client.TClient != null && client.IsRunning)
+                //{
+                //    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-42,开始打电话给服务器...");
+
+                //    G4C_Ping responseC = (G4C_Ping)await client.TClient.Call(resqustC);
+                //    string mes = responseC.Message;
+
+                //    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-48: " + mes);
+                //}
+               
+                if (client != null && client.Sessions.Count > 0)
                 {
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-42,开始打电话给服务器...");
 
-                    G4C_Ping responseC = (G4C_Ping)await client.TClient.Call(resqustC);
+                    XfsSession session = client.Sessions.Values.ToList()[0];
+                    G4C_Ping responseC = (G4C_Ping)await session.Call(resqustC);
                     string mes = responseC.Message;
 
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-48: " + mes);
                 }
-
             }
         }
     }

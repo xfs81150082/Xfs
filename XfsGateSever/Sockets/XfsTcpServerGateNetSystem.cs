@@ -16,7 +16,6 @@ namespace XfsGateSever
     {
         public override void Awake(XfsTcpServerGateNet self)
         {
-            Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTcpServerGateNet is Awake.");
             self.Init("127.0.0.1", 2001, 10);
         }
     }   
@@ -25,7 +24,7 @@ namespace XfsGateSever
     public class XfsTcpServerGateNetUpdateSystem : XfsUpdateSystem<XfsTcpServerGateNet>
     {
         int timer = 0;
-        int valTime = 1000;
+        int valTime = 4000;
         public override void Update(XfsTcpServerGateNet self)
         {
             timer += 1;

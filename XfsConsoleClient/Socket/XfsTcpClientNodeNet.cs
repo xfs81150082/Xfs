@@ -7,10 +7,15 @@ using Xfs;
 
 namespace XfsConsoleClient
 {
-    public class XfsTcpClientNodeNet : XfsTcpClient
+    public class XfsTcpClientNodeNet : XfsNetWorkComponent
     {
         public override XfsSenceType SenceType => XfsSenceType.Client;
-        public XfsTcpClientNodeNet() { }
-      
+        public override bool IsServer => false;
+
+        public XfsTcpClientNodeNet()
+        {
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " SenceType: " + this.SenceType + " IsServer: " + this.IsServer);
+        }
+
     }
 }

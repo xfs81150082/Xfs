@@ -36,12 +36,12 @@ namespace XfsGateSever
 
                     //XfsGame.XfsSence.GetComponent<XfsTcpServerNodeNet>().Send(parameter);
 
-                    XfsTcpServer server3 = null;
-                    XfsSockets.XfsTcpServers.TryGetValue(XfsSenceType.Db, out server3);
-                    if (server3 != null)
-                    {
-                        //(server3 as XfsTcpServerNodeNet).Send(parameter);
-                    }
+                    //XfsTcpServer server3 = null;
+                    //XfsSockets.XfsTcpServers.TryGetValue(XfsSenceType.Db, out server3);
+                    //if (server3 != null)
+                    //{
+                    //    //(server3 as XfsTcpServerNodeNet).Send(parameter);
+                    //}
                     break;
                 case (TenCode.End):
                     break;

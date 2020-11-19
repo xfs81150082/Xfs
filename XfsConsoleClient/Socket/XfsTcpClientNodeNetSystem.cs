@@ -22,10 +22,11 @@ namespace XfsConsoleClient
     public class XfsTcpClientNodeNetUpdateSystem : XfsUpdateSystem<XfsTcpClientNodeNet>
     {
         int timer = 0;
+        int valTime = 4000;
         public override void Update(XfsTcpClientNodeNet self)
         {
             timer += 1;
-            if (timer > self.ValTime)
+            if (timer > valTime)
             {
                 timer = 0;
                 self.Connecting();

@@ -12,7 +12,7 @@ namespace Xfs
         public abstract XfsSenceType SenceType { get; }
         public XfsController() 
         {
-            XfsSockets.XfsControllers.Add(this.SenceType, this);
+            //XfsSockets.XfsControllers.Add(this.SenceType, this);
         }
         public abstract void Recv(object obj, XfsParameter parameter);  
     }

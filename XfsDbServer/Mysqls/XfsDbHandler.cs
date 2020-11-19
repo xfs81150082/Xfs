@@ -33,19 +33,19 @@ namespace XfsDbServer
             }
         }
 
-        XfsTcpServerDbNet DbServer()
-        {
-            XfsTcpServer ser = null;
-            XfsSockets.XfsTcpServers.TryGetValue(this.SenceType, out ser);
-            if (ser != null)
-            {
-                return ser as XfsTcpServerDbNet;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //XfsTcpServerDbNet DbServer()
+        //{
+        //    XfsTcpServer ser = null;
+        //    XfsSockets.XfsTcpServers.TryGetValue(this.SenceType, out ser);
+        //    if (ser != null)
+        //    {
+        //        return ser as XfsTcpServerDbNet;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
 
 

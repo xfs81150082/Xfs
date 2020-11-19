@@ -7,9 +7,10 @@ using Xfs;
 
 namespace XfsDbServer
 {
-    public class XfsTcpServerDbNet : XfsTcpServer
+    public class XfsTcpServerDbNet : XfsNetWorkComponent
     {
         public override XfsSenceType SenceType => XfsSenceType.Db;
+        public override bool IsServer => true;
         public XfsTcpServerDbNet() { }
      
      

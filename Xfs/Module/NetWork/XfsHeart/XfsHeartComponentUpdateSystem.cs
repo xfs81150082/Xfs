@@ -49,18 +49,18 @@ namespace Xfs
 
                 if ((self.Parent as XfsSession).Parent != null)
                 {
-                    if ((self.Parent as XfsSession).IsPeer)
+                    if ((self.Parent as XfsSession).IsServer)
                     {
-                        if (((self.Parent as XfsSession).Parent as XfsTcpServer) != null)
+                        if ((self.Parent as XfsSession).Network != null)
                         {
-                            ((self.Parent as XfsSession).Parent as XfsTcpServer).IsRunning = false;
+                            (self.Parent as XfsSession).Network.IsRunning = false;
                         }
                     }
                     else
                     {
-                        if (((self.Parent as XfsSession).Parent as XfsTcpClient) != null)
+                        if ((self.Parent as XfsSession).Network != null)
                         {
-                            ((self.Parent as XfsSession).Parent as XfsTcpClient).IsRunning = false;
+                            (self.Parent as XfsSession).Network.IsRunning = false;
                         }
                     }
                 }
@@ -72,7 +72,7 @@ namespace Xfs
                 XfsParameter mvc = XfsMessageHelper.ToParameter(TenCode.Zero, ElevenCode.Zero);
                 //mvc.PeerIds.Add(self.Parent.InstanceId);
                 (self.Parent as XfsSession).Send(mvc);
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsPeer: " + (self.Parent as XfsSession).IsPeer + " CdCount:{0}-{1} ", self.CdCount, self.MaxCdCount);
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsServer: " + (self.Parent as XfsSession).IsServer + " CdCount:{0}-{1} ", self.CdCount, self.MaxCdCount);
             }
         }
 
