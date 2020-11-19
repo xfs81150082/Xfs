@@ -19,10 +19,10 @@ namespace Xfs
 		{
 			try
 			{
-				Request request = message as Request;
+                Request request = message as Request;   ////反序列化成功
+
 				if (request == null)
 				{
-					//Log.Error($"消息类型转换错误: {message.GetType().Name} to {typeof(Request).Name}");
 					Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + $"消息类型转换错误: {message.GetType().Name} to {typeof(Request).Name}");
 				}
 

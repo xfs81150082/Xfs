@@ -8,10 +8,10 @@ namespace Xfs
     public partial class XfsParameter : IXfsMessage
     {
         public int RpcId { get; set; }
-        public ushort Opcode { get; set; }
+        public int Opcode { get; set; }
         public TenCode TenCode { get; set; }
         public ElevenCode ElevenCode { get; set; }
-        public List<long> PeerIds { get; set; } = new List<long>();
+        //public List<long> PeerIds { get; set; } = new List<long>();
         public object Message { get; set; }
     }
 
@@ -109,37 +109,9 @@ namespace Xfs
     [Serializable]
     public partial class C4G_Ping : IXfsMessage
     {
-        private int rpcId_;
-        public int RpcId
-        {
-            get { return rpcId_; }
-            set
-            {
-                rpcId_ = value;
-            }
-        }
-
-        private ushort opcode_;
-        public ushort Opcode
-        {
-            get { return opcode_; }
-            set
-            {
-                opcode_ = value;
-            }
-        }
-
-        private string message_ = "";
-        public string Message
-        {
-            get { return message_; }
-            set
-            {
-                message_ = value;
-            }
-        }
-
-
+        public int RpcId { get; set; }
+        public int Opcode { get; set; }
+        public string Message { get; set; }       
     }
     [Serializable]
     public partial class G4C_Ping : IXfsMessage

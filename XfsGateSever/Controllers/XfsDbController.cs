@@ -32,7 +32,7 @@ namespace XfsGateSever
                     string va3 = XfsMessageHelper.GetValue<string>(parameter);
 
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsDbController，Node已收到回复信息: " + va3);
-                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " parameter.PeerIds: " + parameter.PeerIds.Count);
+                    //Console.WriteLine(XfsTimeHelper.CurrentTime() + " parameter.PeerIds: " + parameter.PeerIds.Count);
 
                     //XfsGame.XfsSence.GetComponent<XfsTcpServerNodeNet>().Send(parameter);
 

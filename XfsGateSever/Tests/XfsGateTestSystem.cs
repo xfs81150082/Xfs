@@ -15,7 +15,7 @@ namespace XfsGateSever
         {
             //TestCall2(self);
 
-            TestCall3(self);
+            //TestCall3(self);
 
 
         }
@@ -42,7 +42,7 @@ namespace XfsGateSever
 
                 ushort opcode1 = 222;
                 Type messageType = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetType(opcode1);
-                ushort opcode2 = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(messageType);
+                int opcode2 = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(messageType);
 
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-47: " + opcode1 + " : " + messageType + " : " + opcode2);
 

@@ -95,13 +95,13 @@ namespace Xfs
                         ///将接收到的字节数的消息头保存到HeadBytes，//减去已经接收到的字节数
                         this.CutTo(RecvBuffList, HeadBytes, 0, iBytesHead);
 
-                        ///拿出包头中前四个字节，此字节是操代码
-                        int opcode = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(HeadBytes, 0));
-                    
                         ///拿出包头中后四个字节，此字节是包体长度
-                        int msgLength = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(HeadBytes, 4));                     
+                        int msgLength = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(HeadBytes, 0));                     
                         surBL = msgLength;
 
+                        ///拿出包头中前四个字节，此字节是操代码
+                        int opcode = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(HeadBytes, 4));
+                        Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv , Opcode : {0}", opcode);
                         /////一个消息包包头HeadBytes消息包 接收完毕，下面解析消息包包身 
                         //Console.WriteLine(XfsTimeHelper.CurrentTime() + " Recv , Opcode : {0} . BodyBytes.Length:{1}", opcode, msgLength);
                     }
@@ -182,11 +182,11 @@ namespace Xfs
             byte[] packetBytes = new byte[msgLength];
 
             ///包体长度（不含包头的8个字节的长度），存在包头，占用4个字节(0,1,2,3).
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(packetBodyBytes.Length)).CopyTo(packetBytes, 4);
+            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(packetBodyBytes.Length)).CopyTo(packetBytes, 0);
 
             ///信息类型，存在包头，占用4个字节(4,5,6,7).
             ushort opcode = 101;
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(opcode)).CopyTo(packetBytes, 0);
+            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(opcode)).CopyTo(packetBytes, 4);
 
             ///包体存入消息包，占用位置（8...）,从8开始向后存到底
             packetBodyBytes.CopyTo(packetBytes, 8);

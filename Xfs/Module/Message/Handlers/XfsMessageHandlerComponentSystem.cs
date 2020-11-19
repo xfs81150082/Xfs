@@ -60,7 +60,7 @@ namespace Xfs
 				}
 
 				Type messageType = iMHandler.GetMessageType();
-				ushort opcode = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(messageType);
+				int opcode = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(messageType);
 				if (opcode == 0)
 				{
 					Console.WriteLine($"消息opcode为0: {messageType.Name}");
@@ -70,7 +70,7 @@ namespace Xfs
 			}
 		}
 
-		public static void RegisterHandler(this XfsMessageHandlerComponent self, ushort opcode, IXfsMHandler handler)
+		public static void RegisterHandler(this XfsMessageHandlerComponent self, int opcode, IXfsMHandler handler)
 		{
 			if (!self.Handlers.ContainsKey(opcode))
 			{

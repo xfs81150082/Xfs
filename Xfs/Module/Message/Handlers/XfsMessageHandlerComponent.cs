@@ -7,6 +7,6 @@ namespace Xfs
 {
 	public class XfsMessageHandlerComponent : XfsComponent
 	{
-		public readonly Dictionary<ushort, List<IXfsMHandler>> Handlers = new Dictionary<ushort, List<IXfsMHandler>>();
+		public readonly Dictionary<int, List<IXfsMHandler>> Handlers = new Dictionary<int, List<IXfsMHandler>>();
 	}
 }

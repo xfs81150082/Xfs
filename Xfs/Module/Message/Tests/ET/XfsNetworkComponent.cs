@@ -69,7 +69,7 @@ namespace Xfs
 		{
 			XfsSession session = XfsComponentFactory.CreateWithParent<XfsSession, XfsAChannel>(this, channel);
 			this.sessions.Add(session.Id, session);
-			session.Start();
+			//session.Start();
 		}
 
 		public virtual void Remove(long id)
@@ -98,7 +98,7 @@ namespace Xfs
 			XfsAChannel channel = this.Service.ConnectChannel(ipEndPoint);
 			XfsSession session = XfsComponentFactory.CreateWithParent<XfsSession, XfsAChannel>(this, channel);
 			this.sessions.Add(session.Id, session);
-			session.Start();
+			//session.Start();
 			return session;
 		}
 		
@@ -110,7 +110,7 @@ namespace Xfs
 			XfsAChannel channel = this.Service.ConnectChannel(address);
 			XfsSession session = XfsComponentFactory.CreateWithParent<XfsSession, XfsAChannel>(this, channel);
 			this.sessions.Add(session.Id, session);
-			session.Start();
+			//session.Start();
 			return session;
 		}
 

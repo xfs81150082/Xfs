@@ -29,13 +29,13 @@ namespace Xfs
     public static partial class XfsOuterOpcode
     {
         #region
-        public const ushort XfsParameter = 222;
+        public const int XfsParameter = 222;
 
-        public const ushort C2G_TestRequest = 101;
-        public const ushort G2C_TestResponse = 102;
+        public const int C2G_TestRequest = 101;
+        public const int G2C_TestResponse = 102;
        
-        public const ushort C4G_Ping = 111;
-        public const ushort G4C_Ping = 112;
+        public const int C4G_Ping = 111;
+        public const int G4C_Ping = 112;
 
 
         #endregion

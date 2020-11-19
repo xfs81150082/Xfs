@@ -14,6 +14,7 @@ namespace XfsGateSever
 
 
 
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " C4G_PingHandler-17: " + message.Message);
 
         }
     }

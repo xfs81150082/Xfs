@@ -13,16 +13,11 @@ namespace XfsGateSever
     {
         protected override void Run(XfsSession session, XfsParameter message)
         {
-
             string va4 = XfsMessageHelper.GetValue<string>(message);
 
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " NodeHandler已收到客户端信息: " + va4);
 
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " 等待5秒后回复信息。。。");
-
-            //XfsTimerComponent timerC = XfsGame.XfsSence.GetComponent<XfsTimerComponent>();
-            //timerC.WaitAsync(5000);
-            //Console.WriteLine(XfsTimeHelper.CurrentTime() + " 等待5秒后回复信息。。。");
 
             Thread.Sleep(5000);
 
@@ -31,7 +26,6 @@ namespace XfsGateSever
             string res4 = "服务器已收到请求";
             XfsParameter response4 = XfsMessageHelper.ToParameter(TenCode.Code0004, ElevenCode.Code0004, res4);
             response4.RpcId = message.RpcId;
-
 
             session.Send(response4);
 

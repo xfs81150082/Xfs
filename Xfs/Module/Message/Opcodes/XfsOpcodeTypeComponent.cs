@@ -23,9 +23,9 @@ namespace Xfs
 
 	public class XfsOpcodeTypeComponent : XfsComponent
 	{
-		private readonly XfsDoubleMap<ushort, Type> opcodeTypes = new XfsDoubleMap<ushort, Type>();
+		private readonly XfsDoubleMap<int, Type> opcodeTypes = new XfsDoubleMap<int, Type>();
 		
-		private readonly Dictionary<ushort, object> typeMessages = new Dictionary<ushort, object>();
+		private readonly Dictionary<int, object> typeMessages = new Dictionary<int, object>();
 
 		public void Load()
 		{
@@ -52,16 +52,16 @@ namespace Xfs
 			}
 		}
 
-		public ushort GetOpcode(Type type)
+		public int GetOpcode(Type type)
 		{
 			return this.opcodeTypes.GetKeyByValue(type);
 		}
 
-		public Type GetType(ushort opcode)
+		public Type GetType(int opcode)
 		{
 			return this.opcodeTypes.GetValueByKey(opcode);
 		}
-		public object GetInstance(ushort opcode)
+		public object GetInstance(int opcode)
 		{
 			return this.typeMessages[opcode];
 		}
