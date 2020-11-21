@@ -24,3 +24,7 @@ C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\Xfs.csproj.CopyComplete
 C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\Xfs.dll
 C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\Xfs.pdb
 C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\Xfs.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\Xfs\Xfs\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Administrator\Desktop\Xfs\Xfs\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Administrator\Desktop\Xfs\Xfs\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Administrator\Desktop\Xfs\Xfs\bin\Debug\System.Threading.Tasks.Extensions.xml

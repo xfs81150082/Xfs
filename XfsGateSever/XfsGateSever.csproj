@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\Class1222.cs" />
     <Compile Include="Handlers\G4C_PingHandler.cs" />
     <Compile Include="Tests\Test1\TestIocp.cs" />
     <Compile Include="Tests\Test1\Class1.cs" />

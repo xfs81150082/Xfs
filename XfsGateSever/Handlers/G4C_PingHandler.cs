@@ -35,9 +35,15 @@ namespace XfsGateSever
         ///async XfsVoid SpawnUnit(XfsSession session)
         /// {
         ///    M2T_CreateUnit response = (M2T_CreateUnit) await session.Call(new T2M_CreateUnit() { UnitType = (int)1, RolerId = 2, UnitId = 0 });
-        /// }
+        /// }        
+        /// 
+        private async XfsVoid XfsVoidTest22()
+        {
+            await new XfsSession().Call(new C4G_Ping());
+        }
 
-        private void WaitTimer(long time)
+
+    private void WaitTimer(long time)
         {
             XfsGame.XfsSence.GetComponent<XfsTimerComponent>().WaitAsync(time);
         }

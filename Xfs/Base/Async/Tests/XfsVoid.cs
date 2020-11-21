@@ -13,7 +13,7 @@ namespace Xfs
         public void Coroutine()
         {
         }
-        public XfsAwaiter GetXfsAwaiter()
+        public XfsAwaiter GetAwaiter()
         {
             return new XfsAwaiter();
         }

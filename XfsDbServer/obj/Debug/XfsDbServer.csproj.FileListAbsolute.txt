@@ -30,3 +30,7 @@ C:\Users\Administrator\Desktop\Xfs\XfsDbServer\obj\Debug\XfsDbServer.csproj.Core
 C:\Users\Administrator\Desktop\Xfs\XfsDbServer\obj\Debug\XfsDbServer.csproj.CopyComplete
 C:\Users\Administrator\Desktop\Xfs\XfsDbServer\obj\Debug\XfsDbServer.exe
 C:\Users\Administrator\Desktop\Xfs\XfsDbServer\obj\Debug\XfsDbServer.pdb
+C:\Users\Administrator\Desktop\Xfs\XfsDbServer\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Administrator\Desktop\Xfs\XfsDbServer\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Administrator\Desktop\Xfs\XfsDbServer\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Administrator\Desktop\Xfs\XfsDbServer\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml

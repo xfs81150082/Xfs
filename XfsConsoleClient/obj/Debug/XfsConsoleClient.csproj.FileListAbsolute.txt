@@ -30,3 +30,7 @@ C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\obj\Debug\XfsConsoleClient.c
 C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\obj\Debug\XfsConsoleClient.csproj.CopyComplete
 C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\obj\Debug\XfsConsoleClient.exe
 C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\obj\Debug\XfsConsoleClient.pdb
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml

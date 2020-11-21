@@ -14,3 +14,7 @@ C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\Google.Protobuf.xml
 C:\Users\Administrator\Desktop\Xfs\XfsGateSever\obj\Debug\XfsGateSever.csproj.CopyComplete
 C:\Users\Administrator\Desktop\Xfs\XfsGateSever\obj\Debug\XfsGateSever.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Administrator\Desktop\Xfs\XfsGateSever\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
