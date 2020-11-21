@@ -61,7 +61,6 @@
     <Compile Include="DbMain\Program.cs" />
     <Compile Include="DbMain\XfsServerInit.cs" />
     <Compile Include="Mysqls\XfsMysqlComponent.cs" />
-    <Compile Include="Mysqls\XfsDbHandler.cs" />
     <Compile Include="Mysqls\XfsGridMysql.cs" />
     <Compile Include="Mysqls\XfsMysqlConnectionUpdateSystem.cs" />
     <Compile Include="Mysqls\XfsUserMysql.cs" />

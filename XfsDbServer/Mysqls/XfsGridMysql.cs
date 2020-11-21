@@ -10,37 +10,37 @@ namespace XfsDbServer
 {
     class XfsGridMysql : XfsComponent
     {       
-        public void OnTransferParameter(object sender, XfsParameter parameter)
-        {
-            ElevenCode elevenCode = parameter.ElevenCode;
-            switch (elevenCode)
-            {
-                case (ElevenCode.Code0001):
-                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " TmEngineerMysql: " + elevenCode);
-                    GetGridMap(this, parameter);
-                    break;
-                case (ElevenCode.Code0002):
-                    break;
-                default:
-                    break;
-            }
-        }
-        void GetGridMap(object sender, XfsParameter parameter)
-        {
-            //int userId = TmParameterTool.GetValue<int>(parameter, ElevenCode.UserLogin.ToString());
-            //Console.WriteLine(TmTimerTool.CurrentTime() + " TmEngineerMysql,userId:" + userId);
-            //List<TmSoulerDB> dbs = GetTmSoulerdbsByUserId(userId);
-            //Console.WriteLine(TmTimerTool.CurrentTime() + " dbs:" + dbs.Count);
-            //if (dbs.Count > 0)
-            //{
-            //    //(sender as TmEngineerHandler).Engineers = dbs;
-            //    (sender as TmEngineerHandler).EngineerDbs.Add(userId, dbs);
-            //}
-            //else
-            //{
-            //    Console.WriteLine(TmTimerTool.CurrentTime() + " 没有角色");
-            //}
-        }
+        //public void OnTransferParameter(object sender, XfsParameter parameter)
+        //{
+        //    ElevenCode elevenCode = parameter.ElevenCode;
+        //    switch (elevenCode)
+        //    {
+        //        case (ElevenCode.Code0001):
+        //            Console.WriteLine(XfsTimeHelper.CurrentTime() + " TmEngineerMysql: " + elevenCode);
+        //            GetGridMap(this, parameter);
+        //            break;
+        //        case (ElevenCode.Code0002):
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
+        //void GetGridMap(object sender, XfsParameter parameter)
+        //{
+        //    //int userId = TmParameterTool.GetValue<int>(parameter, ElevenCode.UserLogin.ToString());
+        //    //Console.WriteLine(TmTimerTool.CurrentTime() + " TmEngineerMysql,userId:" + userId);
+        //    //List<TmSoulerDB> dbs = GetTmSoulerdbsByUserId(userId);
+        //    //Console.WriteLine(TmTimerTool.CurrentTime() + " dbs:" + dbs.Count);
+        //    //if (dbs.Count > 0)
+        //    //{
+        //    //    //(sender as TmEngineerHandler).Engineers = dbs;
+        //    //    (sender as TmEngineerHandler).EngineerDbs.Add(userId, dbs);
+        //    //}
+        //    //else
+        //    //{
+        //    //    Console.WriteLine(TmTimerTool.CurrentTime() + " 没有角色");
+        //    //}
+        //}
 
 
         //internal string DatabaseFormName { get; set; }

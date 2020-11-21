@@ -16,6 +16,7 @@ namespace XfsConsoleClient
         public override void Awake(XfsTcpClientNodeNet self)
         {
             self.Init("127.0.0.1", 2001);
+            self.MessageDispatcher = new OuterMessageDispatcher();
         }
     }
     [XfsObjectSystem]

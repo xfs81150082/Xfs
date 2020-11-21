@@ -5,20 +5,6 @@ namespace Xfs
 {
     #region Messages
     [Serializable]
-    public partial class XfsParameter : IXfsMessage
-    {
-        public int RpcId { get; set; }
-        public int Opcode { get; set; }
-        public TenCode TenCode { get; set; }
-        public ElevenCode ElevenCode { get; set; }
-        //public List<long> PeerIds { get; set; } = new List<long>();
-        public object Message { get; set; }
-    }
-
-
-
-
-    [Serializable]
     public partial class C2G_TestRequest : IXfsMessage
     {
         private int rpcId_;

@@ -23,7 +23,8 @@ namespace Xfs
 
 	public sealed class XfsSession : XfsEntity
 	{
-		public XfsPacketParser packetParser { get; private set; }	
+        #region 自定义属性
+        public XfsPacketParser packetParser { get; private set; }	
 		public XfsNetWorkComponent Network
 		{
 			get
@@ -32,7 +33,17 @@ namespace Xfs
 			}
 		}
 		public Socket Socket { get; set; }                ///创建一个套接字，用于储藏代理服务端套接字，与客户端通信///客户端Socket 
-		public IPEndPoint RemoteAddress { get; set; }
+		public IPEndPoint RemoteAddress
+		{
+			get
+			{
+				if(Socket == null || this.IsRunning == false)
+                {
+					return null;
+                }
+				return (IPEndPoint)this.Socket.RemoteEndPoint;
+			}
+		}
 		public bool IsRunning { get; set; }
 		public bool IsServer { get; set; }
 		public XfsSenceType SenceType { get; set; }
@@ -44,10 +55,11 @@ namespace Xfs
 			this.AddComponent<XfsHeartComponent>();
             this.packetParser = XfsComponentFactory.CreateWithParent<XfsPacketParser>(this);
 			this.packetParser.ReadCallback += this.OnRead;
-		}	
-		#region
-		/// 接收Socket信息
-		public void BeginReceiveMessage(Socket socket)
+		}
+        #endregion
+
+        #region 接收Socket信息        
+        public void BeginReceiveMessage(Socket socket)
 		{
 			this.Socket = socket;
 			packetParser.BeginReceiveMessage(socket);
@@ -57,14 +69,12 @@ namespace Xfs
         }
 		public void OnConnect()
 		{
-            this.RemoteAddress = (IPEndPoint)this.Socket.RemoteEndPoint;
-
 			///显示与客户端连接			
 			Console.WriteLine(XfsTimeHelper.CurrentTime() + " 客户端连接成功 Is Peer: " + this.IsServer + " : " + this.Socket.RemoteEndPoint);
 		}
 		#endregion
 
-		#region  ///接收参数信息
+		#region 接收包裹信息
 		public void OnRead(object obj, byte[] HeadBytes, byte[] BodyBytes)
 		{
 			try
@@ -109,11 +119,7 @@ namespace Xfs
             IXfsResponse response = message as IXfsResponse;
             if (response == null)
             {                
-				XfsMessageInfo messageInfo = new XfsMessageInfo();
-                messageInfo.Opcode = opcode;
-                messageInfo.Message = message;
-
-                XfsGame.XfsSence.GetComponent<XfsMessageHandlerComponent>().Handle(this, messageInfo);
+				this.Network.MessageDispatcher.Dispatch(this, opcode, message);
 				return;
             }
 
@@ -126,8 +132,36 @@ namespace Xfs
             action(response);
 		}
 		#endregion
-	
-        #region	
+
+		#region Call Send
+		public XfsTask<IXfsResponse> Call(IXfsRequest request, CancellationToken cancellationToken)
+		{
+			int rpcId = ++RpcId;
+			var tcs = new XfsTaskCompletionSource<IXfsResponse>();
+
+			this.requestCallback[rpcId] = (response) =>
+			{
+				try
+				{
+					if (XfsErrorCode.IsRpcNeedThrowException(response.Error))
+					{
+						Console.WriteLine(XfsTimeHelper.CurrentTime() + " : " + response.Message);
+					}
+
+					tcs.SetResult(response);
+				}
+				catch (Exception e)
+				{
+					tcs.SetException(new Exception($"Rpc Error: {request.GetType().FullName}", e));
+				}
+			};
+
+			cancellationToken.Register(() => this.requestCallback.Remove(rpcId));
+
+			request.RpcId = rpcId;
+			this.Send(request);
+			return tcs.Task;
+		}
 		public XfsTask<IXfsResponse> Call(IXfsRequest request)
 		{			
 			int rpcId = ++RpcId;
@@ -154,36 +188,6 @@ namespace Xfs
 			this.Send(request);
 			return tcs.Task;
 		}
-
-		public XfsTask<IXfsResponse> Call(IXfsRequest request, CancellationToken cancellationToken)
-		{
-			int rpcId = ++RpcId;
-			var tcs = new XfsTaskCompletionSource<IXfsResponse>();
-
-			this.requestCallback[rpcId] = (response) =>
-			{
-				try
-				{
-					if (XfsErrorCode.IsRpcNeedThrowException(response.Error))
-					{
-						//throw new RpcException(response.Error, response.Message);
-					}
-
-					tcs.SetResult(response);
-				}
-				catch (Exception e)
-				{
-					tcs.SetException(new Exception($"Rpc Error: {request.GetType().FullName}", e));
-				}
-			};
-
-			cancellationToken.Register(() => this.requestCallback.Remove(rpcId));
-
-			request.RpcId = rpcId;
-			this.Send(request);
-			return tcs.Task;
-		}
-
 		public void Reply(IXfsResponse message)
 		{
 			if (this.IsDisposed)
@@ -225,10 +229,10 @@ namespace Xfs
 
 			this.packetParser.SendBytes(packetBytes);
 		}
-        #endregion
+		#endregion
 
-        #region
-        public override void Dispose()
+		#region Dispose
+		public override void Dispose()
 		{
 			if (this.IsDisposed)
 			{

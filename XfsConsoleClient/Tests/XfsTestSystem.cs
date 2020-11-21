@@ -16,6 +16,7 @@ namespace XfsConsoleClient
             TestCall3(self);
 
         }
+             
 
         async void TestCall3(XfsTest self)
         {
@@ -29,17 +30,7 @@ namespace XfsConsoleClient
                 resqustC.Message = self.call;
 
                 XfsTcpClientNodeNet client = XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>();
-
-                //if (client != null && client.TClient != null && client.IsRunning)
-                //{
-                //    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-42,开始打电话给服务器...");
-
-                //    G4C_Ping responseC = (G4C_Ping)await client.TClient.Call(resqustC);
-                //    string mes = responseC.Message;
-
-                //    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-48: " + mes);
-                //}
-               
+                                              
                 if (client != null && client.Sessions.Count > 0)
                 {
                     Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-42,开始打电话给服务器...");

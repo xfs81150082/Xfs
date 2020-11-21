@@ -29,22 +29,22 @@ namespace XfsGateSever
             if (time > restime)
             {
                 time = 0;
-                XfsMessageHandlerComponent xfsMessage = XfsGame.XfsSence.GetComponent<XfsMessageHandlerComponent>();
+                ///*XfsMessageHandlerComponent*/ xfsMessage = XfsGame.XfsSence.GetComponent<XfsMessageHandlerComponent>();
 
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-35: " + xfsMessage.Handlers.Count);
+                //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-35: " + xfsMessage.Handlers.Count);
                 //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-36: " + xfsMessage.Handlers.Values);
               
                 
-                for (int i = 0; i < xfsMessage.Handlers.Count; i++)
-                {
-                    //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-44: " + xfsMessage.Handlers.Keys.ToList<ushort>()[i] + " : " + xfsMessage.Handlers[xfsMessage.Handlers.Keys.ToList<ushort>()[i]]);
-                }
+                //for (int i = 0; i < xfsMessage.Handlers.Count; i++)
+                //{
+                //    //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-44: " + xfsMessage.Handlers.Keys.ToList<ushort>()[i] + " : " + xfsMessage.Handlers[xfsMessage.Handlers.Keys.ToList<ushort>()[i]]);
+                //}
 
-                ushort opcode1 = 222;
-                Type messageType = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetType(opcode1);
-                int opcode2 = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(messageType);
+                //ushort opcode1 = 222;
+                //Type messageType = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetType(opcode1);
+                //int opcode2 = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(messageType);
 
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-47: " + opcode1 + " : " + messageType + " : " + opcode2);
+                //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-47: " + opcode1 + " : " + messageType + " : " + opcode2);
 
 
                 //XfsOpcodeTypeComponent xfsOpcode = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>();

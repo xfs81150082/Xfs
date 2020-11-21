@@ -31,7 +31,6 @@ namespace XfsDbServer
             /// 服务器加载组件(D)
             XfsGame.XfsSence.Type = XfsSenceType.Db;
             //XfsGame.XfsSence.AddComponent<XfsMysql>();                ///("127.0.0.1", "tumoworld", "root", ""));   服务器加载组件 : 数据库链接组件
-            XfsGame.XfsSence.AddComponent<XfsDbHandler>();              ///服务器加载组件 : Handler处理器
             XfsGame.XfsSence.AddComponent<XfsTcpServerDbNet>();         ///Init("127.0.0.1", 1001, 10)服务器加载组件 : 通信组件Server
 
 

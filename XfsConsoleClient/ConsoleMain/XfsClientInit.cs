@@ -37,7 +37,6 @@ namespace XfsConsoleClient
                 XfsGame.XfsSence.AddComponent<XfsOpcodeTypeComponent>();                          ///服务器加载组件 : 操作号码
                  XfsGame.XfsSence.AddComponent<XfsTcpClientNodeNet>();                          ///服务器加载组件 : 通信组件Server
 
-                XfsGame.XfsSence.AddComponent<XfsNodeController>();                            ///服务器加载组件 : 通信组件Server 
 
                 XfsGame.XfsSence.AddComponent<XfsTest>();                                      ///服务器加载组件 : 通信组件Server
 
@@ -84,7 +83,6 @@ namespace XfsConsoleClient
         {
             ///服务器加载组件
             XfsGame.XfsSence.Type = XfsSenceType.Client;
-            XfsGame.XfsSence.AddComponent<XfsNodeController>();                            ///服务器加载组件 : 通信组件Server 
             XfsGame.XfsSence.AddComponent<XfsTcpClientNodeNet>();                          ///服务器加载组件 : 通信组件Server
 
             XfsGame.XfsSence.AddComponent<XfsTest>();                                      ///服务器加载组件 : 通信组件Server

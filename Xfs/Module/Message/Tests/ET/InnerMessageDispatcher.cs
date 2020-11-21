@@ -66,5 +66,10 @@ namespace Xfs
 					}
 			}
 		}
-	}
+
+        public void Dispatch(XfsSession session, int opcode, object message)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

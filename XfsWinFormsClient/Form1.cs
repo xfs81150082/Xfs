@@ -132,7 +132,7 @@ namespace XfsWinFormsClient
         private void button9_Click(object sender, EventArgs e)
         {
             string tt = richTextBox2.Text;
-            XfsParameter parameter = XfsMessageHelper.ToParameter(TenCode.Code0001, ElevenCode.Code0001, tt);
+            //XfsParameter parameter = XfsMessageHelper.ToParameter(TenCode.Code0001, ElevenCode.Code0001, tt);
 
             //XfsGame.XfsSence.GetComponent<XfsTcpClientNodeNet>().Send(parameter);
         }

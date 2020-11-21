@@ -17,6 +17,7 @@ namespace XfsGateSever
         public override void Awake(XfsTcpServerGateNet self)
         {
             self.Init("127.0.0.1", 2001, 10);
+            self.MessageDispatcher = new OuterMessageDispatcher();
         }
     }   
 

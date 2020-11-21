@@ -18,6 +18,9 @@ namespace XfsGateSever
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " G4C_PingHandler-16: " + mes);
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " G4C_PingHandler-19: 等待5秒后回复信息...");
 
+            WaitTimer(5000);
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " G4C_PingHandler-22: 等待5秒后回复信息...");
+
             Thread.Sleep(5000);
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " 5秒时间到，发送回复信息。RpcId： " + message.RpcId);
 
@@ -28,5 +31,17 @@ namespace XfsGateSever
 
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " G4C_PingHandler-31, 已发送回消息." );
         }
+
+        ///async XfsVoid SpawnUnit(XfsSession session)
+        /// {
+        ///    M2T_CreateUnit response = (M2T_CreateUnit) await session.Call(new T2M_CreateUnit() { UnitType = (int)1, RolerId = 2, UnitId = 0 });
+        /// }
+
+        private void WaitTimer(long time)
+        {
+            XfsGame.XfsSence.GetComponent<XfsTimerComponent>().WaitAsync(time);
+        }
+
+
     }
 }

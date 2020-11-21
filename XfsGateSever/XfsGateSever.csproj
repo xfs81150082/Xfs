@@ -48,13 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Handlers\G4C_PingHandler.cs" />
-    <Compile Include="Handlers\G4C_Test1Handler.cs" />
     <Compile Include="Tests\Test1\TestIocp.cs" />
     <Compile Include="Tests\Test1\Class1.cs" />
     <Compile Include="Tests\Test1\Class2.cs" />
     <Compile Include="GateMains\XfsGateInit.cs" />
     <Compile Include="GateMains\Program.cs" />
-    <Compile Include="Handlers\XfsMysqlHandler.cs" />
     <Compile Include="Handlers\XfsUserHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sockets\XfsTcpClientDbNet.cs" />
@@ -66,10 +64,8 @@
     <Compile Include="Tests\Test1\XfsClass3UpdateSystem.cs" />
     <Compile Include="Tests\Test1\TestAttribute.cs" />
     <Compile Include="Tests\Test1\ServerTestPaths.cs" />
-    <Compile Include="Handlers\XfsGateHandler.cs" />
     <Compile Include="Sockets\XfsTcpServerGateNet.cs" />
     <Compile Include="Sockets\XfsTcpServerGateNetSystem.cs" />
-    <Compile Include="Controllers\XfsDbController.cs" />
     <Compile Include="Tests\Test1\XfsClass1StartSystem.cs" />
     <Compile Include="Tests\Test1\XfsClass2StartSystem.cs" />
     <Compile Include="Tests\XfsGateTestSystem.cs" />
@@ -83,6 +79,8 @@
       <Name>Xfs</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

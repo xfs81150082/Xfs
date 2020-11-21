@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Xfs
 {
+    [AsyncMethodBuilderAttribute(typeof(AsyncXfsVoidMethodBuilder))]
     public struct XfsVoid
     {
         public void Coroutine()

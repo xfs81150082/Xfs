@@ -8,25 +8,25 @@ namespace XfsGateSever
 {
     class XfsUserHandler : XfsComponent
     {
-        public void OnTransferParameter(object obj, XfsParameter parameter)
-        {
-            ElevenCode elevenCode = parameter.ElevenCode;
-            switch (elevenCode)
-            {
-                case (ElevenCode.Code0001):
-                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " TmUser: " + elevenCode);
-                    CheckUserLoginPassword(parameter);
-                    break;
-                case (ElevenCode.End):
-                    break;
-                default:
-                    break;
-            }
-        }
+        //public void OnTransferParameter(object obj, XfsParameter parameter)
+        //{
+        //    ElevenCode elevenCode = parameter.ElevenCode;
+        //    switch (elevenCode)
+        //    {
+        //        case (ElevenCode.Code0001):
+        //            Console.WriteLine(XfsTimeHelper.CurrentTime() + " TmUser: " + elevenCode);
+        //            CheckUserLoginPassword(parameter);
+        //            break;
+        //        case (ElevenCode.End):
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
         internal XfsUser User { get; set; }
-        private void CheckUserLoginPassword(XfsParameter parameter)
+        private void CheckUserLoginPassword(/*XfsParameter parameter*/)
         {
-            Console.WriteLine(XfsTimeHelper.CurrentTime() + " to TmUserHandler 30 " + parameter.ElevenCode.ToString());
+            //Console.WriteLine(XfsTimeHelper.CurrentTime() + " to TmUserHandler 30 " + parameter.ElevenCode.ToString());
             //string name = XfsParameterTool.GetValue<string>(parameter, "Username");
             //string word = XfsParameterTool.GetValue<string>(parameter, "Password");
             //Console.WriteLine(XfsTimeHelper.CurrentTime() + " Username:" + name + " Password:" + word);

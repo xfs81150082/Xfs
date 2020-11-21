@@ -17,6 +17,7 @@ namespace Xfs
         public bool IsRunning { get; set; } = false;                       //服务器是否正在运行
         public Socket NetSocket { get; set; }                              //服务器使用的异步socket
         public int MaxListenCount { get; set; } = 10;                      //服务器程序允许的最大客户端连接数  
+        public IXfsMessageDispatcher MessageDispatcher { get; set; }
 
         public Queue<Socket> WaitingSockets = new Queue<Socket>();
         public Dictionary<long, XfsSession> Sessions { get; set; } = new Dictionary<long, XfsSession>();
@@ -124,13 +125,13 @@ namespace Xfs
                 }
                 else
                 {
-                    ///创建一个TPeer接收socket
-                    this.BeginReceiveSocket(socket);
+                    ///创建一个XfsSession接收socket
+                    this.BeginReceiveSocket(socket);                    
                 }
             }
             else
             {
-                ///创建一个TPeer接收socket
+                ///创建一个XfsSession接收socket
                 this.BeginReceiveSocket(socket);
                 this.IsRunning = true;
             }
@@ -145,12 +146,29 @@ namespace Xfs
             if (this.Sessions.TryGetValue(this.InstanceId, out XfsSession peer))
             {
                 this.Sessions.Remove(this.InstanceId);
+                peer.Dispose();
             }
             this.Sessions.Add(this.InstanceId, session);
             session.BeginReceiveMessage(socket);
 
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsServer: " + this.Sessions.Count + " Sessions: " + this.Sessions.Count + " RemoteAddress: " + session.RemoteAddress);
         }
+        public virtual void Remove(long id)
+        {
+            XfsSession session;
+            if (!this.Sessions.TryGetValue(id, out session))
+            {
+                return;
+            }
+            this.Sessions.Remove(id);
+            session.Dispose();
+        }
+        public XfsSession Get(long id)
+        {
+            XfsSession session;
+            this.Sessions.TryGetValue(id, out session);
+            return session;
+        }     
         #endregion
 
 

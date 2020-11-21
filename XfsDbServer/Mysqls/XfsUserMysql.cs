@@ -6,20 +6,20 @@ namespace XfsDbServer
 {
      class XfsUserMysql : XfsComponent
     {
-        public void OnTransferParameter(object sender, XfsParameter parameter)
-        {
-            ElevenCode elevenCode = parameter.ElevenCode;
-            switch (elevenCode)
-            {
-                case (ElevenCode.Code0001):
-                    //GetTmUserByName(sender, parameter);
-                    break;
-                case (ElevenCode.Code0002):
-                    break;
-                default:
-                    break;
-            }
-        }
+        //public void OnTransferParameter(object sender, XfsParameter parameter)
+        //{
+        //    ElevenCode elevenCode = parameter.ElevenCode;
+        //    switch (elevenCode)
+        //    {
+        //        case (ElevenCode.Code0001):
+        //            //GetTmUserByName(sender, parameter);
+        //            break;
+        //        case (ElevenCode.Code0002):
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
         private string SoulName = "Users";
         //private void GetTmUserByName(object sender, XfsParameter parameter)
         //{

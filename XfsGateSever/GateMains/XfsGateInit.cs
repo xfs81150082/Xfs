@@ -37,10 +37,9 @@ namespace XfsGateSever
                 XfsGame.XfsSence.AddComponent<XfsOpcodeTypeComponent>();                          ///服务器加载组件 : 操作号码
 
                 XfsGame.XfsSence.AddComponent<XfsTimerComponent>();
-                //XfsGame.XfsSence.AddComponent<XfsMessageDispatcherComponent>();
+                XfsGame.XfsSence.AddComponent<XfsMessageDispatcherComponent>();
 
-                XfsGame.XfsSence.AddComponent<XfsGateHandler>();                                  ///服务器加载组件 : Handler组件
-                XfsGame.XfsSence.AddComponent<XfsMessageHandlerComponent>();
+                //XfsGame.XfsSence.AddComponent<XfsMessageHandlerComponent>();
 
 
                 // 根据不同的AppType添加不同的组件
