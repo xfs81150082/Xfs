@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "XfsGateServer/1.0.0": {
+        "dependencies": {
+          "Xfs": "1.0.0"
+        },
+        "runtime": {
+          "XfsGateServer.dll": {}
+        }
+      },
+      "Xfs/1.0.0": {
+        "runtime": {
+          "Xfs.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "XfsGateServer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Xfs/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

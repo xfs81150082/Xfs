@@ -1,0 +1,12 @@
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\bin\Debug\netcoreapp3.1\XfsConsoleClient.exe
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\bin\Debug\netcoreapp3.1\XfsConsoleClient.deps.json
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\bin\Debug\netcoreapp3.1\XfsConsoleClient.runtimeconfig.json
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\bin\Debug\netcoreapp3.1\XfsConsoleClient.runtimeconfig.dev.json
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\bin\Debug\netcoreapp3.1\XfsConsoleClient.dll
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\bin\Debug\netcoreapp3.1\XfsConsoleClient.pdb
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\obj\Debug\netcoreapp3.1\XfsConsoleClient.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\obj\Debug\netcoreapp3.1\XfsConsoleClient.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\obj\Debug\netcoreapp3.1\XfsConsoleClient.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\obj\Debug\netcoreapp3.1\XfsConsoleClient.dll
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\obj\Debug\netcoreapp3.1\XfsConsoleClient.pdb
+C:\Users\Administrator\Desktop\Xfs\XfsConsoleClient\obj\Debug\netcoreapp3.1\XfsConsoleClient.genruntimeconfig.cache
