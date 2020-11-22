@@ -1,9 +1,0 @@
-C:\Users\Administrator\Desktop\Xfs\Xfs\bin\Debug\netcoreapp2.2\Xfs.deps.json
-C:\Users\Administrator\Desktop\Xfs\Xfs\bin\Debug\netcoreapp2.2\Xfs.dll
-C:\Users\Administrator\Desktop\Xfs\Xfs\bin\Debug\netcoreapp2.2\Xfs.pdb
-C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\netcoreapp2.2\Xfs.csprojAssemblyReference.cache
-C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\netcoreapp2.2\Xfs.AssemblyInfoInputs.cache
-C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\netcoreapp2.2\Xfs.AssemblyInfo.cs
-C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\netcoreapp2.2\Xfs.csproj.CoreCompileInputs.cache
-C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\netcoreapp2.2\Xfs.dll
-C:\Users\Administrator\Desktop\Xfs\Xfs\obj\Debug\netcoreapp2.2\Xfs.pdb
