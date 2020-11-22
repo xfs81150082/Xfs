@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xfs", "Xfs\Xfs.csproj", "{524D5076-DD02-4362-8F3F-0FB3DF913B5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsGateServer", "XfsGateServer\XfsGateServer.csproj", "{A064C649-C34D-4887-B225-AB936B10FD9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XfsGateServer", "XfsGateServer\XfsGateServer.csproj", "{A064C649-C34D-4887-B225-AB936B10FD9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsConsoleClient", "XfsConsoleClient\XfsConsoleClient.csproj", "{54949F53-7EFE-4980-82C8-5D13DFEF7836}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XfsConsoleClient", "XfsConsoleClient\XfsConsoleClient.csproj", "{54949F53-7EFE-4980-82C8-5D13DFEF7836}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

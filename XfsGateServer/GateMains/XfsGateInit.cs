@@ -66,10 +66,7 @@ namespace XfsGateServer
                 //XfsGame.XfsSence.AddComponent<XfsConfigComponent>();
 
 
-                //XfsGame.XfsSence.AddComponent<TestEntity1>();                                     ///服务器加载组件 : 通信组件Server
-
-                XfsGame.XfsSence.AddComponent<XfsGateTest>();                                     ///服务器加载组件 : 通信组件Server
-                XfsGame.XfsSence.AddComponent <TestClass1>();                                     ///服务器加载组件 : 通信组件Server
+                XfsGame.XfsSence.AddComponent<TestNanample>().Start();                                     ///服务器加载组件 : 通信组件Server
 
 
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);

@@ -8,7 +8,7 @@ using Xfs;
 
 namespace XfsConsoleClient
 {  
-        [XfsObjectSystem]    
+    [XfsObjectSystem]    
     public class XfsTestSystem : XfsUpdateSystem<XfsTest>
     {
         public override void Update(XfsTest self)
@@ -43,15 +43,8 @@ namespace XfsConsoleClient
                 }
             }
         }
-    }
 
-    public class XfsTest : XfsEntity
-    {
-        public float time = 0;
 
-        public float restime = 8000;
 
-        public string call = "从客户端发送到服务器...";
-    }
-
+    }    
 }

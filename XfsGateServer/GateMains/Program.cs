@@ -13,10 +13,8 @@ namespace XfsGateServer
     {
         static void Main(string[] args)
         {
-            //new XfsGateInit().Start();
-            //new TestIocp().Init();
+            new XfsGateInit().Start();
 
-            XfsComponentFactory.Create<XfsGateInit>().Start();
         }
 
     }

@@ -10,12 +10,10 @@ namespace Xfs
 		Xfs,
 		XfsConsoleClient,
 		XfsGateServer,
-		XfsChatServer,
+		XfsScene,
 		XfsDbServer,
-		XfsWinFormsClient,
-		XfsWinFormsServer,
+		XfsChatServer,		
 		Editor,
-		XfsConsoleTest,
 	}
 
 	public sealed class XfsEventSystem
@@ -129,6 +127,7 @@ namespace Xfs
 						break;
 				}
 			}
+
 			///20201122 看看系统运行中的具体内容
 			Console.WriteLine(XfsTimeHelper.CurrentTime() + " this[XfsObjectSystem]-Count: " + types[typeof(XfsObjectSystemAttribute)].Count);
             for (int i = 0; i < this.types[typeof(XfsObjectSystemAttribute)].Count; i++)
@@ -501,6 +500,8 @@ namespace Xfs
 	
 		public void Load()
 		{
+			Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsEventSystem-Load:{0} + {1} ", 503, this.loaders.Count);
+
 			while (this.loaders.Count > 0)
 			{
 				long instanceId = this.loaders.Dequeue();

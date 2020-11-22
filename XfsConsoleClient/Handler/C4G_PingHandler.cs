@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     public class C4G_PingHandler : XfsAMRpcHandler<C4G_Ping, G4C_Ping>
     {
@@ -17,5 +17,7 @@ namespace XfsGateSever
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " C4G_PingHandler-17: " + message.Message);
 
         }
+
+
     }
 }
