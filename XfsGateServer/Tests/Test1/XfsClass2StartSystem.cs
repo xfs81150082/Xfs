@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     [XfsObjectSystem]
     public class XfsClass2StartSystem : XfsStartSystem<Class2>

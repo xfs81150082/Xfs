@@ -32,8 +32,8 @@ namespace Xfs
 	{
 		public Type Type()
 		{
-			return typeof(T);
-		}
+            return typeof(T);
+        }
 
 		public void Run(object o)
 		{

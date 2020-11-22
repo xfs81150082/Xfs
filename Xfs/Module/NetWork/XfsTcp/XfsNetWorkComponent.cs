@@ -14,6 +14,7 @@ namespace Xfs
         public string IpString { get; set; } = "127.0.0.1";                //监听的IP地址  
         public int Port { get; set; } = 2001;                              //监听的端口  
         public IPAddress Address { get; set; }                             //监听的IP地址  
+        public IPEndPoint IPEndPoint { get; set; }                         //监听的IP地址  
         public bool IsRunning { get; set; } = false;                       //服务器是否正在运行
         public Socket NetSocket { get; set; }                              //服务器使用的异步socket
         public int MaxListenCount { get; set; } = 10;                      //服务器程序允许的最大客户端连接数  
@@ -37,9 +38,10 @@ namespace Xfs
             {
                 if (this.NetSocket == null)
                 {
+                    this.IPEndPoint = new IPEndPoint(this.Address, this.Port);
                     this.Address = IPAddress.Parse(this.IpString);
                     this.NetSocket = new Socket(this.Address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                    this.NetSocket.Bind(new IPEndPoint(this.Address, this.Port));
+                    this.NetSocket.Bind(this.IPEndPoint);
                 }
                 this.NetSocket.Listen(this.MaxListenCount);
                 this.IsRunning = true;

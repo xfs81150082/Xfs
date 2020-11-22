@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\Documents\\Xfs\\Xfs\\Xfs.csproj": {}
+    "C:\\Users\\Administrator\\Desktop\\Xfs\\Xfs\\Xfs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\Documents\\Xfs\\Xfs\\Xfs.csproj": {
+    "C:\\Users\\Administrator\\Desktop\\Xfs\\Xfs\\Xfs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Xfs\\Xfs\\Xfs.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Xfs\\Xfs\\Xfs.csproj",
         "projectName": "Xfs",
-        "projectPath": "C:\\Users\\Administrator\\Documents\\Xfs\\Xfs\\Xfs.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\Xfs\\Xfs\\Xfs.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Documents\\Xfs\\Xfs\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\Xfs\\Xfs\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",

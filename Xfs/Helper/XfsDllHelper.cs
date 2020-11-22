@@ -22,10 +22,10 @@ namespace Xfs
 			Assembly assembly = Assembly.Load(dllBytes, pdbBytes);
 			return assembly;
 		}
-		public static Assembly GetXfsGateSeverAssembly()
+		public static Assembly GetXfsGateServerAssembly()
 		{
-			byte[] dllBytes = File.ReadAllBytes("./XfsGateSever.dll");
-			byte[] pdbBytes = File.ReadAllBytes("./XfsGateSever.pdb");
+			byte[] dllBytes = File.ReadAllBytes("./XfsGateServer.dll");
+			byte[] pdbBytes = File.ReadAllBytes("./XfsGateServer.pdb");
 			Assembly assembly = Assembly.Load(dllBytes, pdbBytes);
 			return assembly;
 		}

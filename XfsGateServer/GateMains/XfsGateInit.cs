@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     public class XfsGateInit : XfsComponent
     {
@@ -23,13 +23,8 @@ namespace XfsGateSever
 
             try
             {
-                XfsDLLType dllType1 = XfsDLLType.Xfs;
-                XfsDLLType dllType2 = XfsDLLType.XfsGateSever;
-                Assembly assembly1 = XfsDllHelper.GetAssembly(dllType1.ToString());
-                Assembly assembly2 = XfsDllHelper.GetAssembly(dllType2.ToString());
-                XfsGame.EventSystem.Add(dllType1, assembly1);
-                XfsGame.EventSystem.Add(dllType2, assembly2);
-
+                XfsGame.EventSystem.Add(XfsDLLType.Xfs, typeof(XfsGame).Assembly);
+                XfsGame.EventSystem.Add(XfsDLLType.XfsGateServer, XfsDllHelper.GetXfsGateServerAssembly());
 
                 ///服务器加载组件
                 XfsGame.XfsSence.Type = XfsSenceType.Gate;
@@ -39,7 +34,6 @@ namespace XfsGateSever
                 XfsGame.XfsSence.AddComponent<XfsTimerComponent>();
                 XfsGame.XfsSence.AddComponent<XfsMessageDispatcherComponent>();
 
-                //XfsGame.XfsSence.AddComponent<XfsMessageHandlerComponent>();
 
 
                 // 根据不同的AppType添加不同的组件
@@ -73,7 +67,9 @@ namespace XfsGateSever
 
 
                 //XfsGame.XfsSence.AddComponent<TestEntity1>();                                     ///服务器加载组件 : 通信组件Server
+
                 XfsGame.XfsSence.AddComponent<XfsGateTest>();                                     ///服务器加载组件 : 通信组件Server
+                XfsGame.XfsSence.AddComponent <TestClass1>();                                     ///服务器加载组件 : 通信组件Server
 
 
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " ThreadId: " + Thread.CurrentThread.ManagedThreadId);

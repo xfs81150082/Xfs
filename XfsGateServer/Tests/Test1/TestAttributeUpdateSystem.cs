@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     class TestAttributeUpdateSystem : XfsUpdateSystem<TestAttribute>
     {
@@ -61,7 +61,7 @@ namespace XfsGateSever
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " TestSimyy1 ... ");
 
             XfsDLLType dllType1 = XfsDLLType.Xfs;
-            XfsDLLType dllType2 = XfsDLLType.XfsGateSever;
+            XfsDLLType dllType2 = XfsDLLType.XfsGateServer;
 
             Assembly assembly1 = XfsDllHelper.GetAssembly(dllType1.ToString());
             Assembly assembly2 = XfsDllHelper.GetAssembly(dllType2.ToString());
@@ -73,7 +73,7 @@ namespace XfsGateSever
 
 
             XfsGame.EventSystem.Add(XfsDLLType.Xfs, XfsDllHelper.GetAssembly(XfsDLLType.Xfs.ToString()));
-            XfsGame.EventSystem.Add(XfsDLLType.XfsGateSever, XfsDllHelper.GetXfsGateSeverAssembly());
+            XfsGame.EventSystem.Add(XfsDLLType.XfsGateServer, XfsDllHelper.GetXfsGateServerAssembly());
 
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " types.count: " + this.types.Count);
 
@@ -88,7 +88,7 @@ namespace XfsGateSever
 
 
                 XfsDLLType dllType1 = XfsDLLType.Xfs;
-                XfsDLLType dllType2 = XfsDLLType.XfsGateSever;
+                XfsDLLType dllType2 = XfsDLLType.XfsGateServer;
 
                 Assembly assembly1 = XfsDllHelper.GetAssembly(dllType1.ToString());
                 Assembly assembly2 = XfsDllHelper.GetAssembly(dllType2.ToString());

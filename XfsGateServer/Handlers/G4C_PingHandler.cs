@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     [XfsMessageHandler(XfsSenceType.Gate)]
     public class G4C_PingHandler : XfsAMRpcHandler<C4G_Ping, G4C_Ping>

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Xfs;
 
 namespace XfsConsoleClient
-{
-    [XfsObjectSystem]    
+{  
+        [XfsObjectSystem]    
     public class XfsTestSystem : XfsUpdateSystem<XfsTest>
     {
         public override void Update(XfsTest self)

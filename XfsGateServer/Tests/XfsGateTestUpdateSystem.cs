@@ -6,10 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     [XfsObjectSystem]
-     public class XfsGateTestSystem : XfsUpdateSystem<XfsGateTest>
+     public class XfsGateTestUpdateSystem : XfsUpdateSystem<XfsGateTest>
     {
         public override void Update(XfsGateTest self)
         {

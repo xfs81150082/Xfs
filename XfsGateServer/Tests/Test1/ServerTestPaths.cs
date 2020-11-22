@@ -3,7 +3,7 @@ using System.Collections;
 using System.Diagnostics;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     class ServerTestPaths : XfsComponent
     {

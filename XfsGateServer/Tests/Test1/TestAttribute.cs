@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Threading;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     public  class TestAttribute : XfsComponent
     {

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     public class XfsTcpServerGateNet : XfsNetWorkComponent
     {

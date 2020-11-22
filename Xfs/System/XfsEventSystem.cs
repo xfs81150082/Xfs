@@ -9,7 +9,7 @@ namespace Xfs
 	{
 		Xfs,
 		XfsConsoleClient,
-		XfsGateSever,
+		XfsGateServer,
 		XfsChatServer,
 		XfsDbServer,
 		XfsWinFormsClient,
@@ -69,8 +69,16 @@ namespace Xfs
 					}
 					XfsBaseAttribute baseAttribute = (XfsBaseAttribute)objects[0];
 					this.types.Add(baseAttribute.AttributeType, type);
-
-					Console.WriteLine(XfsTimeHelper.CurrentTime() + " types: " + this.types.Count);
+				}					
+			}
+				
+			Console.WriteLine(XfsTimeHelper.CurrentTime() + " types: " + this.types.Count);	
+			for(int i = 0; i < this.types.Count; i++)
+            {
+				Console.WriteLine(XfsTimeHelper.CurrentTime() + " Keys:{0} + {1} ",i, this.types.Keys()[i]);
+				for(int k=0;k< this.types.Values()[i].Count; k++)
+                {
+					Console.WriteLine(XfsTimeHelper.CurrentTime() + " Values: {0} + {1} ", k, this.types.Values()[i][k]);
 				}
 			}
 
@@ -84,7 +92,6 @@ namespace Xfs
 			this.deserializeSystems.Clear();
 
 			if (types.Count == 0) return;
-			Console.WriteLine(XfsTimeHelper.CurrentTime() + " this[t]: " + typeof(XfsObjectSystemAttribute));
 
 			foreach (Type type in types[typeof(XfsObjectSystemAttribute)])
 			{
@@ -98,15 +105,12 @@ namespace Xfs
 				{
 					case IXfsAwakeSystem awakeSystem:
 						this.awakeSystems.Add(awakeSystem.Type(), awakeSystem);
-						Console.WriteLine(XfsTimeHelper.CurrentTime() + " IXfsAwakeSystems: " + this.awakeSystems.Count);
 						break;
 					case IXfsStartSystem startSystem:
 						this.startSystems.Add(startSystem.Type(), startSystem);
-						Console.WriteLine(XfsTimeHelper.CurrentTime() + " IXfsStartSystems: " + this.startSystems.Count);
 						break;
 					case IXfsUpdateSystem updateSystem:
 						this.updateSystems.Add(updateSystem.Type(), updateSystem);
-						Console.WriteLine(XfsTimeHelper.CurrentTime() + " IXfsUpdateSystems: " + this.updateSystems.Count);
 						break;
 					case IXfsLateUpdateSystem lateUpdateSystem:
 						this.lateUpdateSystems.Add(lateUpdateSystem.Type(), lateUpdateSystem);
@@ -124,6 +128,27 @@ namespace Xfs
 						this.deserializeSystems.Add(deserializeSystem.Type(), deserializeSystem);
 						break;
 				}
+			}
+			///20201122 看看系统运行中的具体内容
+			Console.WriteLine(XfsTimeHelper.CurrentTime() + " this[XfsObjectSystem]-Count: " + types[typeof(XfsObjectSystemAttribute)].Count);
+            for (int i = 0; i < this.types[typeof(XfsObjectSystemAttribute)].Count; i++)
+            {
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsObjectSystem:{0} + {1} ", i, this.types[typeof(XfsObjectSystemAttribute)][i]);
+            }
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " awakeSystems: " + this.awakeSystems.Count);
+            foreach (var tem in  this.awakeSystems.Keys())
+			{
+				Console.WriteLine(XfsTimeHelper.CurrentTime() + " awakeSystems:{0} + {1} ", tem, this.awakeSystems[tem].Count);
+			}
+			Console.WriteLine(XfsTimeHelper.CurrentTime() + " updateSystems: " + this.updateSystems.Count);
+			foreach (var tem in this.updateSystems.Keys())
+			{
+				Console.WriteLine(XfsTimeHelper.CurrentTime() + " updateSystems:{0} + {1} ", tem, this.updateSystems[tem].Count);
+			}
+			Console.WriteLine(XfsTimeHelper.CurrentTime() + " lateUpdateSystems: " + this.lateUpdateSystems.Count);
+			foreach (var tem in this.lateUpdateSystems.Keys())
+			{
+				Console.WriteLine(XfsTimeHelper.CurrentTime() + " lateUpdateSystems:{0} + {1} ", tem, this.lateUpdateSystems[tem].Count);
 			}
 
 			this.allEvents.Clear();
@@ -246,9 +271,9 @@ namespace Xfs
 		public void Update()
 		{
 			this.Start();
-			//Console.WriteLine(XfsTimerTool.CurrentTime() + " : Update1.... " + this.updates.Count);
+            //Console.WriteLine(XfsTimeHelper.CurrentTime() + " : Update1.... " + this.updates.Count);
 
-			while (this.updates.Count > 0)
+            while (this.updates.Count > 0)
 			{
 				long instanceId = this.updates.Dequeue();
 				XfsComponent component;
@@ -315,9 +340,13 @@ namespace Xfs
 	
 		public void Awake(XfsComponent component)
 		{
-			List<IXfsAwakeSystem> iAwakeSystems = this.awakeSystems[component.GetType()];
-			if (iAwakeSystems == null)
-			{
+			Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsEventSystem-Awake1: " + component.GetType());
+
+            List<IXfsAwakeSystem> iAwakeSystems = this.awakeSystems[component.GetType()];
+
+            if (iAwakeSystems == null)
+			{			
+				Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsEventSystem-Awake2: iAwakeSystems == null");
 				return;
 			}
 
@@ -327,7 +356,6 @@ namespace Xfs
 				{
 					continue;
 				}
-
 				IXfsAwake iAwake = aAwakeSystem as IXfsAwake;
 				if (iAwake == null)
 				{
@@ -337,6 +365,7 @@ namespace Xfs
 				try
 				{
 					iAwake.Run(component);
+					Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsEventSystem-Awake5: " + component.GetType());
 				}
 				catch (Exception e)
 				{

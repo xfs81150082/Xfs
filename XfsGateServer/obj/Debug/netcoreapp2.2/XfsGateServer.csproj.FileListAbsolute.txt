@@ -1,0 +1,15 @@
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\bin\Debug\netcoreapp2.2\XfsGateServer.deps.json
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\bin\Debug\netcoreapp2.2\XfsGateServer.runtimeconfig.json
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\bin\Debug\netcoreapp2.2\XfsGateServer.runtimeconfig.dev.json
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\bin\Debug\netcoreapp2.2\XfsGateServer.dll
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\bin\Debug\netcoreapp2.2\XfsGateServer.pdb
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\bin\Debug\netcoreapp2.2\Xfs.dll
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\bin\Debug\netcoreapp2.2\Xfs.pdb
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\obj\Debug\netcoreapp2.2\XfsGateServer.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\obj\Debug\netcoreapp2.2\XfsGateServer.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\obj\Debug\netcoreapp2.2\XfsGateServer.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\obj\Debug\netcoreapp2.2\XfsGateServer.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\obj\Debug\netcoreapp2.2\XfsGateServer.csproj.CopyComplete
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\obj\Debug\netcoreapp2.2\XfsGateServer.dll
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\obj\Debug\netcoreapp2.2\XfsGateServer.pdb
+C:\Users\Administrator\Desktop\Xfs\XfsGateServer\obj\Debug\netcoreapp2.2\XfsGateServer.genruntimeconfig.cache

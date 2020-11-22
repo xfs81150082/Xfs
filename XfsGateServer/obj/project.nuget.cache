@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AklmiJTPJzI0Yp9+9eAqBncosmHBjMBDTwNri3Um7mLiOwVi4MgKwSbu0vsybs9Yv5/Vkls/vGGHZ1l9XFfEPA==",
+  "dgSpecHash": "oGJdKss2itMG3AcHdA1K0s4mwZo30v00JN5rzdwAI9vX/oig2b16pmdTUbBfi0UZH8ga84YsYhQL389L4p5Bmg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Documents\\Xfs\\XfsGateServer\\XfsGateServer.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Xfs\\XfsGateServer\\XfsGateServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\google.protobuf\\3.5.1\\google.protobuf.3.5.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",

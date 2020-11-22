@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KD6vjAXeN1RC+9MdpBgSUbwAsJIm9PVPL+IOqRJ6NqxxQvZfe5uUi7h2AT92BaNMsdkL2o1xfY+rz6Rz+GHfZA==",
+  "dgSpecHash": "GLcaJBSOx1t1zmO/oKQ28W264QRJeVm/hBjOzxSgOs7CYDLTxZ0DvAUT//PgcLQ8bOu5OBrAJfI8O5UnE6WQAA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Documents\\Xfs\\XfsConsoleClient\\XfsConsoleClient.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Xfs\\XfsConsoleClient\\XfsConsoleClient.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\google.protobuf\\3.5.1\\google.protobuf.3.5.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",

@@ -58,9 +58,13 @@ namespace Xfs
 			}
 		}
 		public List<T> Keys()
-        {
+		{
 			return this.dictionary.Keys.ToList();
-        }
+		}
+		public List<List<K>> Values()
+		{
+			return this.dictionary.Values.ToList();
+		}
 		public bool Remove(T t, K k)
 		{
 			List<K> list;

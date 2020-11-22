@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     class XfsUserHandler : XfsComponent
     {

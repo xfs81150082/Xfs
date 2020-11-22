@@ -4,7 +4,7 @@ using Xfs;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     public class TestIocp
     {

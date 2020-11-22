@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xfs;
 
-namespace XfsGateSever
+namespace XfsGateServer
 {
     class Program
     {
