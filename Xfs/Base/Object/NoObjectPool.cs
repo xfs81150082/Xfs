@@ -2,7 +2,7 @@
 
 namespace Xfs
 {
-    public class Class1
+    public class NoObjectPool: Attribute
     {
     }
 }
