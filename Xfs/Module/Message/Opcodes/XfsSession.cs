@@ -121,13 +121,23 @@ namespace Xfs
 				}
 				return;
 			}
-
+			this.XfsRunMessage(opcode, message);
+          
+		}
+		private void XfsRunMessage(int opcode, object message)
+        {
             IXfsResponse response = message as IXfsResponse;
             if (response == null)
             {                
 				this.Network.MessageDispatcher.Dispatch(this, opcode, message);
 				return;
             }
+
+			if (message is IXfsActorResponse)
+			{
+				this.Network.MessageDispatcher.Dispatch(this, opcode, message);
+				return;
+			}
 
 			Action<IXfsResponse> action;
             if (!this.requestCallback.TryGetValue(response.RpcId, out action))
@@ -136,7 +146,7 @@ namespace Xfs
             }
             this.requestCallback.Remove(response.RpcId);
             action(response);
-		}
+        }
 		#endregion
 
 		#region Call Send
@@ -214,6 +224,12 @@ namespace Xfs
 			{
 				throw new Exception("session已经被Dispose了");
 			}
+
+			/////根据opcode判断是什么信息，如果是内网IXfsActorRequest消息,直接传给消息分发组件
+			if (message is IXfsActorRequest)
+            {
+				this.XfsRunMessage(opcode, message);
+            }
 
 			///用Json将参数（MvcParameter）,序列化转换成字符串（string）
 			string msgJsons = XfsJsonHelper.ToJson(message);

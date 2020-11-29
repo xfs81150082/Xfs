@@ -292,7 +292,7 @@ namespace Xfs
             //    return;
             //}
 
-            this.StartRecv();
+            //this.StartRecv();
         }
 
         public bool IsSending => this.isSending;

@@ -20,9 +20,9 @@ namespace Xfs
 		private static readonly XfsPool<Dictionary<Type, XfsEntity>> dictPool = new XfsPool<Dictionary<Type, XfsEntity>>();
 		
 		private static readonly XfsPool<Dictionary<long, XfsEntity>> childrenPool = new XfsPool<Dictionary<long, XfsEntity>>();
-		
-		
+	
 		public long InstanceId { get; set; }
+        public long Id { get; set; }
 		protected XfsEntity()	{		}
 		private EntityStatus status = EntityStatus.None;
 		public bool IsFromPool
@@ -191,7 +191,6 @@ namespace Xfs
 			return XfsJsonHelper.ToJson(this);
         }
 
-        public long Id { get; set; }
 
 		protected XfsEntity domain;
 
@@ -275,8 +274,8 @@ namespace Xfs
 			}
 		}
 
-		//[BsonElement("Children")]
-		protected HashSet<XfsEntity> childrenDB;
+        //[BsonElement("Children")]
+        protected HashSet<XfsEntity> childrenDB;
 
 		protected Dictionary<long, XfsEntity> children;
 		

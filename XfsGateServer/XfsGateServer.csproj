@@ -45,12 +45,15 @@
   <ItemGroup>
     <Compile Include="GateMains\XfsGateInit.cs" />
     <Compile Include="GateMains\Program.cs" />
-    <Compile Include="Handler\Class1222.cs" />
+    <Compile Include="Handler\G4C_TestRpcActorHandler.cs" />
     <Compile Include="Handler\G4C_PingHandler.cs" />
     <Compile Include="Handler\XfsUserHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Socket\XfsTcpServerGateNet.cs" />
     <Compile Include="Socket\XfsTcpServerGateNetSystem.cs" />
+    <Compile Include="Test\GateTests.cs" />
+    <Compile Include="Test\Test1Entity.cs" />
+    <Compile Include="Test\Test2Entity.cs" />
     <Compile Include="Test\XfsGateTest.cs" />
     <Compile Include="Test\XfsGateTestSystem.cs" />
   </ItemGroup>

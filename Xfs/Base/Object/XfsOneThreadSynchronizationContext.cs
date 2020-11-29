@@ -17,17 +17,17 @@ namespace Xfs
 		// 线程同步队列,发送接收socket回调都放到该队列,由poll线程统一执行
 		private readonly ConcurrentQueue<Action> queue = new ConcurrentQueue<Action>();
 
-		private Action action;
+		private Action act;
 
 		public void Update()
 		{
 			while (true)
 			{
-				if (!this.queue.TryDequeue(out action))
+				if (!this.queue.TryDequeue(out act))
 				{
 					return;
 				}
-				action();
+				act();
 			}
 		}
 

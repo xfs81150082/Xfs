@@ -10,7 +10,13 @@ namespace Xfs
 
         public const int C2G_TestRequest = 401;
         public const int G2C_TestResponse = 402;
-       
+
+
+
+
+
+        public const int Actor_TestRequest = 1101;
+        public const int Actor_TestResponse = 1102;
 
 
         #endregion
@@ -33,6 +39,16 @@ namespace Xfs
 
     [XfsMessage(XfsOuterOpcode.G4C_Pong)]
 	public partial class G4C_Pong : IXfsResponse {}
+
+
+
+
+
+    [XfsMessage(XfsOuterOpcode.Actor_TestRequest)]
+    public partial class Actor_TestRequest : IXfsActorRequest { }
+
+    [XfsMessage(XfsOuterOpcode.Actor_TestResponse)]
+    public partial class Actor_TestResponse : IXfsActorResponse { }
 
 
     #endregion

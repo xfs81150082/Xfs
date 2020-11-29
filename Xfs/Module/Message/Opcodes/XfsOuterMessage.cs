@@ -350,6 +350,87 @@ namespace Xfs
 
 
 
+
+    [Serializable]
+    public partial class Actor_TestRequest : IXfsMessage
+    {
+        private int rpcId_;
+        public int RpcId
+        {
+            get { return rpcId_; }
+            set
+            {
+                rpcId_ = value;
+            }
+        }
+
+        private long actorId_;
+        public long ActorId
+        {
+            get { return actorId_; }
+            set
+            {
+                actorId_ = value;
+            }
+        }
+             
+        private string message_ = "";
+        public string Message
+        {
+            get { return message_; }
+            set
+            {
+                message_ = value;
+            }
+        }
+
+    }
+    [Serializable]
+    public partial class Actor_TestResponse : IXfsMessage
+    {
+        private int rpcId_;
+        public int RpcId
+        {
+            get { return rpcId_; }
+            set
+            {
+                rpcId_ = value;
+            }
+        }
+      
+        private long actorId_;
+        public long ActorId
+        {
+            get { return actorId_; }
+            set
+            {
+                actorId_ = value;
+            }
+        }
+
+        private int error_;
+        public int Error
+        {
+            get { return error_; }
+            set
+            {
+                error_ = value;
+            }
+        }
+
+        private string message_ = "";
+        public string Message
+        {
+            get { return message_; }
+            set
+            {
+                message_ = value;
+            }
+        }
+            
+    }
+
+
     #endregion
 
 }

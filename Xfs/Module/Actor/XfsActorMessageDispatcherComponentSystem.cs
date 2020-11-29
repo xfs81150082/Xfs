@@ -44,7 +44,7 @@ namespace Xfs
 		{
 			self.ActorMessageHandlers.Clear();
 
-			HashSet<Type> types = XfsEventSystem.Instance.GetTypes(typeof(XfsActorMessageHandlerAttribute));
+			HashSet<Type> types = XfsGame.EventSystem.GetTypes(typeof(XfsActorMessageHandlerAttribute));
 			foreach (Type type in types)
 			{
 				object obj = Activator.CreateInstance(type);

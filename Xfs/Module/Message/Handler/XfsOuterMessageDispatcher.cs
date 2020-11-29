@@ -6,11 +6,15 @@ namespace Xfs
 	{
 		public void Dispatch(XfsSession session, int opcode, object message)
 		{
-            DispatchAsync(session, opcode, message);
+            DispatchAsync(session, opcode, message).Coroutine();
         }
 
-        //public async XfsVoid DispatchAsync(XfsSession session, int opcode, object message) { }
-        private void DispatchAsync(XfsSession session, int opcode, object message)
+        //private void DispatchAsync(XfsSession session, int opcode, object message)
+        //{
+        //    // 非Actor消息
+        //    XfsGame.Scene.GetComponent<XfsMessageDispatcherComponent>().Handle(session, new XfsMessageInfo(opcode, message));
+        //}
+        public async XfsVoid DispatchAsync(XfsSession session, int opcode, object message)
         {
             // 根据消息接口判断是不是Actor消息，不同的接口做不同的处理
             switch (message)
@@ -31,6 +35,8 @@ namespace Xfs
                         //    session.Reply(response);
                         //}
 
+                        await new XfsTaskCompleted();
+
                         break;
                     }
                 case IXfsActorLocationMessage actorLocationMessage:
@@ -44,6 +50,13 @@ namespace Xfs
                     }
                 case IXfsActorRequest actorRequest:  // 分发IActorRequest消息，目前没有用到，需要的自己添加
                     {
+                        break;
+                    }
+                case XfsActorResponse actorResponse:  // 分发IActorRequest消息，目前没有用到，需要的自己添加
+                    {
+
+                        XfsGame.Scene.GetComponent<XfsActorMessageSenderComponent>().RunMessage(actorResponse);
+
                         break;
                     }
                 case IXfsActorMessage actorMessage:  // 分发IActorMessage消息，目前没有用到，需要的自己添加
