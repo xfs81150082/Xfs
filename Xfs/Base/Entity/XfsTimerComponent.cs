@@ -125,7 +125,6 @@ namespace Xfs
         }
     }
 
-
     public class TimerComponentAwakeSystem : XfsAwakeSystem<XfsTimerComponent>
     {
         public override void Awake(XfsTimerComponent self)
@@ -133,7 +132,6 @@ namespace Xfs
             XfsTimerComponent.Instance = self;
         }
     }
-
 
     public class TimerComponentUpdateSystem : XfsUpdateSystem<XfsTimerComponent>
     {
@@ -355,6 +353,7 @@ namespace Xfs
                 this.minTime = tillTime;
             }
         }
-    }
 
+
+    }
 }
