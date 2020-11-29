@@ -6,8 +6,9 @@ namespace Xfs
 	{
 		protected static void ReplyError(Response response, Exception e, Action<Response> reply)
 		{
-			//Log.Error(e);
-			response.Error = XfsErrorCode.ERR_RpcFail;
+            //Log.Error(e);
+            Console.WriteLine(e);
+            response.Error = XfsErrorCode.ERR_RpcFail;
 			response.Message = e.ToString();
 			reply(response);
 		}
@@ -21,12 +22,14 @@ namespace Xfs
                 if (request == null)
                 {
                     //Log.Error($"消息类型转换错误: {actorMessage.GetType().FullName} to {typeof (Request).Name}");
+                    Console.WriteLine(($"消息类型转换错误: {actorMessage.GetType().FullName} to {typeof(Request).Name}"));
                     return;
                 }
                 E e = entity as E;
                 if (e == null)
                 {
                     //Log.Error($"Actor类型转换错误: {entity.GetType().Name} to {typeof(E).Name}");
+                    Console.WriteLine(($"Actor类型转换错误: {entity.GetType().Name} to {typeof(E).Name}"));
                     return;
                 }
 

@@ -127,7 +127,7 @@
     <Compile Include="Module\Actor\Lock\XfsCoroutineLockQueue.cs" />
     <Compile Include="Module\Actor\Lock\XfsCoroutineLockQueueType.cs" />
     <Compile Include="Module\Actor\Lock\XfsCoroutineLockType.cs" />
-    <Compile Include="Module\Actor\Tests\ActorMessageDispatcherComponentSystem.cs" />
+    <Compile Include="Module\Actor\Tests\XfsActorMessageDispatcherComponentSystem.cs" />
     <Compile Include="Module\Actor\Tests\ET\IXfsMailboxHandler.cs" />
     <Compile Include="Module\Actor\Tests\ET\XfsAMActorHandler.cs" />
     <Compile Include="Module\Actor\Tests\ET\XfsAMActorRpcHandler.cs" />

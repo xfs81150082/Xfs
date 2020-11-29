@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xfs", "Xfs\Xfs.csproj", "{0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsConsoleClient", "XfsConsoleClient\XfsConsoleClient.csproj", "{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsServer", "XfsServer\XfsServer.csproj", "{8F36A277-34CD-4374-9A02-5FE39671A5F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsGateServer", "XfsGateServer\XfsGateServer.csproj", "{F9BFCFE8-4F4C-4CD8-8E81-99773607DA94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F36A277-34CD-4374-9A02-5FE39671A5F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F36A277-34CD-4374-9A02-5FE39671A5F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F36A277-34CD-4374-9A02-5FE39671A5F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F36A277-34CD-4374-9A02-5FE39671A5F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9BFCFE8-4F4C-4CD8-8E81-99773607DA94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9BFCFE8-4F4C-4CD8-8E81-99773607DA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9BFCFE8-4F4C-4CD8-8E81-99773607DA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9BFCFE8-4F4C-4CD8-8E81-99773607DA94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

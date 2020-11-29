@@ -15,5 +15,6 @@ namespace Xfs
 		public long TimeoutCheckTimer;
 
 		public List<int> TimeoutActorMessageSenders = new List<int>();
+
 	}
 }
