@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xfs", "Xfs\Xfs.csproj", "{0252C896-3371-4952-97B0-58F67184DEF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsModel", "XfsModel\XfsModel.csproj", "{C9370EDD-AD84-4D09-8CB7-1EE2E4AED18F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsConsoleClient", "XfsConsoleClient\XfsConsoleClient.csproj", "{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsHotfix", "XfsHotfix\XfsHotfix.csproj", "{CD1C6360-6E12-4BD8-B111-49EA64516269}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsGateServer", "XfsGateServer\XfsGateServer.csproj", "{F9BFCFE8-4F4C-4CD8-8E81-99773607DA94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsServer", "XfsServer\XfsServer.csproj", "{F295682B-3CC8-4EA6-B75E-3D30575C2056}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XfsClient", "XfsClient\XfsClient.csproj", "{6AD2FAA0-CC96-47A0-80C1-04965D29C514}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0252C896-3371-4952-97B0-58F67184DEF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0252C896-3371-4952-97B0-58F67184DEF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0252C896-3371-4952-97B0-58F67184DEF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0252C896-3371-4952-97B0-58F67184DEF6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D027CA7-4C85-4BC0-8CF0-46099B9B298E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9BFCFE8-4F4C-4CD8-8E81-99773607DA94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9BFCFE8-4F4C-4CD8-8E81-99773607DA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9BFCFE8-4F4C-4CD8-8E81-99773607DA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9BFCFE8-4F4C-4CD8-8E81-99773607DA94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9370EDD-AD84-4D09-8CB7-1EE2E4AED18F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9370EDD-AD84-4D09-8CB7-1EE2E4AED18F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9370EDD-AD84-4D09-8CB7-1EE2E4AED18F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9370EDD-AD84-4D09-8CB7-1EE2E4AED18F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD1C6360-6E12-4BD8-B111-49EA64516269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD1C6360-6E12-4BD8-B111-49EA64516269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD1C6360-6E12-4BD8-B111-49EA64516269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD1C6360-6E12-4BD8-B111-49EA64516269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F295682B-3CC8-4EA6-B75E-3D30575C2056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F295682B-3CC8-4EA6-B75E-3D30575C2056}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F295682B-3CC8-4EA6-B75E-3D30575C2056}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F295682B-3CC8-4EA6-B75E-3D30575C2056}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD2FAA0-CC96-47A0-80C1-04965D29C514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD2FAA0-CC96-47A0-80C1-04965D29C514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD2FAA0-CC96-47A0-80C1-04965D29C514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD2FAA0-CC96-47A0-80C1-04965D29C514}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

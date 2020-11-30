@@ -1,0 +1,9 @@
+D:\Xfs\XfsModel\bin\Debug\netcoreapp3.1\XfsModel.deps.json
+D:\Xfs\XfsModel\bin\Debug\netcoreapp3.1\XfsModel.dll
+D:\Xfs\XfsModel\bin\Debug\netcoreapp3.1\XfsModel.pdb
+D:\Xfs\XfsModel\obj\Debug\netcoreapp3.1\XfsModel.csprojAssemblyReference.cache
+D:\Xfs\XfsModel\obj\Debug\netcoreapp3.1\XfsModel.AssemblyInfoInputs.cache
+D:\Xfs\XfsModel\obj\Debug\netcoreapp3.1\XfsModel.AssemblyInfo.cs
+D:\Xfs\XfsModel\obj\Debug\netcoreapp3.1\XfsModel.csproj.CoreCompileInputs.cache
+D:\Xfs\XfsModel\obj\Debug\netcoreapp3.1\XfsModel.dll
+D:\Xfs\XfsModel\obj\Debug\netcoreapp3.1\XfsModel.pdb

@@ -1,0 +1,13 @@
+D:\Xfs\XfsHotfix\bin\Debug\netcoreapp3.1\XfsHotfix.deps.json
+D:\Xfs\XfsHotfix\bin\Debug\netcoreapp3.1\XfsHotfix.dll
+D:\Xfs\XfsHotfix\bin\Debug\netcoreapp3.1\XfsHotfix.pdb
+D:\Xfs\XfsHotfix\obj\Debug\netcoreapp3.1\XfsHotfix.AssemblyInfoInputs.cache
+D:\Xfs\XfsHotfix\obj\Debug\netcoreapp3.1\XfsHotfix.AssemblyInfo.cs
+D:\Xfs\XfsHotfix\obj\Debug\netcoreapp3.1\XfsHotfix.csproj.CoreCompileInputs.cache
+D:\Xfs\XfsHotfix\obj\Debug\netcoreapp3.1\XfsHotfix.dll
+D:\Xfs\XfsHotfix\obj\Debug\netcoreapp3.1\XfsHotfix.pdb
+D:\Xfs\XfsHotfix\obj\Debug\netcoreapp3.1\XfsHotfix.csprojAssemblyReference.cache
+D:\Xfs\XfsHotfix\bin\Debug\netcoreapp3.1\XfsHotfix.dll.config
+D:\Xfs\XfsHotfix\bin\Debug\netcoreapp3.1\XfsModel.dll
+D:\Xfs\XfsHotfix\bin\Debug\netcoreapp3.1\XfsModel.pdb
+D:\Xfs\XfsHotfix\obj\Debug\netcoreapp3.1\XfsHotfix.csproj.CopyComplete
