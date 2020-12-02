@@ -22,16 +22,15 @@ namespace Xfs
 
             try
             {
-                //XfsGame.EventSystem.Add(typeof(XfsGame).Assembly);
-                //XfsGame.EventSystem.Add(XfsDllHelper.GetXfsConsoleClientAssembly());
-                //XfsGame.EventSystem.Add(XfsDllHelper.GetAssembly("XfsConsoleClient"));
                 XfsGame.EventSystem.Add(XfsDllHelper.GetAssembly("XfsHotfix"));
 
                 ///服务器加载组件
-                XfsGame.Scene.AddComponent<XfsStartConfigComponent>();                         ///服务器加载组件 : 信息组件
-                XfsGame.Scene.AddComponent<XfsOpcodeTypeComponent>();                          ///服务器加载组件 : 操作号码
+                XfsGame.Scene.AddComponent<XfsStartConfigComponent>();                               ///服务器加载组件 : 信息组件
+                XfsGame.Scene.AddComponent<XfsOpcodeTypeComponent>();                                ///服务器加载组件 : 操作号码
                  
-                XfsGame.Scene.AddComponent<XfsTcpClientNodeNet>();                          ///服务器加载组件 : 通信组件Server
+                //XfsGame.Scene.AddComponent<XfsTcpClientNodeNet>();                                 ///服务器加载组件 : 通信组件Server
+                XfsGame.Scene.AddComponent<XfsNetOuterComponent>().Init("127.0.0.1", 2001, false);                            ///服务器加载组件 : 通信组件Server
+                XfsGame.Scene.AddComponent<XfsNetInnerComponent>();                                  ///服务器加载组件 : 通信组件Server
 
 
                 XfsGame.Scene.AddComponent<XfsTest>();                                      ///服务器加载组件 : 通信组件Server

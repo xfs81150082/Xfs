@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace Xfs
 {
 	public class XfsMailBoxComponentAwakeSystem : XfsAwakeSystem<XfsMailBoxComponent>
@@ -10,7 +9,6 @@ namespace Xfs
 			self.MailboxType = XfsMailboxType.MessageDispatcher;
 		}
 	}
-
 	public class XfsMailBoxComponentAwake1System : XfsAwakeSystem<XfsMailBoxComponent, XfsMailboxType>
 	{
 		public override void Awake(XfsMailBoxComponent self, XfsMailboxType mailboxType)
@@ -18,32 +16,8 @@ namespace Xfs
 			self.MailboxType = mailboxType;
 		}
 	}
-
 	public static class XfsMailBoxComponentSystem
 	{
-        //public static async XfsTask Handle(this XfsMailBoxComponent self, XfsSession session, IXfsActorMessage message)
-        //{
-        //    using (await XfsCoroutineLockComponent.Instance.Wait(XfsCoroutineLockType.Mailbox, message.ActorId))
-        //    {
-        //        switch (self.MailboxType)
-        //        {
-        //            case XfsMailboxType.GateSession:
-        //                IXfsActorMessage iActorMessage = message as IXfsActorMessage;
-        //                // 发送给客户端
-        //                XfsSession clientSession = self.Parent as XfsSession;
-        //                iActorMessage.ActorId = 0;
-        //                clientSession.Send(iActorMessage);
-        //                break;
-        //            case XfsMailboxType.MessageDispatcher:
-        //                await XfsActorMessageDispatcherComponent.Instance.Handle(self.Parent, session, message);
-        //                break;
-        //            case XfsMailboxType.UnOrderMessageDispatcher:
-        //                self.HandleInner(session, message).Coroutine();
-        //                break;
-        //        }
-        //    }
-        //}
-
         /// 修改过的       
         public static async XfsTask Handle(this XfsMailBoxComponent self, XfsSession session, IXfsActorMessage message)
         {
@@ -69,5 +43,29 @@ namespace Xfs
 		{
 			await XfsActorMessageDispatcherComponent.Instance.Handle(self.Parent, session, message);
 		}
+    
+        //public static async XfsTask Handle(this XfsMailBoxComponent self, XfsSession session, IXfsActorMessage message)
+        //{
+        //    using (await XfsCoroutineLockComponent.Instance.Wait(XfsCoroutineLockType.Mailbox, message.ActorId))
+        //    {
+        //        switch (self.MailboxType)
+        //        {
+        //            case XfsMailboxType.GateSession:
+        //                IXfsActorMessage iActorMessage = message as IXfsActorMessage;
+        //                // 发送给客户端
+        //                XfsSession clientSession = self.Parent as XfsSession;
+        //                iActorMessage.ActorId = 0;
+        //                clientSession.Send(iActorMessage);
+        //                break;
+        //            case XfsMailboxType.MessageDispatcher:
+        //                await XfsActorMessageDispatcherComponent.Instance.Handle(self.Parent, session, message);
+        //                break;
+        //            case XfsMailboxType.UnOrderMessageDispatcher:
+        //                self.HandleInner(session, message).Coroutine();
+        //                break;
+        //        }
+        //    }
+        //}
+
 	}
 }

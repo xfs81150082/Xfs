@@ -8,7 +8,7 @@ namespace Xfs
     public abstract class XfsNetWorkComponent : XfsEntity
     {
         #region ///自定义属性
-        public abstract bool IsServer { get; }                             //服务端？客户端？
+        public bool IsServer { get; private set; }                                //服务端？客户端？
         public string IpString { get; set; } = "127.0.0.1";                //监听的IP地址  
         public int Port { get; set; } = 2001;                              //监听的端口  
         public IPAddress Address { get; set; }                             //监听的IP地址  
@@ -16,7 +16,7 @@ namespace Xfs
         public bool IsRunning { get; set; } = false;                       //服务器是否正在运行
         public Socket NetSocket { get; set; }                              //服务器使用的异步socket
         public int MaxListenCount { get; set; } = 10;                      //服务器程序允许的最大客户端连接数  
-        public IXfsMessageDispatcher MessageDispatcher { get; set; }
+        public IXfsMessageDispatcher MessageDispatcher { get; set; } = new XfsOuterMessageDispatcher();
 
         public Queue<Socket> WaitingSockets = new Queue<Socket>();
         public Dictionary<long, XfsSession> Sessions { get; set; } = new Dictionary<long, XfsSession>();
@@ -24,14 +24,24 @@ namespace Xfs
         #endregion
 
         #region ///服务端专用，启动保持监听
-        public void Init(string ipString, int port, int maxListenCount)
+        public XfsNetWorkComponent()
+        {
+        }
+        public XfsNetWorkComponent(bool isServer)
+        {
+            this.IsServer = isServer;
+        }
+        public void Init(string ipString, int port, int maxListenCount, bool isServer)
         {
             this.IpString = ipString;
             this.Port = port;
             this.MaxListenCount = maxListenCount;
+            this.IsServer = isServer;
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsNetWorkComponent-IsServer: " + this.IsServer);
         }
         public void Listening()
         {
+            if (!this.IsServer) return;
             if (!this.IsRunning)
             {
                 if (this.NetSocket == null)
@@ -62,13 +72,16 @@ namespace Xfs
         #endregion
 
         #region ///客户端专用，启动保持连接
-        public void Init(string ipString, int port)
+        public void Init(string ipString, int port, bool isServer)
         {
             this.IpString = ipString;
             this.Port = port;
+            this.IsServer = isServer;
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsNetWorkComponent-IsServer: " + this.IsServer);
         }
         public void Connecting()    //连接服务器
         {
+            if (this.IsServer) return;
             if (!this.IsRunning)
             {
                 try

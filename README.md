@@ -10,3 +10,5 @@
 
 2020年11月19日。在Handler框架上，实现Call通信。
 
+2020年11月30日。把FamerWord框架改成Core框架，实现Call通信。并创建测试ActorRpcHandler的类成功。
+

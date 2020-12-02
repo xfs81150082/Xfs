@@ -75,8 +75,9 @@ namespace Xfs
             //int process = XfsIdGeneraterHelper.GetProcess(actorId);
             //string address = StartProcessConfigCategory.Instance.Get(process).InnerAddress;
             //Session session = NetInnerComponent.Instance.Get(address);            
-            InstanceIdStruct instanceIdStruct = new InstanceIdStruct(actorId);
             //instanceIdStruct.Process = XfsIdGeneraterHelper.Process;
+ 
+            InstanceIdStruct instanceIdStruct = new InstanceIdStruct(actorId);
 
             XfsSession session = null;
             message.ActorId = instanceIdStruct.ToLong();
@@ -115,5 +116,7 @@ namespace Xfs
             actorMessageSender.Callback(response);
 
         }
+
+
     }
 }

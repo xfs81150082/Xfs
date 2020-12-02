@@ -9,10 +9,11 @@ namespace Xfs
 {
     public class GateTests : XfsEntity
     {
+        public List<long> ids = new List<long>();
         public GateTests()
         {
             this.AddComponent<XfsGateTest>();
-            this.AddComponent<Test1Entity>();
+            //this.AddComponent<Test1Entity>();
             this.AddComponent<Test2Entity>();
 
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace Xfs
 {
@@ -10,6 +10,9 @@ namespace Xfs
 		{
 			XfsActorMessageDispatcherComponent.Instance = self;
 			self.Awake();
+
+			//Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsActorMessageDispatcherComponent-13: " + self.ActorMessageHandlers.Count);
+			//Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsActorMessageDispatcherComponent-14: " + self.ActorMessageHandlers.Keys.ToList()[0] +" : "+ self.ActorMessageHandlers.Values.ToList()[0]);
 		}
 	}
 

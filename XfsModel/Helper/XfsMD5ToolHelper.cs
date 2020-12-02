@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 namespace Xfs
 {
-    public static class XfsMD5Tool
+    public static class XfsMD5ToolHelper
     {
         public static string ToMD5String(string str)
         {

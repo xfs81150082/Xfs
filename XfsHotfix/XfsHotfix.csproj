@@ -8,4 +8,9 @@
     <ProjectReference Include="..\XfsModel\XfsModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Client\Socket\" />
+    <Folder Include="Server\Socket\" />
+  </ItemGroup>
+
 </Project>

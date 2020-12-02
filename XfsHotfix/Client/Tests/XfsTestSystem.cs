@@ -29,7 +29,7 @@ namespace Xfs
                 resqustC.Opcode = XfsGame.Scene.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(resqustC.GetType());
                 resqustC.Message = self.call;
 
-                XfsTcpClientNodeNet client = XfsGame.Scene.GetComponent<XfsTcpClientNodeNet>(); ;
+                XfsNetOuterComponent client = XfsGame.Scene.GetComponent<XfsNetOuterComponent>(); ;
                                               
                 if (client != null && client.Sessions.Count > 0)
                 {

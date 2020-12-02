@@ -30,18 +30,28 @@ namespace Xfs
             session.Send(resG);
 
             Console.WriteLine(XfsTimeHelper.CurrentTime() + " G4C_PingHandler-31, 已发送回消息." );
+
+            //XfsActorMessageDispatcherComponent actorMessageDispatcherComponent = XfsGame.Scene.AddComponent<XfsActorMessageDispatcherComponent>();
+
+            //Console.WriteLine(XfsTimeHelper.CurrentTime() + " G4C_PingHandler-36: "+ actorMessageDispatcherComponent.ActorMessageHandlers.Count);
+
+            //Actor_TestRequest actorRequest = new Actor_TestRequest();
+            //Test1Entity entity =XfsEntityFactory.Create<Test1Entity>(XfsGame.Scene);
+            //actorRequest.ActorId = entity.InstanceId;
+            //TestActorRpcCall(actorRequest.ActorId, actorRequest).Coroutine();
+
         }
 
-        //private async XfsVoid XfsVoidTest3322()
-        //{
-        //    await new XfsSession().Call(new C4G_Ping());
-        //}
 
 
-        //private async void WaitTimer(long time)
-        //{
-        //    await new XfsTask();
-        //}
+
+        private async XfsVoid TestActorRpcCall(long actorId , IXfsActorRequest actor_TestRequest)
+        {
+            XfsActorMessageSenderComponent xfsActorMessageSenderComponent = XfsGame.Scene.GetComponent<XfsActorMessageSenderComponent>();
+
+            Actor_TestResponse actor_TestResponse = (Actor_TestResponse)await xfsActorMessageSenderComponent.Call(actorId, actor_TestRequest);
+
+        }
 
 
     }

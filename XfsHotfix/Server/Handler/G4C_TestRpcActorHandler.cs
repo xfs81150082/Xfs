@@ -12,6 +12,10 @@ namespace Xfs
     {
         protected override async XfsTask Run(Test1Entity unit, Actor_TestRequest request, Actor_TestResponse response, Action reply)
         {
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " G4C_TestRpcActorHandler-15, 冒个泡.");
+
+            Console.WriteLine(XfsTimeHelper.CurrentTime() + " G4C_TestRpcActorHandler-17: " + request.ActorId);
+
             reply();
         }
 

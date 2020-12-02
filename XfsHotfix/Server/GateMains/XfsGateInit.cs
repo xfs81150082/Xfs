@@ -54,12 +54,14 @@ namespace Xfs
                 //XfsGame.Scene.AddComponent<XfsMailboxDispatcherComponent>();
                 //XfsGame.Scene.AddComponent<XfsActorMessageDispatcherComponent>();
                 //// 内网消息组件
-                //XfsGame.Scene.AddComponent<NetInnerComponent, string>(innerConfig.Address);
+                //XfsGame.Scene.AddComponent<XfsNetInnerComponent, string>(innerConfig.Address);
                 //// 外网消息组件
-                //XfsGame.Scene.AddComponent<NetOuterComponent, string>(outerConfig.Address);
+                //XfsGame.Scene.AddComponent<XfsNetOuterComponent, string>(outerConfig.Address);
 
 
-                XfsGame.Scene.AddComponent<XfsTcpServerGateNet>();                             ///服务器加载组件 : 通信组件Server
+                //XfsGame.Scene.AddComponent<XfsTcpServerGateNet>();                                   ///服务器加载组件 : 通信组件Server
+                XfsGame.Scene.AddComponent<XfsNetOuterComponent>().Init("127.0.0.1", 2001, 10, true);                            ///服务器加载组件 : 通信组件Server
+                XfsGame.Scene.AddComponent<XfsNetInnerComponent>();                                     ///服务器加载组件 : 通信组件Server
 
 
                 ///manager server组件，用来管理其它进程使用

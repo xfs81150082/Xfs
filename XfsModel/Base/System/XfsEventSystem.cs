@@ -9,7 +9,6 @@ namespace Xfs
 	public sealed class XfsEventSystem: IDisposable
 	{
 		private static XfsEventSystem instance;
-
 		public static XfsEventSystem Instance
 		{
 			get
@@ -135,20 +134,20 @@ namespace Xfs
 				}
 			}
 
-			foreach (var tem in this.awakeSystems.GetDictionary())
-			{
-				foreach (var type11 in this.awakeSystems.GetDictionary()[tem.Key])
-				{
-					Console.WriteLine(XfsTimeHelper.CurrentTime() + " awakeSystems-142-Key: " + tem.Key + " : " + type11);
-				}
-			}
-			foreach (var tem in this.updateSystems.GetDictionary())
-			{
-				foreach (var type11 in this.updateSystems.GetDictionary()[tem.Key])
-				{
-					Console.WriteLine(XfsTimeHelper.CurrentTime() + " updateSystems-149-Key: " + tem.Key + " : " + type11);
-				}
-			}
+			//foreach (var tem in this.awakeSystems.GetDictionary())
+			//{
+			//	foreach (var type11 in this.awakeSystems.GetDictionary()[tem.Key])
+			//	{
+			//		Console.WriteLine(XfsTimeHelper.CurrentTime() + " awakeSystems-142-Key: " + tem.Key + " : " + type11);
+			//	}
+			//}
+			//foreach (var tem in this.updateSystems.GetDictionary())
+			//{
+			//	foreach (var type11 in this.updateSystems.GetDictionary()[tem.Key])
+			//	{
+			//		Console.WriteLine(XfsTimeHelper.CurrentTime() + " updateSystems-149-Key: " + tem.Key + " : " + type11);
+			//	}
+			//}
 
 			this.allEvents.Clear();
 			foreach (Type type in types[typeof(XfsEventAttribute)])
@@ -272,16 +271,6 @@ namespace Xfs
 
 		public void Awake(XfsEntity component)
 		{
-			Console.WriteLine(XfsTimeHelper.CurrentTime() + " Awake-275:" + component.GetType());
-			if (this.awakeSystems.ContainsKey(component.GetType()))
-			{
-				Console.WriteLine(XfsTimeHelper.CurrentTime() + " Awake-278-Key:" + component.GetType());
-			}
-			foreach (var tem in this.awakeSystems.GetKeys())
-			{
-				Console.WriteLine(XfsTimeHelper.CurrentTime() + " Awake-282-Key:" + component.GetType() + ":" + tem);
-			}
-
 			List<IXfsAwakeSystem> iAwakeSystems = this.awakeSystems[component.GetType()];
 			if (iAwakeSystems == null)
 			{
@@ -742,5 +731,6 @@ namespace Xfs
 		{
 			instance = null;
 		}
+
 	}
 }
