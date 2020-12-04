@@ -56,7 +56,7 @@ namespace Xfs
 		public void Awake()
 		{
 			this.requestCallback.Clear();
-			this.AddComponent<XfsHeartComponent>();
+			//this.AddComponent<XfsHeartComponent>();
             this.packetParser = XfsEntityFactory.CreateWithParent<XfsPacketParser>(this);
 			this.packetParser.ReadCallback += this.OnRead;
 		}
@@ -68,8 +68,6 @@ namespace Xfs
 			this.Socket = socket;
 			packetParser.BeginReceiveMessage(socket);
 			this.OnConnect();
-
-
         }
 		public void OnConnect()
 		{
@@ -102,10 +100,8 @@ namespace Xfs
 			try
 			{
                 string jsonStr = Encoding.UTF8.GetString(BodyBytes, 0, BodyBytes.Length);
-                XfsOpcodeTypeComponent opcodeTypeComponent = XfsGame.Scene.GetComponent<XfsOpcodeTypeComponent>();
-				//object instance = opcodeTypeComponent.GetInstance(opcode);
-				Type type = opcodeTypeComponent.GetType(opcode);
-                object instance = Activator.CreateInstance(type);
+                object instance = XfsGame.Scene.GetComponent<XfsOpcodeTypeComponent>().GetInstance(opcode);
+
 				message = JsonConvert.DeserializeObject(jsonStr, instance.GetType());   ////反序列化成功
             }
 			catch (Exception e)
@@ -121,24 +117,42 @@ namespace Xfs
 				}
 				return;
 			}
-			this.XfsRunMessage(opcode, message);
-          
+			this.XfsRunMessage(opcode, message);          
 		}
 		private void XfsRunMessage(int opcode, object message)
         {
-            IXfsResponse response = message as IXfsResponse;
+			///如果是 C4G_Ping，则直接发回
+			if (message is C4G_Ping)
+			{
+				this.Send(new G4C_Pong());
+				return;
+			}
+			///如果是 G4C_Pong，则心跳往复一次成功，将心跳Cdcount归0
+			if (message is G4C_Pong)
+			{
+				if (this.GetComponent<XfsHeartComponent>() != null)
+				{
+					this.GetComponent<XfsHeartComponent>().CdCount = 0;
+				}
+				return;
+			}
+
+			///如果是 ActorMessage信息，则交给Actor分流器，再次分流。然后分交给Actor回调函数处理或分交给ActorHandler处理。
+			if (message is IXfsActorRequest|| message is IXfsActorResponse)
+			{
+				this.Network.MessageDispatcher.Dispatch(this, opcode, message);
+				return;
+			}
+
+			///如果是 IXfsResponse，则交给回调函数处理。否则交给Handler处理。
+			IXfsResponse response = message as IXfsResponse;
             if (response == null)
             {                
 				this.Network.MessageDispatcher.Dispatch(this, opcode, message);
 				return;
             }
 
-			if (message is IXfsActorResponse)
-			{
-				this.Network.MessageDispatcher.Dispatch(this, opcode, message);
-				return;
-			}
-
+			///回调函数处理。是一个方法委托代理。
 			Action<IXfsResponse> action;
             if (!this.requestCallback.TryGetValue(response.RpcId, out action))
             {
@@ -216,6 +230,14 @@ namespace Xfs
 		public void Send(IXfsMessage message)
 		{
 			int opcode = XfsGame.Scene.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(message.GetType());
+
+			/////根据opcode\message判断是什么信息，如果是内网IXfsActorRequest消息,直接传给消息分发组件
+			if (message is IXfsActorRequest || message is IXfsActorResponse)
+			{
+				this.XfsRunMessage(opcode, message);
+				return;
+			}
+
 			this.Send(opcode, message);
 		}
 		public void Send(int opcode, object message)
@@ -223,13 +245,7 @@ namespace Xfs
 			if (this.IsDisposed)
 			{
 				throw new Exception("session已经被Dispose了");
-			}
-
-			/////根据opcode判断是什么信息，如果是内网IXfsActorRequest消息,直接传给消息分发组件
-			if (message is IXfsActorRequest)
-            {
-				this.XfsRunMessage(opcode, message);
-            }
+			}		
 
 			///用Json将参数（MvcParameter）,序列化转换成字符串（string）
 			string msgJsons = XfsJsonHelper.ToJson(message);
@@ -262,6 +278,11 @@ namespace Xfs
 			}
 			this.Network.Remove(this.Id);
 
+            if (!this.Network.IsServer)
+            {
+				this.Network.IsRunning = false;
+            }
+
 			base.Dispose();
 
 			foreach (Action<IXfsResponse> action in this.requestCallback.Values.ToArray())
@@ -271,12 +292,13 @@ namespace Xfs
 
 			this.packetParser.ReadCallback -= this.OnRead;
 			this.requestCallback.Clear();
-			
-			this.Socket.Close();
-			this.IsRunning = false;
-            this.packetParser.Dispose();
 
-            Console.WriteLine(XfsTimeHelper.CurrentTime() + " 一个Session : 已经中断连接, Sessions: " + this.Network.Sessions.Count);
+            this.IsRunning = false;
+			this.packetParser.Dispose();
+			this.packetParser = null;
+			this.Socket = null;
+
+			Console.WriteLine(XfsTimeHelper.CurrentTime() + " 一个Session : 已经中断连接.");
 		}
         #endregion
 

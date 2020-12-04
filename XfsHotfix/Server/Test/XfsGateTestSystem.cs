@@ -15,50 +15,27 @@ namespace Xfs
         {
             //TestCall2(self);
 
-            //TestCall3(self);
-
+            TestCall3(self).Coroutine();
 
         }
 
         int time = 0;
-        int restime = 4000;
+        int restime = 6000;
 
-        void TestCall3(XfsGateTest self)
+        async XfsVoid TestCall3(XfsGateTest self)
         {
             time += 1;
             if (time > restime)
             {
                 time = 0;
-                ///*XfsMessageHandlerComponent*/ xfsMessage = XfsGame.XfsSence.GetComponent<XfsMessageHandlerComponent>();
 
-                //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-35: " + xfsMessage.Handlers.Count);
-                //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-36: " + xfsMessage.Handlers.Values);
-              
-                
-                //for (int i = 0; i < xfsMessage.Handlers.Count; i++)
-                //{
-                //    //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-44: " + xfsMessage.Handlers.Keys.ToList<ushort>()[i] + " : " + xfsMessage.Handlers[xfsMessage.Handlers.Keys.ToList<ushort>()[i]]);
-                //}
+                Actor_TestRequest actorRequest = new Actor_TestRequest();
+                actorRequest.ActorId = self.InstanceId;
+                actorRequest.Message = self.call;
 
-                //ushort opcode1 = 222;
-                //Type messageType = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetType(opcode1);
-                //int opcode2 = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>().GetOpcode(messageType);
+                Actor_TestResponse actor_TestResponse = (Actor_TestResponse)await XfsActorMessageSenderComponent.Instance.Call(actorRequest.ActorId, actorRequest);
 
-                //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsGateTestSystem-47: " + opcode1 + " : " + messageType + " : " + opcode2);
-
-
-                //XfsOpcodeTypeComponent xfsOpcode = XfsGame.XfsSence.GetComponent<XfsOpcodeTypeComponent>();
-                //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-38: " + xfsOpcode.MessagesCount());
-                //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-39: " + xfsOpcode.Keys());
-                //Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-40: " + xfsOpcode.Messages());
-
-                //for (int i = 0; i < xfsOpcode.MessagesCount(); i++)
-                //{
-                //    Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-44: " + xfsOpcode.Keys()[0] + " : " + xfsOpcode.GetType(xfsOpcode.Keys()[0]));
-                //}
-
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-47: ");
-
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-43: " + actor_TestResponse.Message);
             }
         }
         async void TestCall2(XfsGateTest self)
@@ -72,11 +49,6 @@ namespace Xfs
 
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-38: " + xfsMessage.Handlers.Count);
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-38: " + xfsMessage.Handlers.Values);
-
-
-
-
-
 
 
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsTestSystem-38: ");

@@ -13,10 +13,8 @@ namespace Xfs
         public GateTests()
         {
             this.AddComponent<XfsGateTest>();
-            //this.AddComponent<Test1Entity>();
+            this.AddComponent<Test1Entity>();
             this.AddComponent<Test2Entity>();
-
-
 
         }
 

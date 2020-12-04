@@ -14,14 +14,14 @@ namespace Xfs
                         //XfsInnerMessageDispatcherHelper.HandleIActorRequest(session, iActorRequest).Coroutine();
                         return;
                     }
-                case IXfsActorMessage iactorMessage:
-                    {
-                        //XfsInnerMessageDispatcherHelper.HandleIActorMessage(session, iactorMessage).Coroutine();
-                        return;
-                    }
                 case IXfsActorResponse iActorResponse:
                     {
                         //XfsInnerMessageDispatcherHelper.HandleIActorResponse(session, iActorResponse).Coroutine();
+                        return;
+                    }
+                case IXfsActorMessage iactorMessage:
+                    {
+                        //XfsInnerMessageDispatcherHelper.HandleIActorMessage(session, iactorMessage).Coroutine();
                         return;
                     }
                 default:

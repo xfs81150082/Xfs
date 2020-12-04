@@ -72,6 +72,11 @@ namespace Xfs
 		{
 			return this.opcodeTypes.GetValueByKey(opcode);
 		}
+		public object GetInstance(int opcode)
+		{
+			this.typeMessages.TryGetValue(opcode, out object inst);
+			return inst;
+		}
 
 	}
 }

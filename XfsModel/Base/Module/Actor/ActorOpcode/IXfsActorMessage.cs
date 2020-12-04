@@ -10,7 +10,7 @@
 	{
 	}
 
-	public interface IXfsActorResponse : IXfsResponse
+	public interface IXfsActorResponse : IXfsResponse, IXfsActorMessage
 	{
 	}
 }

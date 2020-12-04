@@ -16,7 +16,7 @@ namespace Xfs
 
         public float time = 0;
 
-        public float restime = 3000;
+        public float restime = 6000;
 
         public string call = "发送测试回调请求-20201106";
 

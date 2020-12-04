@@ -11,15 +11,14 @@ using Xfs;
 
 namespace Xfs
 {
-    //[XfsObjectSystem]
-    //public class XfsNetOuterComponentAwakeSystem : XfsAwakeSystem<XfsNetOuterComponent>
-    //{
-    //    public override void Awake(XfsNetOuterComponent self)
-    //    {
-    //        self.Init("127.0.0.1", 2001, 10);
-    //        self.MessageDispatcher = new XfsOuterMessageDispatcher();
-    //    }
-    //}
+    [XfsObjectSystem]
+    public class XfsNetOuterComponentAwakeSystem : XfsAwakeSystem<XfsNetOuterComponent>
+    {
+        public override void Awake(XfsNetOuterComponent self)
+        {
+            self.MessageDispatcher = new XfsOuterMessageDispatcher();
+        }
+    }
 
     [XfsObjectSystem]
     public class XfsNetOuterComponentUpdateSystem : XfsUpdateSystem<XfsNetOuterComponent>
@@ -42,7 +41,6 @@ namespace Xfs
                 }
             }
         }
-
-
+        
     }
 }

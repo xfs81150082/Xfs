@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Xfs
 {
-	public class MessageDispatcherComponentAwakeSystem : XfsAwakeSystem<XfsMessageDispatcherComponent>
+	public class XfsMessageDispatcherComponentAwakeSystem : XfsAwakeSystem<XfsMessageDispatcherComponent>
 	{
 		public override void Awake(XfsMessageDispatcherComponent self)
 		{
@@ -13,7 +13,7 @@ namespace Xfs
 		}
 	}
 
-	public class MessageDispatcherComponentLoadSystem : XfsLoadSystem<XfsMessageDispatcherComponent>
+	public class XfsMessageDispatcherComponentLoadSystem : XfsLoadSystem<XfsMessageDispatcherComponent>
 	{
 		public override void Load(XfsMessageDispatcherComponent self)
 		{
@@ -21,7 +21,7 @@ namespace Xfs
 		}
 	}
 
-	public class MessageDispatcherComponentDestroySystem : XfsDestroySystem<XfsMessageDispatcherComponent>
+	public class XfsMessageDispatcherComponentDestroySystem : XfsDestroySystem<XfsMessageDispatcherComponent>
 	{
 		public override void Destroy(XfsMessageDispatcherComponent self)
 		{
@@ -46,7 +46,6 @@ namespace Xfs
 				IXfsMHandler iMHandler = Activator.CreateInstance(type) as IXfsMHandler;
 				if (iMHandler == null)
 				{
-					//Log.Error($"message handle {type.Name} 需要继承 IMHandler");
 					Console.WriteLine($"message handle {type.Name} 需要继承 IMHandler");
 					continue;
 				}
@@ -55,7 +54,7 @@ namespace Xfs
 				int opcode = XfsOpcodeTypeComponent.Instance.GetOpcode(messageType);
 				if (opcode == 0)
 				{
-					//Log.Error($"消息opcode为0: {messageType.Name}");
+					Console.WriteLine($"消息opcode为0: {messageType.Name}");
 					continue;
 				}
 				self.RegisterHandler(opcode, iMHandler);
@@ -76,7 +75,7 @@ namespace Xfs
 			List<IXfsMHandler> actions;
 			if (!self.Handlers.TryGetValue(messageInfo.Opcode, out actions))
 			{
-				//Log.Error($"消息没有处理: {messageInfo.Opcode} {JsonHelper.ToJson(messageInfo.Message)}");
+				Console.WriteLine($"消息没有处理: {messageInfo.Opcode} {XfsJsonHelper.ToJson(messageInfo.Message)}");
 				return;
 			}
 
@@ -88,7 +87,6 @@ namespace Xfs
 				}
 				catch (Exception e)
 				{
-					//Log.Error(e);
 					Console.WriteLine(e);
 				}
 			}

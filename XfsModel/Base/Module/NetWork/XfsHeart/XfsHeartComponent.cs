@@ -11,5 +11,8 @@ namespace Xfs
         public int CdCount { get; set; } = 0;
         public int MaxCdCount { get; set; } = 4;
         public bool Counting { get; set; } = true;
+
+        public int Time = 0;
+        public int RecTimer = 4000;
     }
 }
