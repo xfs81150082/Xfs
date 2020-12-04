@@ -12,3 +12,5 @@
 
 2020年11月30日。把FamerWord框架改成Core框架，实现Call通信。并创建测试ActorRpcHandler的类成功。
 
+2020年12月4日。外网Call信息，内网Actor的Call信息。通过Handler测试成功。并恢复心跳包。内外网通信框架建立初步模型。
+
