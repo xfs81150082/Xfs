@@ -229,7 +229,6 @@ namespace Xfs
 		{
 			this.allComponents.Remove(instanceId);
 		}
-
 		public XfsEntity Get(long instanceId)
 		{
 			XfsEntity component = null;
@@ -593,7 +592,6 @@ namespace Xfs
 					}
 					catch (Exception e)
 					{
-						//Log.Error(e);
 						Console.WriteLine(e);
 					}
 				}

@@ -26,28 +26,35 @@ namespace Xfs
         private int surBL { get; set; } = 0;
         private bool isHead { get; set; } = true;
         private bool isBody { get; set; } = false;
+
         #endregion
 
         #region ReceiveMsg
         public void BeginReceiveMessage(object obj)
-        {          
-            surHL = iBytesHead;
-            Socket = obj as Socket;
-            RecvBuffer = new byte[BufferSize];
-            IsRunning = true;
-            Socket.BeginReceive(RecvBuffer, 0, BufferSize, SocketFlags.None, new AsyncCallback(this.ReceiveCallback), this);
+        {
+            this.surHL = iBytesHead;
+            this.Socket = obj as Socket;
+            this.RecvBuffer = new byte[BufferSize];
+            this.IsRunning = true;
+            this.Socket.BeginReceive(RecvBuffer, 0, BufferSize, SocketFlags.None, new AsyncCallback(this.ReceiveCallback), this);
         }
         private void ReceiveCallback(IAsyncResult ar)
         {
             try
             {
-                RecvLength = Socket.EndReceive(ar);
-                if (RecvLength == 0)
+                if (null == this.Socket.Handle || !this.Socket.Connected)
+                {
+                    this.parent.Dispose();
+                    this.Dispose();
+                    return;
+                }
+                this.RecvLength = this.Socket.EndReceive(ar);
+                if (this.RecvLength == 0)
                 {
                     ///发送端关闭
                     Console.WriteLine("{0} 发送端{1}连接关闭", XfsTimeHelper.CurrentTime(), Socket.RemoteEndPoint);
-                    IsRunning = false;
-                    //Dispose();
+                    this.parent.Dispose();
+                    this.Dispose();
                     return;
                 }
                 else
@@ -58,13 +65,14 @@ namespace Xfs
                 ///触发事件 解析缓存池RecvBuffList<byte> 读取数据字节
                 this.ParsingBytes();
                 ///继续接收来自来客户端的数据  
-                Socket.BeginReceive(RecvBuffer, 0, BufferSize, SocketFlags.None, new AsyncCallback(this.ReceiveCallback), this);
+                this.Socket.BeginReceive(RecvBuffer, 0, BufferSize, SocketFlags.None, new AsyncCallback(this.ReceiveCallback), this);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " " + ex.ToString());
-                IsRunning = false;
-                //Dispose();
+                this.IsRunning = false;
+                this.parent.Dispose();
+                this.Dispose();
             }
         }
         private void ParsingBytes()
@@ -212,7 +220,7 @@ namespace Xfs
             if (null == Socket.Handle || !Socket.Connected)
             {
                 Console.WriteLine(XfsTimeHelper.CurrentTime() + " 连接已中断!");
-                (this.Parent as XfsSession).Dispose();
+                this.Parent.Dispose();
                 this.Dispose();
                 return;
             }
@@ -222,7 +230,7 @@ namespace Xfs
             ///把要发送的信息，搬到发送字节列表
             AddRange(SendBuffList, packetBytes, packetBytes.Length);
 
-            while (sendLength > 0)
+            while (sendLength > 0 && this.IsRunning)
             {
                 try
                 {
@@ -269,11 +277,9 @@ namespace Xfs
             base.Dispose();
             try
             {
-                Socket.Shutdown(SocketShutdown.Both);
                 this.IsRunning = false;
-                Socket.Close();
-                Socket = null;
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " InstanceId:" + InstanceId + " XfsPacketParser释放资源...");
+                this.Socket = null;
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " XfsPacketParser释放资源...");
             }
             catch (Exception ex)
             {

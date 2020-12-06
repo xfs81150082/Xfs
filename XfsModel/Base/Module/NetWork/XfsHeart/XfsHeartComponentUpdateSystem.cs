@@ -21,11 +21,12 @@ namespace Xfs
     {
         public override void Update(XfsHeartComponent self)
         {
-            this.CheckSession(self);
+            //this.CheckSession(self);
         }
 
         private void CheckSession(XfsHeartComponent self)
         {
+            if ((self.Parent as XfsSession) == null) return;
             self.Time += 1;
             if (self.Time < self.RecTimer) return;
 
@@ -40,15 +41,19 @@ namespace Xfs
             {
                 if (self.Parent != null)
                 {
+                    self.Dispose();
                     self.Parent.Dispose();
                     return;
                 }
             }
             else
             {
-                //发送心跳检测（并等待签到，签到入口在TmTcpSession里，双向发向即：客户端向服务端发送，服务端向客户端发送）
-                (self.Parent as XfsSession).Send(new C4G_Ping());
-                Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsServer: " + (self.Parent as XfsSession).IsServer + " CdCount:{0}-{1} ", self.CdCount, self.MaxCdCount);
+                if ((self.Parent as XfsSession) != null && self != null)
+                {
+                    //发送心跳检测（并等待签到，签到入口在TmTcpSession里，双向发向即：客户端向服务端发送，服务端向客户端发送）
+                    (self.Parent as XfsSession).Send(new C4G_Ping());
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsServer: " + (self.Parent as XfsSession).IsServer + " CdCount:{0}-{1} ", self.CdCount, self.MaxCdCount);
+                }
             }
         }
 

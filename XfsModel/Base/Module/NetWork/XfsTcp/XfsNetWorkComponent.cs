@@ -8,7 +8,7 @@ namespace Xfs
     public abstract class XfsNetWorkComponent : XfsEntity
     {
         #region ///自定义属性
-        public bool IsServer { get; private set; }                                //服务端？客户端？
+        public bool IsServer { get; private set; }                         //服务端？客户端？
         public string IpString { get; set; } = "127.0.0.1";                //监听的IP地址  
         public int Port { get; set; } = 2001;                              //监听的端口  
         public IPAddress Address { get; set; }                             //监听的IP地址  
@@ -20,6 +20,7 @@ namespace Xfs
 
         public Queue<Socket> WaitingSockets = new Queue<Socket>();
         public Dictionary<long, XfsSession> Sessions { get; set; } = new Dictionary<long, XfsSession>();
+        public XfsSession Session { get; set; } 
         public XfsDoubleMap<long, XfsSceneType> sences { get; set; } = new XfsDoubleMap<long, XfsSceneType>();
         #endregion
 
@@ -82,7 +83,7 @@ namespace Xfs
         public void Connecting()    //连接服务器
         {
             if (this.IsServer) return;
-            if (!this.IsRunning)
+            if (!this.IsRunning || this.Session == null)
             {
                 try
                 {
@@ -90,8 +91,9 @@ namespace Xfs
                     {
                         this.Address = IPAddress.Parse(this.IpString);
                         this.NetSocket = new Socket(this.Address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                        this.IPEndPoint = new IPEndPoint(this.Address, this.Port);
                     }
-                    this.NetSocket.BeginConnect(new IPEndPoint(this.Address, this.Port), new AsyncCallback(this.ConnectCallback), this.NetSocket);
+                    this.NetSocket.BeginConnect(this.IPEndPoint, new AsyncCallback(this.ConnectCallback), this.NetSocket);
                 }
                 catch (Exception ex)
                 {
@@ -108,14 +110,21 @@ namespace Xfs
         }
         private void ConnectCallback(IAsyncResult ar)
         {
-            ///触发事件//创建一个Socket接收传递过来的TmSocket
+            ///触发事件//创建一个Socket接收传递过来的Socket
             Socket client = (Socket)ar.AsyncState;
             try
             {
+                if (null == client.Handle || !client.Connected)
+                {
+                    this.IsRunning = false;
+                    return;
+                }
                 //得到成功的连接
                 client.EndConnect(ar);
-                ///创建一个方法接收peerSocket (在方法里创建一个peer来处理读取数据//开始接受来自该客户端的数据)
-                this.ReceiveSocket(client);
+                ///创建一个方法接收socket (在方法里创建一个session来处理读取数据//开始接受来自该客户端的数据)
+                this.ReceiveSocket(client);            
+                this.IsRunning = true;
+
                 Console.WriteLine("{0} 连接服务器成功 {1}", XfsTimeHelper.CurrentTime(), client.RemoteEndPoint.ToString());
             }
             catch (Exception ex)
@@ -139,32 +148,34 @@ namespace Xfs
                 else
                 {
                     ///创建一个XfsSession接收socket
-                    this.BeginReceiveSocket(socket);                    
+                    XfsSession session = GreateSession();
+                    if (this.Sessions.TryGetValue(session.InstanceId, out XfsSession peer))
+                    {
+                        this.Sessions.Remove(this.InstanceId);
+                        peer.Dispose();
+                    }
+                    this.Sessions.Add(session.InstanceId, session);
+                    session.BeginReceiveMessage(socket);
+
+                    Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsServer: " + this.Sessions.Count + " Sessions: " + this.Sessions.Count + " RemoteAddress: " + session.RemoteAddress);
                 }
             }
             else
             {
                 ///创建一个XfsSession接收socket
-                this.BeginReceiveSocket(socket);
-                this.IsRunning = true;
+                this.Session = GreateSession();
+                this.Session.BeginReceiveMessage(socket);
+
+                Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsServer: " + this.Sessions.Count + " Sessions: " + this.Sessions.Count + " RemoteAddress: " + this.Session.RemoteAddress);
             }
         }
-        private void BeginReceiveSocket(Socket socket)
+        public XfsSession GreateSession()
         {
-            ///创建一个TPeer接收socket
+            ///创建一个session接收socket
             XfsSession session = XfsEntityFactory.CreateWithParent<XfsSession>(this);
             session.IsServer = this.IsServer;
             session.AddComponent<XfsHeartComponent>(); ///加上心跳包
-
-            if (this.Sessions.TryGetValue(this.InstanceId, out XfsSession peer))
-            {
-                this.Sessions.Remove(this.InstanceId);
-                peer.Dispose();
-            }
-            this.Sessions.Add(this.InstanceId, session);
-            session.BeginReceiveMessage(socket);
-
-            Console.WriteLine(XfsTimeHelper.CurrentTime() + " IsServer: " + this.Sessions.Count + " Sessions: " + this.Sessions.Count + " RemoteAddress: " + session.RemoteAddress);
+            return session;
         }
         public virtual void Remove(long id)
         {
@@ -182,18 +193,7 @@ namespace Xfs
             this.Sessions.TryGetValue(id, out session);
             return session;
         }
-        public XfsSession GetSession()
-        {
-            if (this.Sessions.Count > 0)
-            {
-                return Sessions.Values.ToList()[0];
-            }
-
-            XfsSession session = XfsEntityFactory.CreateWithParent<XfsSession>(this);
-            this.Sessions.Add(session.InstanceId, session);
-
-            return session;
-        }
+     
         #endregion
 
 
